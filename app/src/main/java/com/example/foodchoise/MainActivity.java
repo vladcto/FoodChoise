@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.fast_choise:
                         selectedFragment = new CardFragment();
                         break;
-
                     case R.id.recipes_menu:
                         selectedFragment = new ReciepsFragment();
                         break;
@@ -35,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         selectedFragment).commit();
-
                 return true;
             }
         });
