@@ -1,4 +1,4 @@
-package com.example.foodchoise;
+package com.example.foodchoise.main_fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,11 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class ReciepsFragment extends Fragment {
+import com.example.foodchoise.R;
+
+public class ProfileFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.recieps_page,container,false);
+        return inflater.inflate(R.layout.profile_page,container,false);
     }
 }
