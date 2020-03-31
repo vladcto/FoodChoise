@@ -1,8 +1,10 @@
 package com.example.foodchoise.main_fragments;
 
+import com.example.foodchoise.CreateRecipesActivity;
 import com.example.foodchoise.entity_classes.*;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +33,7 @@ public class ReciepsFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        Activity activity = getActivity();
+        final Activity activity = getActivity();
         ImageButton button =(ImageButton)activity.findViewById(R.id.add_recipe_button);
         button.setVisibility(View.VISIBLE);
         adapter = new BriefRecipeCardAdapter(activity)
@@ -39,7 +41,8 @@ public class ReciepsFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.addRecipeCard(new BriefRecipeCard(1,"1"));
+                Intent intent = new Intent(activity, CreateRecipesActivity.class);
+                startActivity(intent);
             }
         });
 
