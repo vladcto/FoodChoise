@@ -14,26 +14,34 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
+    Fragment selectedFragment = null;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_bar);
+        selectedFragment = new ReciepsFragment();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                Fragment selectedFragment = null;
 
                 switch (menuItem.getItemId()){
                     case R.id.fast_choise:
-                        selectedFragment = new CardFragment();
+                        if(!(selectedFragment instanceof CardFragment)) {
+                            selectedFragment = new CardFragment();
+                        }
                         break;
                     case R.id.recipes_menu:
-                        selectedFragment = new ReciepsFragment();
+                        if(!(selectedFragment instanceof ReciepsFragment)) {
+                            selectedFragment = new ReciepsFragment();
+                        }
                         break;
                     case R.id.profile:
-                        selectedFragment = new ProfileFragment();
+                        if(!(selectedFragment instanceof ProfileFragment)) {
+                            selectedFragment = new ProfileFragment();
+                        }
                         break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
