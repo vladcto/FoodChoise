@@ -11,8 +11,10 @@ import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.foodchoise.R;
 
@@ -30,9 +32,10 @@ public class ReciepsFragment extends Fragment {
         super.onStart();
 
         Activity activity = getActivity();
-        adapter = new BriefRecipeCardAdapter();
         ImageButton button =(ImageButton)activity.findViewById(R.id.add_recipe_button);
         button.setVisibility(View.VISIBLE);
+        adapter = new BriefRecipeCardAdapter(activity)
+        ;
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,8 +49,8 @@ public class ReciepsFragment extends Fragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onDestroy() {
+        super.onDestroy();
         Activity activity = getActivity();
         ImageButton button =(ImageButton)activity.findViewById(R.id.add_recipe_button);
         button.setVisibility(View.GONE);
