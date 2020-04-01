@@ -1,9 +1,15 @@
 package com.example.foodchoise.step_classes;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,13 +17,59 @@ import androidx.fragment.app.Fragment;
 
 import com.example.foodchoise.R;
 
-public class StepNameFragment extends Fragment {
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
+import static android.app.Activity.RESULT_OK;
+
+public class StepNameFragment extends Fragment {
+    //TODO: Нормальный код и название перемнной.
+    final int fd = 1;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.step_name_recipes_fragment,container,false);
+
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Activity activity = getActivity();
+        ImageButton imageButton = activity.findViewById(R.id.select_foto_imagebutton);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Вызываем стандартную галерею для выбора изображения с помощью Intent.ACTION_PICK:
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                //Тип получаемых объектов - image:
+                photoPickerIntent.setType("image/*");
+                //Запускаем переход с ожиданием обратного результата в виде информации об изображении:
+                startActivityForResult(photoPickerIntent,fd);
+            }
+        });
+    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+
+        switch (requestCode) {
+            case fd:
+                if (resultCode == RESULT_OK) {
+                    try {
+
+                        //Получаем URI изображения, преобразуем его в Bitmap
+                        //объект и отображаем в элементе ImageView нашего интерфейса:
+                        final Uri imageUri = imageReturnedIntent.getData();
+                        final InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
+                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                        ImageButton button = (ImageButton) getActivity().findViewById(R.id.select_foto_imagebutton);
+                        button.setImageBitmap(selectedImage);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+        }
+    }
 }

@@ -19,5 +19,6 @@
 
         <activity android:name=".CreateRecipesActivity"></activity>
     </application>
-
+    <!--TODO: Сделать нормальный запрос доступа -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 </manifest>
