@@ -43,6 +43,7 @@ public class BriefRecipeCardAdapter extends RecyclerView.Adapter<BriefRecipeCard
 
     public void addRecipeCard(BriefRecipeCard card){
         recipeCards.add(card);
+        Log.i("result","add card");
         notifyDataSetChanged();
     }
 

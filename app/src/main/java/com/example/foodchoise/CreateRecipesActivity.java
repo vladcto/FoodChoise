@@ -19,6 +19,6 @@ public class CreateRecipesActivity extends AppCompatActivity {
         StepFragmentsAdapter adapter = new StepFragmentsAdapter(getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);
-        viewPager.setCurrentItem(1);
+        viewPager.setCurrentItem(0);
     }
 }
