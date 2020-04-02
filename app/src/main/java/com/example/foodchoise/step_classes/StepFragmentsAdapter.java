@@ -16,6 +16,15 @@ public class StepFragmentsAdapter extends FragmentPagerAdapter {
             case 0:
                 return new StepNameFragment();
 
+            case 1:
+                return new StepIngridientFragment();
+
+            case 2:
+                return new StepInstrFragment();
+
+            case 3:
+                return new StepAcceptFragment();
+
             default:
                 return new StepNameFragment();
         }

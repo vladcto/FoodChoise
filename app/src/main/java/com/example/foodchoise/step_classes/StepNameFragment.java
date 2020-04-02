@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
@@ -23,13 +24,31 @@ import java.io.InputStream;
 import static android.app.Activity.RESULT_OK;
 
 public class StepNameFragment extends Fragment {
+    String text_name_dishes = null;
+    String text_descr_dishes = null;
+    Bitmap selectedImage = null;
+
     //TODO: Нормальный код и название перемнной.
     final int fd = 1;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.step_name_recipes_fragment,container,false);
+        View view = inflater.inflate(R.layout.step_name_recipes_fragment,container,false);
+        if(text_name_dishes!= null){
+            EditText text = view.findViewById(R.id.edit_name_dishes);
+            text.setText(text_name_dishes);
+        }
 
+        if(text_descr_dishes!=null){
+            EditText text = view.findViewById(R.id.edit_descr_dishes);
+            text.setText(text_descr_dishes);
+        }
+
+        if(selectedImage!=null){
+            ImageButton imageButton = view.findViewById(R.id.select_foto_imagebutton);
+            imageButton.setImageBitmap(selectedImage);
+        }
+        return view;
     }
 
     @Override
@@ -63,7 +82,7 @@ public class StepNameFragment extends Fragment {
                         //объект и отображаем в элементе ImageView нашего интерфейса:
                         final Uri imageUri = imageReturnedIntent.getData();
                         final InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
-                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                        selectedImage = BitmapFactory.decodeStream(imageStream);
                         ImageButton button = (ImageButton) getActivity().findViewById(R.id.select_foto_imagebutton);
                         button.setImageBitmap(selectedImage);
                     } catch (FileNotFoundException e) {
@@ -71,5 +90,15 @@ public class StepNameFragment extends Fragment {
                     }
                 }
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Activity activity = getActivity();
+        EditText text = activity.findViewById(R.id.edit_name_dishes);
+        text_name_dishes = text.getText().toString();
+        text = activity.findViewById(R.id.edit_descr_dishes);
+        text_descr_dishes= text.getText().toString();
     }
 }
