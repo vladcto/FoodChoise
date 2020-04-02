@@ -6,6 +6,18 @@
     <TextView
         android:id="@+id/textView"
         style="@style/stepTopLabel"
-        android:text="TextView" />
+        android:text="Шаг 4" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Опубликйте рецепт" />
+
+    <Button
+        android:id="@+id/accept_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 
 </LinearLayout>
