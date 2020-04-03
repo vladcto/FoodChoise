@@ -1,7 +1,6 @@
 package com.example.foodchoise.step_classes;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,9 +11,9 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
-import com.example.foodchoise.MainActivity;
+import com.example.foodchoise.CreateRecipesActivity;
 import com.example.foodchoise.entity_classes.BriefRecipeCard;
 import com.example.foodchoise.main_fragments.ReciepsFragment;
 import com.example.foodchoise.R;
@@ -31,11 +30,13 @@ public class StepAcceptFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                CreateRecipesActivity activity = (CreateRecipesActivity)getActivity();
                 Intent data = new Intent();
-                BriefRecipeCard recipeCard = new BriefRecipeCard(1,"1");
+                ViewPager imageView = activity.findViewById(R.id.view_pager);
+                BriefRecipeCard recipeCard = activity.buildBriefRecipeCard();
                 data.putExtra(ReciepsFragment.BRIEFCARD_DATA, recipeCard);
-                getActivity().setResult(RESULT_OK, data);
-                getActivity().finish();
+                activity.setResult(RESULT_OK, data);
+                activity.finish();
             }
         });
         return view;

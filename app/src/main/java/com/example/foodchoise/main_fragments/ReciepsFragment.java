@@ -66,17 +66,11 @@ public class ReciepsFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
-        Log.i("result","Ввход в result");
         if(requestCode==REQUEST_ACCESS_TYPE){
-            Log.i("result","Ввход в result2");
             if(resultCode==RESULT_OK){
-                Log.i("result","Ввход в result3");
                 BriefRecipeCard recipeCard = data.getParcelableExtra(BRIEFCARD_DATA);
-                Log.i("result",recipeCard.getDishesName());
                 RecyclerView recyclerView = getActivity().findViewById(R.id.recyclerView);
-                Log.i("result",recyclerView.toString());
                 BriefRecipeCardAdapter adapter =(BriefRecipeCardAdapter) recyclerView.getAdapter();
-                Log.i("result",adapter.toString());
                 adapter.addRecipeCard(recipeCard);
             }
         }

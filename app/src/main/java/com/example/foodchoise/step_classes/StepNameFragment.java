@@ -28,8 +28,16 @@ public class StepNameFragment extends Fragment {
     String text_descr_dishes = null;
     Bitmap selectedImage = null;
 
+    public String getTextNameDishes(){
+        return text_name_dishes;
+    }
+
+    public String getTextDescrDishes(){
+        return text_descr_dishes;
+    }
+
     //TODO: Нормальный код и название перемнной.
-    final int fd = 1;
+    final int BRIEFCARD_REQUEST = 1;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -64,7 +72,7 @@ public class StepNameFragment extends Fragment {
                 //Тип получаемых объектов - image:
                 photoPickerIntent.setType("image/*");
                 //Запускаем переход с ожиданием обратного результата в виде информации об изображении:
-                startActivityForResult(photoPickerIntent,fd);
+                startActivityForResult(photoPickerIntent, BRIEFCARD_REQUEST);
             }
         });
     }
@@ -74,7 +82,7 @@ public class StepNameFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
 
         switch (requestCode) {
-            case fd:
+            case BRIEFCARD_REQUEST:
                 if (resultCode == RESULT_OK) {
                     try {
 
@@ -101,4 +109,6 @@ public class StepNameFragment extends Fragment {
         text = activity.findViewById(R.id.edit_descr_dishes);
         text_descr_dishes= text.getText().toString();
     }
+
+
 }

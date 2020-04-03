@@ -9,18 +9,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodchoise.R;
+import com.example.foodchoise.step_classes.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BriefRecipeCardAdapter extends RecyclerView.Adapter<BriefRecipeCardAdapter.BriefRecipeCardViewHolder> {
     private ArrayList<BriefRecipeCard> recipeCards = new ArrayList<BriefRecipeCard>();
     private Activity  activity;
 
     public BriefRecipeCardAdapter( Activity activity){
-        this. activity = activity;
+        this.activity = activity;
     }
 
     @NonNull
