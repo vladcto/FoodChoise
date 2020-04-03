@@ -1,24 +1,20 @@
 package com.example.foodchoise.main_fragments;
 
-import com.example.foodchoise.CreateRecipesActivity;
+import com.example.foodchoise.step_classes.CreateRecipesActivity;
 import com.example.foodchoise.entity_classes.*;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.foodchoise.R;
 
