@@ -43,6 +43,7 @@ public class CreateRecipesActivity extends AppCompatActivity {
         String dishes_name = stepNameFragment.getTextNameDishes();
         if(dishes_name == null){
             viewPager.setCurrentItem(0);
+            return;
         }
         /* if (...) {...} - проверки на неверные данные. */
         BriefRecipeCard recipeCard = new BriefRecipeCard(1,dishes_name);
