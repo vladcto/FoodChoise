@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.os.Debug;
 import android.view.MenuItem;
 
 import com.example.foodchoise.main_fragments.CardFragment;
 import com.example.foodchoise.main_fragments.ProfileFragment;
 import com.example.foodchoise.main_fragments.ReciepsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +22,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(BuildConfig.DEBUG){
+            Timber.plant(new Timber.DebugTree());
+        }
+
         setContentView(R.layout.activity_main);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_bar);
         selectedFragment = new ReciepsFragment();

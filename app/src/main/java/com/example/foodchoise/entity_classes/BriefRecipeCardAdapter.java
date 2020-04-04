@@ -18,6 +18,8 @@ import com.example.foodchoise.step_classes.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import timber.log.Timber;
+
 public class BriefRecipeCardAdapter extends RecyclerView.Adapter<BriefRecipeCardAdapter.BriefRecipeCardViewHolder> {
     private ArrayList<BriefRecipeCard> recipeCards = new ArrayList<BriefRecipeCard>();
     private Activity  activity;
@@ -46,7 +48,7 @@ public class BriefRecipeCardAdapter extends RecyclerView.Adapter<BriefRecipeCard
 
     public void addRecipeCard(BriefRecipeCard card){
         recipeCards.add(card);
-        Log.i("result","add card");
+        Timber.i("BriefRecipeCard добавлена в Adapter");
         notifyDataSetChanged();
     }
 
