@@ -67,7 +67,7 @@ public class BriefRecipeCardAdapter extends RecyclerView.Adapter<BriefRecipeCard
         }
 
         public void bind(BriefRecipeCard recipeCard){
-            //TODO: Добавить возможность ставить изображение для dishes_image
+            dishes_image.setImageURI(recipeCard.getIdDishesImage());
             dishes_name.setText(recipeCard.getDishesName());
             dishes_tasty_rating.setText(String.valueOf(recipeCard.getDishesTastyRating()));
             dishes_complexity_rating.setText(String.valueOf(recipeCard.getDishesComplexityRating()));

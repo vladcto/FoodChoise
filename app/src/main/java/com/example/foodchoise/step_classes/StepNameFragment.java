@@ -24,9 +24,11 @@ import java.io.InputStream;
 import static android.app.Activity.RESULT_OK;
 
 public class StepNameFragment extends Fragment {
-    String text_name_dishes = null;
-    String text_descr_dishes = null;
-    Bitmap selectedImage = null;
+    private Uri imageUri = null;
+    private String text_name_dishes = null;
+    private String text_descr_dishes = null;
+    //TODO: Убрать этот костыль ввиде Bitmap ненужного.
+    private Bitmap selectedImage = null;
     final int CARDIMAGE_REQUEST = 1;
 
     public String getTextNameDishes(){
@@ -35,6 +37,10 @@ public class StepNameFragment extends Fragment {
 
     public String getTextDescrDishes(){
         return text_descr_dishes;
+    }
+
+    public Uri getImageUri(){
+        return imageUri;
     }
 
 
@@ -89,7 +95,7 @@ public class StepNameFragment extends Fragment {
 
                         //Получаем URI изображения, преобразуем его в Bitmap
                         //объект и отображаем в элементе ImageView нашего интерфейса:
-                        final Uri imageUri = imageReturnedIntent.getData();
+                        imageUri = imageReturnedIntent.getData();
                         final InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
                         selectedImage = BitmapFactory.decodeStream(imageStream);
                         ImageButton button = (ImageButton) getActivity().findViewById(R.id.select_foto_imagebutton);

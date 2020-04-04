@@ -1,6 +1,7 @@
 package com.example.foodchoise.step_classes;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -43,12 +44,16 @@ public class CreateRecipesActivity extends AppCompatActivity {
         }
         Timber.i("RecipeCard dishes_name = %s .",dishes_name);
 
+        Uri image_uri = stepNameFragment.getImageUri();
+        if (image_uri == null) {
+            return;
+        }
         /* if (...) {
         ...
         return;
         } - проверки на неверные данные. */
 
-        BriefRecipeCard recipeCard = new BriefRecipeCard(1,dishes_name);
+        BriefRecipeCard recipeCard = new BriefRecipeCard(image_uri,dishes_name);
         Timber.i("RecipeCard успешно создана");
         Intent data = new Intent();
         data.putExtra(ReciepsFragment.BRIEFCARD_DATA, recipeCard);
