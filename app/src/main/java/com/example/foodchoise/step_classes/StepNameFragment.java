@@ -27,19 +27,17 @@ public class StepNameFragment extends Fragment {
     private Uri imageUri = null;
     private String text_name_dishes = null;
     private String text_descr_dishes = null;
-    //TODO: Убрать этот костыль ввиде Bitmap ненужного.
-    private Bitmap selectedImage = null;
     final int CARDIMAGE_REQUEST = 1;
 
-    public String getTextNameDishes(){
+    public String getTextNameDishes() {
         return text_name_dishes;
     }
 
-    public String getTextDescrDishes(){
+    public String getTextDescrDishes() {
         return text_descr_dishes;
     }
 
-    public Uri getImageUri(){
+    public Uri getImageUri() {
         return imageUri;
     }
 
@@ -47,20 +45,20 @@ public class StepNameFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.step_name_recipes_fragment,container,false);
-        if(text_name_dishes!= null){
+        View view = inflater.inflate(R.layout.step_name_recipes_fragment, container, false);
+        if (text_name_dishes != null) {
             EditText text = view.findViewById(R.id.edit_name_dishes);
             text.setText(text_name_dishes);
         }
 
-        if(text_descr_dishes!=null){
+        if (text_descr_dishes != null) {
             EditText text = view.findViewById(R.id.edit_descr_dishes);
             text.setText(text_descr_dishes);
         }
 
-        if(selectedImage!=null){
+        if (imageUri != null) {
             ImageButton imageButton = view.findViewById(R.id.select_foto_imagebutton);
-            imageButton.setImageBitmap(selectedImage);
+            imageButton.setImageURI(imageUri);
         }
         return view;
     }
@@ -91,19 +89,14 @@ public class StepNameFragment extends Fragment {
             //Запрос изображения.
             case CARDIMAGE_REQUEST:
                 if (resultCode == RESULT_OK) {
-                    try {
 
-                        //Получаем URI изображения, преобразуем его в Bitmap
-                        //объект и отображаем в элементе ImageView нашего интерфейса:
-                        imageUri = imageReturnedIntent.getData();
-                        final InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
-                        selectedImage = BitmapFactory.decodeStream(imageStream);
-                        ImageButton button = (ImageButton) getActivity().findViewById(R.id.select_foto_imagebutton);
-                        button.setImageBitmap(selectedImage);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    //Получаем URI изображения, преобразуем его в Bitmap
+                    //объект и отображаем в элементе ImageView нашего интерфейса:
+                    imageUri = imageReturnedIntent.getData();
+                    ImageButton button = (ImageButton) getActivity().findViewById(R.id.select_foto_imagebutton);
+                    button.setImageURI(imageUri);
                 }
+                break;
         }
     }
 
@@ -116,7 +109,7 @@ public class StepNameFragment extends Fragment {
         EditText text = activity.findViewById(R.id.edit_name_dishes);
         text_name_dishes = text.getText().toString();
         text = activity.findViewById(R.id.edit_descr_dishes);
-        text_descr_dishes= text.getText().toString();
+        text_descr_dishes = text.getText().toString();
     }
 
 
