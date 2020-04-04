@@ -5,15 +5,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class BriefRecipeCard implements Parcelable {
-    //TODO: отрекфакторить имя переменной
-    private Uri id_dishes_image;
+    private Uri uri_dishes_image;
     private String dishes_name;
     private int dishes_tasty_rating;
     private int dishes_complexity_rating;
 
     //region getter's
-    public Uri getIdDishesImage() {
-        return id_dishes_image;
+    public Uri getUriDishesImage() {
+        return uri_dishes_image;
     }
 
     public String getDishesName() {
@@ -29,15 +28,15 @@ public class BriefRecipeCard implements Parcelable {
     }
     //endregion
 
-    public BriefRecipeCard(Uri id_dishes_image, String dishes_name) {
-        this.id_dishes_image = id_dishes_image;
+    public BriefRecipeCard(Uri uri_dishes_image, String dishes_name) {
+        this.uri_dishes_image = uri_dishes_image;
         this.dishes_name = dishes_name;
         dishes_tasty_rating = 0;
         dishes_complexity_rating = 0;
     }
 
-    public BriefRecipeCard(Uri id_dishes_image, String dishes_name, int dishes_tasty_rating, int dishes_complexity_rating) {
-        this.id_dishes_image = id_dishes_image;
+    public BriefRecipeCard(Uri uri_dishes_image, String dishes_name, int dishes_tasty_rating, int dishes_complexity_rating) {
+        this.uri_dishes_image = uri_dishes_image;
         this.dishes_name = dishes_name;
         this.dishes_tasty_rating = dishes_tasty_rating;
         this.dishes_complexity_rating = dishes_complexity_rating;
@@ -47,7 +46,7 @@ public class BriefRecipeCard implements Parcelable {
 
     //Конструктор для Parcelable
     protected BriefRecipeCard(Parcel in) {
-        id_dishes_image = Uri.parse(in.readString());
+        uri_dishes_image = Uri.parse(in.readString());
         dishes_name = in.readString();
         dishes_tasty_rating = in.readInt();
         dishes_complexity_rating = in.readInt();
@@ -73,7 +72,7 @@ public class BriefRecipeCard implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id_dishes_image.toString());
+        dest.writeString(uri_dishes_image.toString());
         dest.writeString(dishes_name);
         dest.writeInt(dishes_tasty_rating);
         dest.writeInt(dishes_complexity_rating);

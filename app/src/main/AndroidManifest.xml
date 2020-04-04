@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.foodchoise">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,6 +21,4 @@
 
         <activity android:name=".step_classes.CreateRecipesActivity"></activity>
     </application>
-    <!--TODO: Сделать нормальный запрос доступа -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 </manifest>

@@ -27,7 +27,7 @@ public class StepNameFragment extends Fragment {
     private Uri imageUri = null;
     private String text_name_dishes = null;
     private String text_descr_dishes = null;
-    final int CARDIMAGE_REQUEST = 1;
+    private final int CARDIMAGE_REQUEST = 1;
 
     public String getTextNameDishes() {
         return text_name_dishes;
