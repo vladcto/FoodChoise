@@ -36,25 +36,42 @@ public class CreateRecipesActivity extends AppCompatActivity {
         StepFragmentsAdapter adapter = (StepFragmentsAdapter)viewPager.getAdapter();
         StepNameFragment stepNameFragment = (StepNameFragment)adapter.getItem(0);
 
-        String dishes_name = stepNameFragment.getTextNameDishes().trim();
-        if(dishes_name.isEmpty()){
-            Timber.i("Недопустмое имя для dishes_name = %s .",dishes_name);
+        //region Проверка заполнненых данных под RecipeCard.
+        Uri image_uri = stepNameFragment.getImageUri();
+        if (image_uri == null) {
+            Timber.i("Нет ссылки на изображения для image_uri");
             viewPager.setCurrentItem(0);
             return;
         }
-        Timber.i("RecipeCard dishes_name = %s .",dishes_name);
+        Timber.i("image_uri = %s" , image_uri.toString());
 
-        Uri image_uri = stepNameFragment.getImageUri();
-        if (image_uri == null) {
+        String dishes_name = stepNameFragment.getTextNameDishes().trim();
+        //TODO: Сделать ограничение по символам.
+        if(dishes_name.isEmpty()){
+            Timber.i("Пустое имя для dishes_name");
+            viewPager.setCurrentItem(0);
             return;
         }
+        Timber.i("dishes_name = %s .",dishes_name);
+
+        String dishes_descr = stepNameFragment.getTextDescrDishes().trim();
+        //TODO: Сделать ограничение по символам.
+        if (dishes_descr.isEmpty()) {
+            Timber.i("Пустое имя для dishes_descr");
+            viewPager.setCurrentItem(0);
+            return;
+        }
+        Timber.i("dishes_descr = %s .",dishes_descr);
+
         /* if (...) {
         ...
         return;
         } - проверки на неверные данные. */
+        //endregion
 
+        //TODO: Создавать RecipeCard, а не BriefRecipeCard.
         BriefRecipeCard recipeCard = new BriefRecipeCard(image_uri,dishes_name);
-        Timber.i("RecipeCard успешно создана");
+        Timber.i("BriefRecipeCard успешно создана");
         Intent data = new Intent();
         data.putExtra(ReciepsFragment.BRIEFCARD_DATA, recipeCard);
         setResult(RESULT_OK, data);
