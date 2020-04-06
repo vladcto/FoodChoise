@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--TODO: Нормальный Дизайн. -->
+<!--TODO: Написать класс для сохранения введеных инструкций. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="8dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginBottom="2dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/ordinal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:text="num "
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/input_instr_ingridient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:inputType="textPersonName" />
+</LinearLayout>

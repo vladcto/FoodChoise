@@ -26,12 +26,13 @@
                 android:text="TextView" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/inst_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/add_ingr_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginEnd="16dp"

@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import com.example.foodchoise.R;
 
 public class StepInstrFragment extends Fragment {
-
+    //TODO: Подключить Adapter к RecyclerView
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
