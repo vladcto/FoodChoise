@@ -13,12 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodchoise.R;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import timber.log.Timber;
 
 public class StepInstrIngridientAdapter extends RecyclerView.Adapter<StepInstrIngridientAdapter.ItemInstrIngridientViewHolder> {
-    LinkedList<String> step_instr_ingridients = new LinkedList<String>();
+    List<String> step_instr_ingridients = new ArrayList<String>();
 
     @NonNull
     @Override
@@ -39,13 +41,14 @@ public class StepInstrIngridientAdapter extends RecyclerView.Adapter<StepInstrIn
     }
 
     public void addItem(){
-        step_instr_ingridients.addLast("");
+        step_instr_ingridients.add("");
         notifyDataSetChanged();
     }
 
     class ItemInstrIngridientViewHolder extends RecyclerView.ViewHolder{
         TextView ordinal;
         EditText stepInstrIngridient;
+        TextWatcher textWatcher;
 
         ItemInstrIngridientViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -54,9 +57,10 @@ public class StepInstrIngridientAdapter extends RecyclerView.Adapter<StepInstrIn
         }
 
         void bind(final int position){
-            ordinal.setText(String.valueOf(position+1));
-            stepInstrIngridient.setText(step_instr_ingridients.get(position));
-            stepInstrIngridient.addTextChangedListener(new TextWatcher() {
+            if(textWatcher!= null) {
+                stepInstrIngridient.removeTextChangedListener(textWatcher);
+            }
+            textWatcher = new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                     //nothing
@@ -64,15 +68,19 @@ public class StepInstrIngridientAdapter extends RecyclerView.Adapter<StepInstrIn
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    //nothing
+                    if(stepInstrIngridient.isFocused()){
+                        Timber.d("Изменен текст на позиции %s",position);
+                        step_instr_ingridients.set(position,s.toString());
+                    }
                 }
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    Timber.d("Изменен текст на позиции %s",position);
-                    step_instr_ingridients.set(position,s.toString());
                 }
-            });
+            };
+            ordinal.setText(String.valueOf(position+1));
+            stepInstrIngridient.setText(step_instr_ingridients.get(position));
+            stepInstrIngridient.addTextChangedListener(textWatcher);
         }
     }
 }
