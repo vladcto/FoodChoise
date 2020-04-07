@@ -20,7 +20,7 @@ import java.util.List;
 import timber.log.Timber;
 
 public class StepInstrIngridientAdapter extends RecyclerView.Adapter<StepInstrIngridientAdapter.ItemInstrIngridientViewHolder> {
-    List<String> step_instr_ingridients = new ArrayList<String>();
+    ArrayList<String> step_instr_ingridients = new ArrayList<String>();
 
     @NonNull
     @Override
@@ -42,7 +42,17 @@ public class StepInstrIngridientAdapter extends RecyclerView.Adapter<StepInstrIn
 
     public void addItem(){
         step_instr_ingridients.add("");
+        Timber.i("Добавлена инструкция/ингридиент.");
         notifyDataSetChanged();
+    }
+
+    /**
+     * Получить созданные пользователем шаги (пустые и заполненные).
+     *
+     * @return ArrayList созданных шагов.
+     */
+    public ArrayList<String> getInstrIngrid(){
+        return step_instr_ingridients;
     }
 
     class ItemInstrIngridientViewHolder extends RecyclerView.ViewHolder{
@@ -57,28 +67,28 @@ public class StepInstrIngridientAdapter extends RecyclerView.Adapter<StepInstrIn
         }
 
         void bind(final int position){
+            //Для предовтращения добавления >1 слушателя на один TextView
             if(textWatcher!= null) {
                 stepInstrIngridient.removeTextChangedListener(textWatcher);
             }
             textWatcher = new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                    //nothing
-                }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    //Если изменение вызвано не программой.
                     if(stepInstrIngridient.isFocused()){
-                        Timber.d("Изменен текст на позиции %s",position);
+                        Timber.d("Изменен текст на позиции %s",position+1);
                         step_instr_ingridients.set(position,s.toString());
                     }
                 }
 
                 @Override
-                public void afterTextChanged(Editable s) {
-                }
+                public void afterTextChanged(Editable s) { }
             };
             ordinal.setText(String.valueOf(position+1));
+            //что-бы при bind не удалялось введенное значение.
             stepInstrIngridient.setText(step_instr_ingridients.get(position));
             stepInstrIngridient.addTextChangedListener(textWatcher);
         }

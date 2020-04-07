@@ -30,7 +30,6 @@ public class StepInstrFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Timber.i("Add instruction.");
                 adapter.addItem();
             }
         });
