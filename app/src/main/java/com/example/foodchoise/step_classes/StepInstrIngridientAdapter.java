@@ -61,7 +61,9 @@ public class StepInstrIngridientAdapter extends RecyclerView.Adapter<StepInstrIn
     @Override
     public void onItemDismiss(int position) {
         step_instr_ingridients.remove(position);
+        Timber.i("С позиции %s удален ингр / инстр",position);
         notifyItemRemoved(position);
+        notifyItemRangeChanged(position,step_instr_ingridients.size()-position);
     }
 
     @Override
@@ -76,6 +78,8 @@ public class StepInstrIngridientAdapter extends RecyclerView.Adapter<StepInstrIn
             }
         }
         notifyItemMoved(fromPosition, toPosition);
+        notifyItemChanged(fromPosition);
+        notifyItemChanged(toPosition);
     }
 
     class ItemInstrIngridientViewHolder extends RecyclerView.ViewHolder{
@@ -90,6 +94,8 @@ public class StepInstrIngridientAdapter extends RecyclerView.Adapter<StepInstrIn
         }
 
         void bind(final int position){
+            //TODO: Проверить очно ли тут нужен тег d?
+            Timber.d("Bind инструкцию/ингридиент на позиции: %s",position);
             //Для предовтращения добавления >1 слушателя на один TextView
             if(textWatcher!= null) {
                 stepInstrIngridient.removeTextChangedListener(textWatcher);
