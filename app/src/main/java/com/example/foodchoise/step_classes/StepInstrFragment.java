@@ -9,6 +9,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +27,10 @@ public class StepInstrFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.inst_recyclerview);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        ItemTouchHelper.Callback callback =
+                new ItemSlideTouchAdapter(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
         Button button = view.findViewById(R.id.add_instr_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

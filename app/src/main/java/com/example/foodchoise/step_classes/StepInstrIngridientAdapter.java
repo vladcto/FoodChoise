@@ -14,13 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodchoise.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 import timber.log.Timber;
 
-public class StepInstrIngridientAdapter extends RecyclerView.Adapter<StepInstrIngridientAdapter.ItemInstrIngridientViewHolder> {
+public class StepInstrIngridientAdapter extends RecyclerView.Adapter<StepInstrIngridientAdapter.ItemInstrIngridientViewHolder> implements ItemTouchHelperAdapter  {
     ArrayList<String> step_instr_ingridients = new ArrayList<String>();
+
+    public StepInstrIngridientAdapter() { }
 
     @NonNull
     @Override
@@ -53,6 +56,26 @@ public class StepInstrIngridientAdapter extends RecyclerView.Adapter<StepInstrIn
      */
     public ArrayList<String> getInstrIngrid(){
         return step_instr_ingridients;
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+        step_instr_ingridients.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    @Override
+    public void onItemMove(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap( step_instr_ingridients, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap( step_instr_ingridients, i, i - 1);
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition);
     }
 
     class ItemInstrIngridientViewHolder extends RecyclerView.ViewHolder{
