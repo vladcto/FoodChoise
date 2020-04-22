@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodchoise.R;
 
+import java.util.ArrayList;
+
 import timber.log.Timber;
 
 public class StepIngridientFragment extends Fragment {
@@ -41,4 +43,7 @@ public class StepIngridientFragment extends Fragment {
         return view;
     }
 
+    public ArrayList<String> getIngridients(){
+        return adapter.getInstrIngrid();
+    }
 }

@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodchoise.R;
 
+import java.util.ArrayList;
+
 import timber.log.Timber;
 
 public class StepInstrFragment extends Fragment {
@@ -39,5 +41,9 @@ public class StepInstrFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    public ArrayList<String> getInstructions(){
+        return adapter.getInstrIngrid();
     }
 }
