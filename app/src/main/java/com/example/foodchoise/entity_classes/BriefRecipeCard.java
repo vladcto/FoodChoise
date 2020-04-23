@@ -8,10 +8,10 @@ import android.os.Parcelable;
  * Класс для отображения в RecipesFragment
  */
 public class BriefRecipeCard implements Parcelable {
-    private Uri uri_dishes_image;
-    private String dishes_name;
-    private int dishes_tasty_rating;
-    private int dishes_complexity_rating;
+    protected Uri uri_dishes_image;
+    protected String dishes_name;
+    protected int dishes_tasty_rating;
+    protected int dishes_complexity_rating;
 
     //region getter's
     public Uri getUriDishesImage() {

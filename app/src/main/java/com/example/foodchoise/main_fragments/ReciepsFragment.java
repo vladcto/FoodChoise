@@ -60,7 +60,7 @@ public class ReciepsFragment extends Fragment {
                 RecipeCard recipeCard = data.getParcelableExtra(BRIEFCARD_DATA);
                 RecyclerView recyclerView = getActivity().findViewById(R.id.recyclerView);
                 BriefRecipeCardAdapter adapter =(BriefRecipeCardAdapter) recyclerView.getAdapter();
-                adapter.addRecipeCard(recipeCard.buildBriefRecipeCard());
+                adapter.addRecipeCard(recipeCard);
             }
         }
     }
