@@ -9,12 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.foodchoise.R;
-import com.example.foodchoise.entity_classes.BriefRecipeCard;
 import com.example.foodchoise.entity_classes.RecipeCard;
 import com.example.foodchoise.main_fragments.ReciepsFragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import timber.log.Timber;
 
@@ -23,7 +21,7 @@ public class CreateRecipesActivity extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recipe_creation_window);
+        setContentView(R.layout.recipe_creation_activity);
         StepFragmentsAdapter adapter = new StepFragmentsAdapter(getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);
@@ -76,6 +74,7 @@ public class CreateRecipesActivity extends AppCompatActivity {
         StepIngridientFragment stepIngridientFragment = (StepIngridientFragment)adapter.getItem(1);
 
         ArrayList<String> dishes_ingridients = stepIngridientFragment.getIngridients();
+        //TODO: Проверить на пустые ингридиенты.
         if (dishes_ingridients.size() == 0) {
             Timber.i("Не указано ни одного ингридиента.");
             viewPager.setCurrentItem(1);
@@ -88,6 +87,7 @@ public class CreateRecipesActivity extends AppCompatActivity {
         StepInstrFragment instrFragment = (StepInstrFragment)adapter.getItem(2);
 
         ArrayList<String> dishes_instructions = instrFragment.getInstructions();
+        //TODO: Проверить на пустые инструкции.
         if (dishes_instructions.size() == 0) {
             Timber.i("Не указано ни одной инструкции.");
             viewPager.setCurrentItem(2);

@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/textView"
-        style="@style/stepTopLabel"
+        style="@style/topBar"
         android:text="Шаг 3" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
