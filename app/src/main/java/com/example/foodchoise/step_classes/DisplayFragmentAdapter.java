@@ -7,15 +7,11 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StepFragmentsAdapter extends FragmentPagerAdapter implements GetFragmentItemAdapter{
+public class DisplayFragmentAdapter extends FragmentPagerAdapter implements GetFragmentItemAdapter {
     private List<Fragment> fragments = new ArrayList<Fragment>();
 
-    public StepFragmentsAdapter(FragmentManager fm) {
+    public DisplayFragmentAdapter(FragmentManager fm) {
         super(fm);
-        fragments.add(new StepNameFragment());
-        fragments.add(new StepIngridientFragment());
-        fragments.add(new StepInstrFragment());
-        fragments.add(new StepAcceptFragment());
     }
 
     @Override
@@ -25,6 +21,6 @@ public class StepFragmentsAdapter extends FragmentPagerAdapter implements GetFra
 
     @Override
     public int getCount() {
-        return 4;
+        return 0;
     }
 }
