@@ -1,4 +1,4 @@
-package com.example.foodchoise.step_classes;
+package com.example.foodchoise.step_classes.create_recipe;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,10 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodchoise.R;
+import com.example.foodchoise.step_classes.ItemSlideTouchAdapter;
 
 import java.util.ArrayList;
-
-import timber.log.Timber;
 
 public class StepIngridientFragment extends Fragment {
     final StepInstrIngridientAdapter adapter = new StepInstrIngridientAdapter();

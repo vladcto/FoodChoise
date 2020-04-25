@@ -1,9 +1,7 @@
-package com.example.foodchoise.step_classes;
+package com.example.foodchoise.step_classes.create_recipe;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,9 +15,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.foodchoise.R;
-
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 
 import static android.app.Activity.RESULT_OK;
 

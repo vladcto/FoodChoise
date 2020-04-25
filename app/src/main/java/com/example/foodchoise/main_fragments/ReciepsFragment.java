@@ -1,6 +1,6 @@
 package com.example.foodchoise.main_fragments;
 
-import com.example.foodchoise.step_classes.CreateRecipesActivity;
+import com.example.foodchoise.step_classes.create_recipe.CreateRecipesActivity;
 import com.example.foodchoise.entity_classes.*;
 
 import android.app.Activity;

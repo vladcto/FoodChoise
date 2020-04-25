@@ -1,4 +1,4 @@
-package com.example.foodchoise.step_classes;
+package com.example.foodchoise.step_classes.create_recipe;
 
 
 import android.os.Bundle;

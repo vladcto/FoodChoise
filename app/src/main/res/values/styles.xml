@@ -3,6 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <!-- Сделать свою тему, а также поиграться с верхней строкой сосояния-->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -30,7 +31,5 @@
         <item name="android:layout_height">@dimen/topBarHeight</item>
 
         <item name="android:padding">10dp</item>
-        <!-- Потомь вставь нормальную картинку.-->
-        <item name="android:src">@drawable/ic_restaurant_black_24dp</item>
     </style>
 </resources>

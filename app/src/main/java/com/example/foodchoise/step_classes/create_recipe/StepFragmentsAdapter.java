@@ -1,13 +1,15 @@
-package com.example.foodchoise.step_classes;
+package com.example.foodchoise.step_classes.create_recipe;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.foodchoise.step_classes.GetFragmentItemAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class StepFragmentsAdapter extends FragmentPagerAdapter implements GetFragmentItemAdapter{
+public class StepFragmentsAdapter extends FragmentPagerAdapter implements GetFragmentItemAdapter {
     private List<Fragment> fragments = new ArrayList<Fragment>();
 
     public StepFragmentsAdapter(FragmentManager fm) {

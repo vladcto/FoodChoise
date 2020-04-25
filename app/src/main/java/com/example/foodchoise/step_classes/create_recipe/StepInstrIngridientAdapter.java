@@ -1,4 +1,4 @@
-package com.example.foodchoise.step_classes;
+package com.example.foodchoise.step_classes.create_recipe;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,15 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodchoise.R;
+import com.example.foodchoise.step_classes.ItemTouchHelperAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
 
 import timber.log.Timber;
 
-public class StepInstrIngridientAdapter extends RecyclerView.Adapter<StepInstrIngridientAdapter.ItemInstrIngridientViewHolder> implements ItemTouchHelperAdapter  {
+public class StepInstrIngridientAdapter extends RecyclerView.Adapter<StepInstrIngridientAdapter.ItemInstrIngridientViewHolder> implements ItemTouchHelperAdapter {
     ArrayList<String> step_instr_ingridients = new ArrayList<String>();
 
     public StepInstrIngridientAdapter() { }

@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".step_classes.CreateRecipesActivity"
+        <activity android:name=".step_classes.create_recipe.CreateRecipesActivity"
             android:screenOrientation="portrait">
 
         </activity>

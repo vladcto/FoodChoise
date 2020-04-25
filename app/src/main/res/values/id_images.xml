@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="exit_button_image" type="drawable">@drawable/ic_whatshot_black_24dp</item>
+</resources>

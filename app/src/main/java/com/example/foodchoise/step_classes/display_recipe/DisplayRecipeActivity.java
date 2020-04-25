@@ -1,4 +1,4 @@
-package com.example.foodchoise.step_classes;
+package com.example.foodchoise.step_classes.display_recipe;
 
 import android.os.Bundle;
 
@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.foodchoise.R;
+import com.example.foodchoise.step_classes.create_recipe.StepFragmentsAdapter;
 
 public class DisplayRecipeActivity extends AppCompatActivity {
 
