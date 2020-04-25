@@ -12,7 +12,9 @@ public class RecipeCard extends BriefRecipeCard  implements Parcelable {
     private ArrayList<String> dishes_ingstr = new ArrayList<String>();
 
     //region getter's
-
+    public String getDishesDescription(){
+        return dishes_descr;
+    }
     //endregion
 
     //region Конструкторы

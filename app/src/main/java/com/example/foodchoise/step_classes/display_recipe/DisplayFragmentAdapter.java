@@ -12,8 +12,9 @@ import java.util.List;
 public class DisplayFragmentAdapter extends FragmentPagerAdapter implements GetFragmentItemAdapter {
     private List<Fragment> fragments = new ArrayList<Fragment>();
 
-    public DisplayFragmentAdapter(FragmentManager fm) {
+    public DisplayFragmentAdapter(FragmentManager fm, DisplayRecipeActivity activity) {
         super(fm);
+        fragments.add(new DisplayNameFragment(activity));
     }
 
     @Override
@@ -23,6 +24,6 @@ public class DisplayFragmentAdapter extends FragmentPagerAdapter implements GetF
 
     @Override
     public int getCount() {
-        return 0;
+        return 1;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.foodchoise.entity_classes;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodchoise.R;
 import com.example.foodchoise.step_classes.*;
+import com.example.foodchoise.step_classes.create_recipe.CreateRecipesActivity;
+import com.example.foodchoise.step_classes.display_recipe.DisplayRecipeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +24,7 @@ import java.util.List;
 import timber.log.Timber;
 
 public class BriefRecipeCardAdapter extends RecyclerView.Adapter<BriefRecipeCardAdapter.BriefRecipeCardViewHolder> {
+    static public String RECIPECARD_DATA = "RECIPECARD_DATA";
     private ArrayList<BriefRecipeCard> recipeCards = new ArrayList<BriefRecipeCard>();
     private Activity  activity;
 
@@ -66,11 +70,20 @@ public class BriefRecipeCardAdapter extends RecyclerView.Adapter<BriefRecipeCard
             dishes_complexity_rating = itemView.findViewById(R.id.dishes_complexity_rating);
         }
 
-        public void bind(BriefRecipeCard recipeCard){
+        public void bind(final BriefRecipeCard recipeCard){
             dishes_image.setImageURI(recipeCard.getUriDishesImage());
             dishes_name.setText(recipeCard.getDishesName());
             dishes_tasty_rating.setText(String.valueOf(recipeCard.getDishesTastyRating()));
             dishes_complexity_rating.setText(String.valueOf(recipeCard.getDishesComplexityRating()));
+            //TODO: убрать этот BriefRecipeCard, если так будет не рабоатть.
+            dishes_image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(activity, DisplayRecipeActivity.class);
+                    intent.putExtra(RECIPECARD_DATA,(RecipeCard)recipeCard);
+                    activity.startActivity(intent);
+                }
+            });
         }
     }
 }
