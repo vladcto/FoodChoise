@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodchoise.R;
-import com.example.foodchoise.step_classes.ItemTouchHelperAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,7 +27,7 @@ public class StepInstrIngridientAdapter extends RecyclerView.Adapter<StepInstrIn
     @Override
     public ItemInstrIngridientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_instr_ingridient, parent, false);
+                .inflate(R.layout.item_step_instr_ingridient, parent, false);
         return new ItemInstrIngridientViewHolder(view);
     }
 

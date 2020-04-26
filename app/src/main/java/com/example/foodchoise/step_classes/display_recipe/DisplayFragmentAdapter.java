@@ -15,6 +15,7 @@ public class DisplayFragmentAdapter extends FragmentPagerAdapter implements GetF
     public DisplayFragmentAdapter(FragmentManager fm, DisplayRecipeActivity activity) {
         super(fm);
         fragments.add(new DisplayNameFragment(activity));
+        fragments.add(new DisplayIngrFragment(activity));
     }
 
     @Override
@@ -24,6 +25,6 @@ public class DisplayFragmentAdapter extends FragmentPagerAdapter implements GetF
 
     @Override
     public int getCount() {
-        return 1;
+        return fragments.size();
     }
 }

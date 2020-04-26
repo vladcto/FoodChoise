@@ -1,4 +1,4 @@
-package com.example.foodchoise.step_classes;
+package com.example.foodchoise.step_classes.create_recipe;
 
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;

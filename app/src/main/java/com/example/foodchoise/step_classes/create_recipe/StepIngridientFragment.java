@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodchoise.R;
-import com.example.foodchoise.step_classes.ItemSlideTouchAdapter;
 
 import java.util.ArrayList;
 
