@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
+                //TODO: Профиль может быть статичным, быть может, не надо каждый раз создавать новый.
                 switch (menuItem.getItemId()){
                     case R.id.fast_choise:
                         if(!(selectedFragment instanceof CardFragment)) {

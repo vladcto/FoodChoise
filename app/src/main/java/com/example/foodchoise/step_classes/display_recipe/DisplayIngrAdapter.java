@@ -23,7 +23,7 @@ public class DisplayIngrAdapter extends RecyclerView.Adapter<DisplayIngrAdapter.
     @Override
     public DisplayIngrAdapter.IngridientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_display_instr_ingridient, parent, false);
+                .inflate(R.layout.item_display_ingridient, parent, false);
         return new DisplayIngrAdapter.IngridientViewHolder(view);
     }
 
