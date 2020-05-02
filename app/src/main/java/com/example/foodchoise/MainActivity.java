@@ -12,6 +12,7 @@ import com.example.foodchoise.main_fragments.CardFragment;
 import com.example.foodchoise.main_fragments.ProfileFragment;
 import com.example.foodchoise.main_fragments.ReciepsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 import timber.log.Timber;
 
@@ -28,10 +29,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_main);
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_bar);
+        NavigationView bottomNavigationView = findViewById(R.id.nav_view);
         selectedFragment = new ReciepsFragment();
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        bottomNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 //TODO: Профиль может быть статичным, быть может, не надо каждый раз создавать новый.
@@ -60,7 +61,5 @@ public class MainActivity extends AppCompatActivity {
         }
         );
 
-
-        bottomNavigationView.setSelectedItemId(R.id.recipes_menu);
     }
 }
