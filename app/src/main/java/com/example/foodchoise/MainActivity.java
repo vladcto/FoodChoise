@@ -1,24 +1,30 @@
 package com.example.foodchoise;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
-import android.os.Debug;
+import android.view.Gravity;
 import android.view.MenuItem;
 
 import com.example.foodchoise.main_fragments.CardFragment;
 import com.example.foodchoise.main_fragments.ProfileFragment;
 import com.example.foodchoise.main_fragments.ReciepsFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
-
     Fragment selectedFragment = null;
+    private Toolbar toolbar;
+    NavigationView navigationView;
+    //TODO: ЧТО ЭТО ДЕЛАЕТ??
+    DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -29,10 +35,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_main);
-        NavigationView bottomNavigationView = findViewById(R.id.nav_view);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.text, R.string.text);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        setSupportActionBar(toolbar);
+
         selectedFragment = new ReciepsFragment();
 
-        bottomNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 //TODO: Профиль может быть статичным, быть может, не надо каждый раз создавать новый.
@@ -55,11 +69,24 @@ public class MainActivity extends AppCompatActivity {
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         selectedFragment).commit();
-
+                toolbar.setTitle(menuItem.getTitle());
+                drawerLayout.closeDrawers();
                 return true;
             }
         }
         );
+    }
 
+    //TODO: Что это?
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item) {
+        // Действие home/up action bar'а должно открывать или закрывать drawer.
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
