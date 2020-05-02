@@ -33,8 +33,7 @@ public class ReciepsFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         final Activity activity = getActivity();
-        ImageButton button =(ImageButton)activity.findViewById(R.id.add_recipe_button);
-        button.setVisibility(View.VISIBLE);
+        ImageButton button = view.findViewById(R.id.add_recipe_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,13 +44,6 @@ public class ReciepsFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Activity activity = getActivity();
-        ImageButton button =(ImageButton)activity.findViewById(R.id.add_recipe_button);
-        button.setVisibility(View.GONE);
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
