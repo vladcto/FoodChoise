@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.foodchoise.R;
 
+import timber.log.Timber;
+
 import static android.app.Activity.RESULT_OK;
 
 public class StepNameFragment extends Fragment {
@@ -53,6 +55,7 @@ public class StepNameFragment extends Fragment {
 
         if (imageUri != null) {
             ImageButton imageButton = view.findViewById(R.id.select_foto_imagebutton);
+            Timber.d("Ставим в изображение URI: %s",imageUri);
             imageButton.setImageURI(imageUri);
         }
         return view;
@@ -71,6 +74,7 @@ public class StepNameFragment extends Fragment {
                 //Тип получаемых объектов - image:
                 photoPickerIntent.setType("image/*");
                 //Запускаем переход с ожиданием обратного результата в виде информации об изображении:
+                Timber.i("Запуск галереи для получения изображения");
                 startActivityForResult(photoPickerIntent, CARDIMAGE_REQUEST);
             }
         });
@@ -84,10 +88,11 @@ public class StepNameFragment extends Fragment {
             //Запрос изображения.
             case CARDIMAGE_REQUEST:
                 if (resultCode == RESULT_OK) {
-
                     //Получаем URI изображения, преобразуем его в Bitmap
                     //объект и отображаем в элементе ImageView нашего интерфейса:
                     imageUri = imageReturnedIntent.getData();
+                    Timber.i("Получено изображение");
+                    Timber.d("URI Изображения: %s",imageUri);
                     ImageButton button = (ImageButton) getActivity().findViewById(R.id.select_foto_imagebutton);
                     button.setImageURI(imageUri);
                 }
