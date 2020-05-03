@@ -7,38 +7,38 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 
 public class RecipeCard extends BriefRecipeCard  implements Parcelable {
-    private String dishes_descr;
-    private ArrayList<String> dishes_ingridient = new ArrayList<String>();
-    private ArrayList<String> dishes_instr = new ArrayList<String>();
+    private String dishesDescr;
+    private ArrayList<String> dishesIngridient = new ArrayList<String>();
+    private ArrayList<String> dishesInstr = new ArrayList<String>();
 
     //region getter's
     public String getDishesDescription(){
-        return dishes_descr;
+        return dishesDescr;
     }
 
     public ArrayList<String> getDishesIngridient() {
-        return dishes_ingridient = dishes_ingridient;
+        return dishesIngridient = dishesIngridient;
     }
 
     public ArrayList<String> getDishesInstruction(){
-        return dishes_instr;
+        return dishesInstr;
     }
     //endregion
 
     //region Конструкторы
 
-    public RecipeCard(Uri uri_dishes_image, String dishes_name, int dishes_tasty_rating, int dishes_complexity_rating, String dishes_descr, ArrayList<String> dishes_ingridient, ArrayList<String> dishes_instr) {
+    public RecipeCard(Uri uri_dishes_image, String dishes_name, int dishes_tasty_rating, int dishes_complexity_rating, String dishesDescr, ArrayList<String> dishesIngridient, ArrayList<String> dishesInstr) {
         super(uri_dishes_image, dishes_name, dishes_tasty_rating, dishes_complexity_rating);
-        this.dishes_descr = dishes_descr;
-        this.dishes_ingridient = dishes_ingridient;
-        this.dishes_instr = dishes_instr;
+        this.dishesDescr = dishesDescr;
+        this.dishesIngridient = dishesIngridient;
+        this.dishesInstr = dishesInstr;
     }
 
-    public RecipeCard(Uri uri_dishes_image, String dishes_name, String dishes_descr, ArrayList<String> dishes_ingridient, ArrayList<String> dishes_instr) {
+    public RecipeCard(Uri uri_dishes_image, String dishes_name, String dishesDescr, ArrayList<String> dishesIngridient, ArrayList<String> dishesInstr) {
         super(uri_dishes_image, dishes_name);
-        this.dishes_descr = dishes_descr;
-        this.dishes_ingridient = dishes_ingridient;
-        this.dishes_instr = dishes_instr;
+        this.dishesDescr = dishesDescr;
+        this.dishesIngridient = dishesIngridient;
+        this.dishesInstr = dishesInstr;
     }
 
 //endregion Конструкторы
@@ -50,9 +50,9 @@ public class RecipeCard extends BriefRecipeCard  implements Parcelable {
      */
     private RecipeCard(Parcel in) {
         super(in);
-        in.readStringList(dishes_ingridient);
-        in.readStringList(dishes_instr);
-        dishes_descr = in.readString();
+        in.readStringList(dishesIngridient);
+        in.readStringList(dishesInstr);
+        dishesDescr = in.readString();
     }
 
     public static final Parcelable.Creator<RecipeCard> CREATOR = new Parcelable.Creator<RecipeCard>() {
@@ -76,9 +76,9 @@ public class RecipeCard extends BriefRecipeCard  implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest,flags);
-        dest.writeStringList(dishes_ingridient);
-        dest.writeStringList(dishes_instr);
-        dest.writeString(dishes_descr);
+        dest.writeStringList(dishesIngridient);
+        dest.writeStringList(dishesInstr);
+        dest.writeString(dishesDescr);
     }
     //endregion
 

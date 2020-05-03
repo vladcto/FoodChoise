@@ -9,7 +9,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.MenuItem;
 
 import com.example.foodchoise.main_fragments.CardFragment;
@@ -77,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-    //TODO: Что это?
     @Override
     public boolean onOptionsItemSelected (MenuItem item) {
         // Действие home/up action bar'а должно открывать или закрывать drawer.

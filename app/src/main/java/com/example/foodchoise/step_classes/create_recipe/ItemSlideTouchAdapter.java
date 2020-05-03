@@ -3,8 +3,6 @@ package com.example.foodchoise.step_classes.create_recipe;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodchoise.step_classes.create_recipe.StepInstrIngridientAdapter;
-
 public class ItemSlideTouchAdapter extends ItemTouchHelper.Callback {
 
     private final StepInstrIngridientAdapter mAdapter;

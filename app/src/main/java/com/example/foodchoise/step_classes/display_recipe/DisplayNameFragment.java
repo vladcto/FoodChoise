@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,7 +22,7 @@ public class DisplayNameFragment extends Fragment {
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.display_step_name_recipe, container, false);
+        View view = inflater.inflate(R.layout.fragment_display_name_recipe, container, false);
         RecipeCard recipeCard = activity.getRecipeCard();
 
         ImageView imageView = view.findViewById(R.id.recipe_image);

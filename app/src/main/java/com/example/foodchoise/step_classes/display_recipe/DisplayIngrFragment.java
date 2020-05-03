@@ -25,7 +25,7 @@ public class DisplayIngrFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.display_step_ingridient,container,false);
+        View view = inflater.inflate(R.layout.fragment_display_ingridient,container,false);
         RecyclerView recyclerView = view.findViewById(R.id.ingrid_recyclerview);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -8,51 +8,51 @@ import android.os.Parcelable;
  * Класс для отображения в RecipesFragment
  */
 public class BriefRecipeCard implements Parcelable {
-    protected Uri uri_dishes_image;
-    protected String dishes_name;
-    protected int dishes_tasty_rating;
-    protected int dishes_complexity_rating;
+    protected Uri uriDishesImage;
+    protected String dishesName;
+    protected int dishesTastyRating;
+    protected int dishesComplexityRating;
 
     //region getter's
     public Uri getUriDishesImage() {
-        return uri_dishes_image;
+        return uriDishesImage;
     }
 
     public String getDishesName() {
-        return dishes_name;
+        return dishesName;
     }
 
     public int getDishesTastyRating() {
-        return dishes_tasty_rating;
+        return dishesTastyRating;
     }
 
     public int getDishesComplexityRating() {
-        return dishes_complexity_rating;
+        return dishesComplexityRating;
     }
     //endregion
 
-    public BriefRecipeCard(Uri uri_dishes_image, String dishes_name) {
-        this.uri_dishes_image = uri_dishes_image;
-        this.dishes_name = dishes_name;
-        dishes_tasty_rating = 0;
-        dishes_complexity_rating = 0;
+    public BriefRecipeCard(Uri uriDishesImage, String dishesName) {
+        this.uriDishesImage = uriDishesImage;
+        this.dishesName = dishesName;
+        dishesTastyRating = 0;
+        dishesComplexityRating = 0;
     }
 
-    public BriefRecipeCard(Uri uri_dishes_image, String dishes_name, int dishes_tasty_rating, int dishes_complexity_rating) {
-        this.uri_dishes_image = uri_dishes_image;
-        this.dishes_name = dishes_name;
-        this.dishes_tasty_rating = dishes_tasty_rating;
-        this.dishes_complexity_rating = dishes_complexity_rating;
+    public BriefRecipeCard(Uri uriDishesImage, String dishesName, int dishesTastyRating, int dishesComplexityRating) {
+        this.uriDishesImage = uriDishesImage;
+        this.dishesName = dishesName;
+        this.dishesTastyRating = dishesTastyRating;
+        this.dishesComplexityRating = dishesComplexityRating;
     }
 
     //region Реализация Parcelable
 
     //Конструктор для Parcelable
     protected BriefRecipeCard(Parcel in) {
-        uri_dishes_image = Uri.parse(in.readString());
-        dishes_name = in.readString();
-        dishes_tasty_rating = in.readInt();
-        dishes_complexity_rating = in.readInt();
+        uriDishesImage = Uri.parse(in.readString());
+        dishesName = in.readString();
+        dishesTastyRating = in.readInt();
+        dishesComplexityRating = in.readInt();
     }
 
     public static final Creator<BriefRecipeCard> CREATOR = new Creator<BriefRecipeCard>() {
@@ -75,10 +75,10 @@ public class BriefRecipeCard implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(uri_dishes_image.toString());
-        dest.writeString(dishes_name);
-        dest.writeInt(dishes_tasty_rating);
-        dest.writeInt(dishes_complexity_rating);
+        dest.writeString(uriDishesImage.toString());
+        dest.writeString(dishesName);
+        dest.writeInt(dishesTastyRating);
+        dest.writeInt(dishesComplexityRating);
     }
     //endregion
 

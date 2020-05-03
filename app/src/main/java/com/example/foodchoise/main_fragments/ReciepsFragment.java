@@ -27,7 +27,7 @@ public class ReciepsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.recieps_page,container,false);
+        View view =  inflater.inflate(R.layout.page_recieps,container,false);
         BriefRecipeCardAdapter adapter = new BriefRecipeCardAdapter(getActivity());
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setAdapter(adapter);

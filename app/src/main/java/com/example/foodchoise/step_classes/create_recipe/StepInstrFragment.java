@@ -23,7 +23,7 @@ public class StepInstrFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.step_instr_recipes_fragment,container,false);
+        View view = inflater.inflate(R.layout.fragment_step_instr_recipes,container,false);
         RecyclerView recyclerView = view.findViewById(R.id.inst_recyclerview);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

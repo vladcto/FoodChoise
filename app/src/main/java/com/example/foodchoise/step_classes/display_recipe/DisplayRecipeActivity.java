@@ -17,7 +17,7 @@ public class DisplayRecipeActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         recipeCard = getIntent().getParcelableExtra(BriefRecipeCardAdapter.RECIPECARD_DATA);
-        setContentView(R.layout.display_recipe_activity);
+        setContentView(R.layout.activity_display_recipe);
         DisplayFragmentAdapter adapter = new DisplayFragmentAdapter(getSupportFragmentManager(),this);
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);

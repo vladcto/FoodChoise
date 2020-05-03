@@ -16,6 +16,6 @@ public class CardFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.card_page,container,false);
+        return inflater.inflate(R.layout.page_card,container,false);
     }
 }

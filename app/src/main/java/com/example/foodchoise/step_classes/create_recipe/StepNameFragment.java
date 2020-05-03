@@ -22,16 +22,16 @@ import static android.app.Activity.RESULT_OK;
 
 public class StepNameFragment extends Fragment {
     private Uri imageUri = null;
-    private String text_name_dishes = null;
-    private String text_descr_dishes = null;
+    private String textNameDishes = null;
+    private String textDescrDishes = null;
     private final int CARDIMAGE_REQUEST = 1;
 
     public String getTextNameDishes() {
-        return text_name_dishes;
+        return textNameDishes;
     }
 
     public String getTextDescrDishes() {
-        return text_descr_dishes;
+        return textDescrDishes;
     }
 
     public Uri getImageUri() {
@@ -42,15 +42,15 @@ public class StepNameFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.step_name_recipes_fragment, container, false);
-        if (text_name_dishes != null) {
+        View view = inflater.inflate(R.layout.fragment_step_name_recipes, container, false);
+        if (textNameDishes != null) {
             EditText text = view.findViewById(R.id.edit_name_dishes);
-            text.setText(text_name_dishes);
+            text.setText(textNameDishes);
         }
 
-        if (text_descr_dishes != null) {
+        if (textDescrDishes != null) {
             EditText text = view.findViewById(R.id.edit_descr_dishes);
-            text.setText(text_descr_dishes);
+            text.setText(textDescrDishes);
         }
 
         if (imageUri != null) {
@@ -107,9 +107,9 @@ public class StepNameFragment extends Fragment {
         //для создания RecipeCard по этим данным
         Activity activity = getActivity();
         EditText text = activity.findViewById(R.id.edit_name_dishes);
-        text_name_dishes = text.getText().toString();
+        textNameDishes = text.getText().toString();
         text = activity.findViewById(R.id.edit_descr_dishes);
-        text_descr_dishes = text.getText().toString();
+        textDescrDishes = text.getText().toString();
     }
 
 

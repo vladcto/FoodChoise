@@ -13,10 +13,10 @@ import com.example.foodchoise.R;
 import java.util.ArrayList;
 
 public class DisplayInstrAdapter extends RecyclerView.Adapter<DisplayInstrAdapter.InstructionViewHolder> {
-    ArrayList<String> display_instr = new ArrayList<String>();
+    ArrayList<String> displayInstr = new ArrayList<String>();
 
-    public DisplayInstrAdapter(ArrayList<String> display_instr) {
-        this.display_instr = display_instr;
+    public DisplayInstrAdapter(ArrayList<String> displayInstr) {
+        this.displayInstr = displayInstr;
     }
 
     @NonNull
@@ -35,7 +35,7 @@ public class DisplayInstrAdapter extends RecyclerView.Adapter<DisplayInstrAdapte
 
     @Override
     public int getItemCount() {
-        return display_instr.size();
+        return displayInstr.size();
     }
 
     protected class InstructionViewHolder extends RecyclerView.ViewHolder{
@@ -50,7 +50,7 @@ public class DisplayInstrAdapter extends RecyclerView.Adapter<DisplayInstrAdapte
 
         void bind(final int position){
             ordinal.setText(String.valueOf(position+1));
-            stepInstr.setText(display_instr.get(position));
+            stepInstr.setText(displayInstr.get(position));
         }
     }
 }

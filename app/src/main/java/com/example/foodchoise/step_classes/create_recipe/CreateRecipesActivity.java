@@ -21,7 +21,7 @@ public class CreateRecipesActivity extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recipe_creation_activity);
+        setContentView(R.layout.activity_recipe_creation);
         StepFragmentsAdapter adapter = new StepFragmentsAdapter(getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);

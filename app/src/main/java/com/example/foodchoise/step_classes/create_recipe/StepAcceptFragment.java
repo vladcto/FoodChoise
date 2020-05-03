@@ -18,7 +18,7 @@ public class StepAcceptFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.step_accept_recipes_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_step_accept_recipes, container, false);
         Button button = view.findViewById(R.id.accept_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

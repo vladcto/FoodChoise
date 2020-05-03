@@ -19,7 +19,7 @@ import java.util.Collections;
 import timber.log.Timber;
 
 public class StepInstrIngridientAdapter extends RecyclerView.Adapter<StepInstrIngridientAdapter.ItemInstrIngridientViewHolder> implements ItemTouchHelperAdapter {
-    ArrayList<String> step_instr_ingridients = new ArrayList<String>();
+    ArrayList<String> stepInstrIngridients = new ArrayList<String>();
 
     public StepInstrIngridientAdapter() { }
 
@@ -38,11 +38,11 @@ public class StepInstrIngridientAdapter extends RecyclerView.Adapter<StepInstrIn
 
     @Override
     public int getItemCount() {
-        return step_instr_ingridients.size();
+        return stepInstrIngridients.size();
     }
 
     public void addItem(){
-        step_instr_ingridients.add("");
+        stepInstrIngridients.add("");
         Timber.i("Добавлена инструкция/ингридиент.");
         notifyDataSetChanged();
     }
@@ -53,26 +53,26 @@ public class StepInstrIngridientAdapter extends RecyclerView.Adapter<StepInstrIn
      * @return ArrayList созданных шагов.
      */
     public ArrayList<String> getInstrIngrid(){
-        return step_instr_ingridients;
+        return stepInstrIngridients;
     }
 
     @Override
     public void onItemDismiss(int position) {
-        step_instr_ingridients.remove(position);
+        stepInstrIngridients.remove(position);
         Timber.i("С позиции %s удален ингр / инстр",position);
         notifyItemRemoved(position);
-        notifyItemRangeChanged(position,step_instr_ingridients.size()-position);
+        notifyItemRangeChanged(position, stepInstrIngridients.size()-position);
     }
 
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
         if (fromPosition < toPosition) {
             for (int i = fromPosition; i < toPosition; i++) {
-                Collections.swap( step_instr_ingridients, i, i + 1);
+                Collections.swap(stepInstrIngridients, i, i + 1);
             }
         } else {
             for (int i = fromPosition; i > toPosition; i--) {
-                Collections.swap( step_instr_ingridients, i, i - 1);
+                Collections.swap(stepInstrIngridients, i, i - 1);
             }
         }
         notifyItemMoved(fromPosition, toPosition);
@@ -107,7 +107,7 @@ public class StepInstrIngridientAdapter extends RecyclerView.Adapter<StepInstrIn
                     //Если изменение вызвано не программой.
                     if(stepInstrIngridient.isFocused()){
                         Timber.d("Изменен текст на позиции %s",position+1);
-                        step_instr_ingridients.set(position,s.toString());
+                        stepInstrIngridients.set(position,s.toString());
                     }
                 }
 
@@ -116,7 +116,7 @@ public class StepInstrIngridientAdapter extends RecyclerView.Adapter<StepInstrIn
             };
             ordinal.setText(String.valueOf(position+1));
             //что-бы при bind не удалялось введенное значение.
-            stepInstrIngridient.setText(step_instr_ingridients.get(position));
+            stepInstrIngridient.setText(stepInstrIngridients.get(position));
             stepInstrIngridient.addTextChangedListener(textWatcher);
         }
     }
