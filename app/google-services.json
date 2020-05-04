@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "748453142459",
+    "firebase_url": "https://food-choice-845fe.firebaseio.com",
+    "project_id": "food-choice-845fe",
+    "storage_bucket": "food-choice-845fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:748453142459:android:0437ce55d91b7fe0b32e9e",
+        "android_client_info": {
+          "package_name": "com.example.foodchoise"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "748453142459-6cncj4fbrt9culo63n8dm8ot3ifv38ld.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.foodchoise",
+            "certificate_hash": "045af0af933d9e3588b18353111cd7f656842704"
+          }
+        },
+        {
+          "client_id": "748453142459-6vgf2ptmthbgm2ulf5a4ghqdc12kt71h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD539-qRwJcbyO7x2rTDP1lFQWX9HT5S5w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "748453142459-6vgf2ptmthbgm2ulf5a4ghqdc12kt71h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
