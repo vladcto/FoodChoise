@@ -1,6 +1,7 @@
 package com.example.foodchoise.auth;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,15 +12,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.foodchoise.MainActivity;
 import com.example.foodchoise.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.BuildConfig;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import timber.log.Timber;
 
 public class AuthActivity extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth mAuth;
@@ -38,40 +38,55 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        //TODO: Зачем это?
+        if (currentUser != null) {
+            Log.d("auth", "debug+" + currentUser.getEmail());
+            final boolean[] success = {true};
+            currentUser.reload().addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(Exception e) {
+                    success[0] = false;
+                    String exc = e.getStackTrace().toString();
+                    Log.e("FireBaseUser", exc);
+                    mAuth.signOut();
+                }
+            });
+
+            if (success[0]) {
+                startMainActivity();
+            }
+        }
+
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (currentUser != null) {
-                    if (BuildConfig.DEBUG) {
-                        Log.i("auth","Signed in: " + currentUser.getUid());
-                    }
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    Log.i("auth", "Signed in: " + user.getEmail());
                 } else {
-                    if (BuildConfig.DEBUG) {
-                        Log.i("auth","Signed out.");
-                    }
+                    Log.i("auth", "Signed out.");
                 }
             }
         };
-
-        Button button ;
+        mAuth.addAuthStateListener(mAuthListener);
+        Button button;
         button = findViewById(R.id.registration);
         button.setOnClickListener(this);
         button = findViewById(R.id.signIn);
         button.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
         String email = this.email.getText().toString();
         String password = this.password.getText().toString();
-        Log.i("auth","Email: "+ email);
-        Log.i("auth","Password: "+ password);
+        Log.i("auth", "Email: " + email);
+        Log.i("auth", "Password: " + password);
         if (v.getId() == R.id.signIn) {
-            signIn(email,password);
+            signIn(email, password);
 
         } else if (v.getId() == R.id.registration) {
-            registration(email,password);
+            registration(email, password);
 
         } else {
             throw new IllegalStateException("Unexpected value: " + v.getId());
@@ -84,6 +99,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(AuthActivity.this, "+", Toast.LENGTH_LONG).show();
+                    startMainActivity();
                 } else {
                     Toast.makeText(AuthActivity.this, "-", Toast.LENGTH_LONG).show();
                 }
@@ -102,5 +118,11 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
+    }
+
+    private void startMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
