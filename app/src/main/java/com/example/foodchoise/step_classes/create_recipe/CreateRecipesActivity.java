@@ -4,13 +4,16 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.foodchoise.R;
 import com.example.foodchoise.entity_classes.RecipeCard;
+import com.example.foodchoise.helperFirebase.storage.StorageFirebaseHelper;
 import com.example.foodchoise.main_fragments.ReciepsFragment;
+import com.google.android.gms.tasks.OnFailureListener;
 
 import java.util.ArrayList;
 
@@ -49,6 +52,16 @@ public class CreateRecipesActivity extends AppCompatActivity {
             return;
         }
         Timber.i("image_uri = %s" , image_uri.toString());
+        StorageFirebaseHelper storageFirebaseHelper = StorageFirebaseHelper.getInstance();
+        //TODO: Добавить уникальный модфикатор для файлов, при помощи push датабазы.
+        storageFirebaseHelper.uploadFile(StorageFirebaseHelper.RECIPES_MAIN_PHOTO + StorageFirebaseHelper.TEST,image_uri)
+                .addOnFailureListener(new OnFailureListener() {
+                                          @Override
+                                          public void onFailure(@NonNull Exception e) {
+                                              Timber.i(e.getStackTrace().toString());
+                                          }
+                                      }
+                );
 
         String dishes_name = stepNameFragment.getTextNameDishes().trim();
         //TODO: Сделать ограничение по символам.

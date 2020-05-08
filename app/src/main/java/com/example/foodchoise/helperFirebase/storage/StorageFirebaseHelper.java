@@ -14,7 +14,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.io.InputStream;
 
-class StorageFirebaseHelper {
+public class StorageFirebaseHelper {
     //region Singleton
     private static StorageFirebaseHelper storageFirebaseHelper;
 
@@ -22,7 +22,7 @@ class StorageFirebaseHelper {
         firebaseStorage = FirebaseStorage.getInstance();
     }
 
-    public StorageFirebaseHelper getInstance() {
+    public static StorageFirebaseHelper getInstance() {
         if (storageFirebaseHelper == null) {
             storageFirebaseHelper = new StorageFirebaseHelper();
         }
@@ -31,7 +31,8 @@ class StorageFirebaseHelper {
     //endregion
 
     //region public_const
-    private static final String RECIPES_MAIN_PHOTO = "/recipes_main_photo/";
+    public static final String RECIPES_MAIN_PHOTO = "recipes_main_photo/";
+    public static final String TEST = "test";
     //TODO: Сделать для UploadTask свой слушатель-константу.
     //TODO: Сделать для прогресс Listener.
     //endregion
@@ -40,33 +41,33 @@ class StorageFirebaseHelper {
     FirebaseStorage firebaseStorage;
 
     public UploadTask uploadFile(String fullPathUpload, Uri fileUri) {
-        StorageReference reference = firebaseStorage.getReference(fullPathUpload);
+        StorageReference reference = firebaseStorage.getReference().child(fullPathUpload);
         return reference.putFile(fileUri);
     }
 
     public UploadTask uploadFile(String fullPathUpload, byte[] bytes) {
-        StorageReference reference = firebaseStorage.getReference(fullPathUpload);
+        StorageReference reference = firebaseStorage.getReference().child(fullPathUpload);
         return reference.putBytes(bytes);
     }
 
     public UploadTask uploadFile(String fullPathUpload, InputStream inputStream) {
-        StorageReference reference = firebaseStorage.getReference(fullPathUpload);
+        StorageReference reference = firebaseStorage.getReference().child(fullPathUpload);
         return reference.putStream(inputStream);
     }
 
 
     public Task<byte[]> downloadByte(String fullPathDownload) {
-        StorageReference reference = firebaseStorage.getReference(fullPathDownload);
+        StorageReference reference = firebaseStorage.getReference().child(fullPathDownload);
         return reference.getBytes(TWO_MEGABYTE);
     }
 
     public FileDownloadTask downloadFileToLocal(String fullPathDownload, String pathInLocal) {
-        StorageReference reference = firebaseStorage.getReference(fullPathDownload);
+        StorageReference reference = firebaseStorage.getReference().child(fullPathDownload);
         return reference.getFile(new File(pathInLocal));
     }
 
     public void downloadPhotoInImageView(String fullPathDownload, ImageView imageView, Context context) {
-        StorageReference reference = firebaseStorage.getReference(fullPathDownload);
+        StorageReference reference = firebaseStorage.getReference().child(fullPathDownload);
         Glide.with(context)
                 .load(reference)
                 .into(imageView);
