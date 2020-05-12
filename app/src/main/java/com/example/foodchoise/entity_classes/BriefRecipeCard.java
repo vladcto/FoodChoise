@@ -10,8 +10,9 @@ import android.os.Parcelable;
 public class BriefRecipeCard implements Parcelable {
     protected Uri uriDishesImage;
     protected String dishesName;
-    protected int dishesTastyRating;
-    protected int dishesComplexityRating;
+    protected long dishesTastyRating;
+    protected long dishesComplexityRating;
+    protected String ID;
 
     //region getter's
     public Uri getUriDishesImage() {
@@ -22,12 +23,16 @@ public class BriefRecipeCard implements Parcelable {
         return dishesName;
     }
 
-    public int getDishesTastyRating() {
+    public long getDishesTastyRating() {
         return dishesTastyRating;
     }
 
-    public int getDishesComplexityRating() {
+    public long getDishesComplexityRating() {
         return dishesComplexityRating;
+    }
+
+    public String getID(){
+        return ID;
     }
     //endregion
 
@@ -38,7 +43,7 @@ public class BriefRecipeCard implements Parcelable {
         dishesComplexityRating = 0;
     }
 
-    public BriefRecipeCard(Uri uriDishesImage, String dishesName, int dishesTastyRating, int dishesComplexityRating) {
+    public BriefRecipeCard(Uri uriDishesImage, String dishesName, long dishesTastyRating, long dishesComplexityRating) {
         this.uriDishesImage = uriDishesImage;
         this.dishesName = dishesName;
         this.dishesTastyRating = dishesTastyRating;
@@ -51,8 +56,9 @@ public class BriefRecipeCard implements Parcelable {
     protected BriefRecipeCard(Parcel in) {
         uriDishesImage = Uri.parse(in.readString());
         dishesName = in.readString();
-        dishesTastyRating = in.readInt();
-        dishesComplexityRating = in.readInt();
+        dishesTastyRating = in.readLong();
+        dishesComplexityRating = in.readLong();
+        ID = in.readString();
     }
 
     public static final Creator<BriefRecipeCard> CREATOR = new Creator<BriefRecipeCard>() {
@@ -77,9 +83,13 @@ public class BriefRecipeCard implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(uriDishesImage.toString());
         dest.writeString(dishesName);
-        dest.writeInt(dishesTastyRating);
-        dest.writeInt(dishesComplexityRating);
+        dest.writeLong(dishesTastyRating);
+        dest.writeLong(dishesComplexityRating);
+        dest.writeString(ID);
     }
     //endregion
 
+    public void addId(String ID){
+        this.ID = ID;
+    }
 }

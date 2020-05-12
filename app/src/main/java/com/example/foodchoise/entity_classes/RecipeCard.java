@@ -10,7 +10,6 @@ public class RecipeCard extends BriefRecipeCard  implements Parcelable {
     private String dishesDescr;
     private ArrayList<String> dishesIngridient = new ArrayList<String>();
     private ArrayList<String> dishesInstr = new ArrayList<String>();
-
     //region getter's
     public String getDishesDescription(){
         return dishesDescr;
@@ -23,11 +22,12 @@ public class RecipeCard extends BriefRecipeCard  implements Parcelable {
     public ArrayList<String> getDishesInstruction(){
         return dishesInstr;
     }
+
     //endregion
 
     //region Конструкторы
 
-    public RecipeCard(Uri uri_dishes_image, String dishes_name, int dishes_tasty_rating, int dishes_complexity_rating, String dishesDescr, ArrayList<String> dishesIngridient, ArrayList<String> dishesInstr) {
+    public RecipeCard(Uri uri_dishes_image, String dishes_name, long dishes_tasty_rating, long dishes_complexity_rating, String dishesDescr, ArrayList<String> dishesIngridient, ArrayList<String> dishesInstr) {
         super(uri_dishes_image, dishes_name, dishes_tasty_rating, dishes_complexity_rating);
         this.dishesDescr = dishesDescr;
         this.dishesIngridient = dishesIngridient;
@@ -41,7 +41,7 @@ public class RecipeCard extends BriefRecipeCard  implements Parcelable {
         this.dishesInstr = dishesInstr;
     }
 
-//endregion Конструкторы
+    //endregion Конструкторы
 
     //region Реализация Parcelable
 
