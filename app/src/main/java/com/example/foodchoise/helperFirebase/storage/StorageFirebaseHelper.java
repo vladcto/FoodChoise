@@ -1,15 +1,20 @@
 package com.example.foodchoise.helperFirebase.storage;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.InputStream;
@@ -66,11 +71,23 @@ public class StorageFirebaseHelper {
         return reference.getFile(new File(pathInLocal));
     }
 
-    public void downloadPhotoInImageView(String fullPathDownload, ImageView imageView, Context context) {
+    public void downloadPhotoInImageView(String fullPathDownload, final ImageView imageView, final Activity activity) {
         StorageReference reference = firebaseStorage.getReference().child(fullPathDownload);
-        Glide.with(context)
-                .load(reference)
-                .into(imageView);
+
+        reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                // Got the download URL for 'users/me/profile.png'
+                // Pass it to Picasso to download, show in ImageView and caching
+                Picasso picasso = new Picasso.Builder(activity).build();
+                picasso.load(uri).into(imageView);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+            }
+        });
     }
 
 
