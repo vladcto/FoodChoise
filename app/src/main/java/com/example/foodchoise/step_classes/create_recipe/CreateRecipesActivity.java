@@ -110,7 +110,7 @@ public class CreateRecipesActivity extends AppCompatActivity {
 
         //endregion
 
-        RecipeCard recipeCard = new RecipeCard(image_uri, dishes_name, dishes_descr, dishes_ingridients, dishes_instructions);
+        final RecipeCard recipeCard = new RecipeCard(image_uri, dishes_name, dishes_descr, dishes_ingridients, dishes_instructions);
 
         final StorageFirebaseHelper storageFirebaseHelper = StorageFirebaseHelper.getInstance();
         FirestoreHelper firestoreHelper = FirestoreHelper.getInstance();
@@ -129,6 +129,7 @@ public class CreateRecipesActivity extends AppCompatActivity {
                         Timber.d(e.getStackTrace().toString());
                     }
                 });
+                recipeCard.addId(id);
             }
         });
         Timber.i("RecipeCard успешно создана");
