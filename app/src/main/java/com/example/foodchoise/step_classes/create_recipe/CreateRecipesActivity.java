@@ -15,6 +15,9 @@ import com.example.foodchoise.helperFirebase.database.FirestoreHelper;
 import com.example.foodchoise.helperFirebase.storage.StorageFirebaseHelper;
 import com.example.foodchoise.main_fragments.ReciepsFragment;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 
@@ -46,7 +49,7 @@ public class CreateRecipesActivity extends AppCompatActivity {
         //region Проверка заполнненых данных под RecipeCard.
 
         //region StepNameFragment
-        Uri image_uri = stepNameFragment.getImageUri();
+        final Uri image_uri = stepNameFragment.getImageUri();
         if (image_uri == null) {
             Timber.i("Нет ссылки на изображения для image_uri");
             viewPager.setCurrentItem(0);
@@ -109,20 +112,26 @@ public class CreateRecipesActivity extends AppCompatActivity {
 
         RecipeCard recipeCard = new RecipeCard(image_uri, dishes_name, dishes_descr, dishes_ingridients, dishes_instructions);
 
-        StorageFirebaseHelper storageFirebaseHelper = StorageFirebaseHelper.getInstance();
-        //TODO: Добавить уникальный модфикатор для файлов, при помощи push датабазы.
-        storageFirebaseHelper.uploadFile(StorageFirebaseHelper.RECIPES_MAIN_PHOTO + StorageFirebaseHelper.TEST, image_uri)
-                .addOnFailureListener(new OnFailureListener() {
-                                          @Override
-                                          public void onFailure(@NonNull Exception e) {
-                                              Timber.i(e.getStackTrace().toString());
-                                          }
-                                      }
-                );
+        final StorageFirebaseHelper storageFirebaseHelper = StorageFirebaseHelper.getInstance();
         FirestoreHelper firestoreHelper = FirestoreHelper.getInstance();
-        firestoreHelper.addRecipeCard(recipeCard);
-
-        Timber.i("BriefRecipeCard успешно создана");
+        //TODO: Сложно читать, отрефакторить код.
+        firestoreHelper.addRecipeCard(recipeCard).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Timber.d("Рецепт успешно загружен.");
+                Timber.d(documentReference.getId());
+                String id = documentReference.getId();
+                //TODO: Сделать main_photo константой
+                storageFirebaseHelper.uploadFile(StorageFirebaseHelper.RECIPES_MAIN_PHOTO+"/"+id+"/main_photo",
+                        image_uri).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Timber.d(e.getStackTrace().toString());
+                    }
+                });
+            }
+        });
+        Timber.i("RecipeCard успешно создана");
         Intent data = new Intent();
         //TODO: Отрефакторить все соотв. на RecipeCard.
         data.putExtra(ReciepsFragment.BRIEFCARD_DATA, recipeCard);
