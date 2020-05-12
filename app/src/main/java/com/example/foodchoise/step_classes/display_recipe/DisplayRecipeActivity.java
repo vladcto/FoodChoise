@@ -27,5 +27,10 @@ public class DisplayRecipeActivity extends AppCompatActivity {
     public RecipeCard getRecipeCard() {
         return recipeCard;
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }
 

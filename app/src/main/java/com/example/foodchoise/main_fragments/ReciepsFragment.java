@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,7 +22,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodchoise.R;
+import com.google.firebase.storage.FirebaseStorage;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
@@ -47,25 +50,31 @@ public class ReciepsFragment extends Fragment {
                 startActivityForResult(intent,REQUEST_ACCESS_TYPE);
             }
         });
-        final FirestoreHelper firestoreHelper = FirestoreHelper.getInstance();
-        //TODO: ГРЕБАННЫЙ КОСТЫЛЬ, ПОТОК ИЛИ ТАСК АСИНХРОННЫЙ.
-        @SuppressLint("StaticFieldLeak") AsyncTask task = new AsyncTask() {
-            @Override
-            protected Object doInBackground(Object[] objects) {
-                final List<RecipeCard> recipeCards = firestoreHelper.getRecipesCard();
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        adapter.addRecipesCard(recipeCards);
-                    }
-                });
-                return null;
-            }
-        };
-        task.execute(new Object());
+
+        new MyTask(adapter).execute();
         return view;
     }
 
+    private static class MyTask extends AsyncTask<Void, Void, List<RecipeCard>> {
+
+        private WeakReference<BriefRecipeCardAdapter> mAdapter;
+
+        // only retain a weak reference to the activity
+        MyTask(BriefRecipeCardAdapter adapter) {
+            mAdapter = new WeakReference<>(adapter);
+        }
+
+        @Override
+        protected List<RecipeCard> doInBackground(Void... params) {
+            FirestoreHelper firestoreHelper = FirestoreHelper.getInstance();
+            return firestoreHelper.getRecipesCard();
+        }
+
+        @Override
+        protected void onPostExecute(List<RecipeCard> result) {
+            mAdapter.get().addRecipesCard(result);
+        }
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){

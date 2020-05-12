@@ -31,7 +31,6 @@ public class DisplayNameFragment extends Fragment {
 
         ImageView imageView = view.findViewById(R.id.recipe_image);
         StorageFirebaseHelper storageFirebaseHelper  = StorageFirebaseHelper.getInstance();
-        Log.i("sdf",recipeCard.getID());
         storageFirebaseHelper.downloadPhotoInImageView(StorageFirebaseHelper.RECIPES_MAIN_PHOTO+"/"+recipeCard.getID()+"/main_photo",
                 imageView,
                 activity);

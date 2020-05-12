@@ -3,6 +3,7 @@ package com.example.foodchoise.step_classes.create_recipe;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -138,5 +139,11 @@ public class CreateRecipesActivity extends AppCompatActivity {
         data.putExtra(ReciepsFragment.BRIEFCARD_DATA, recipeCard);
         setResult(RESULT_OK, data);
         finish();
+    }
+    @Override
+    public void onBackPressed() {
+        ImageView imageView = findViewById(R.id.dishes_image);
+        imageView.destroyDrawingCache();
+        this.finish();
     }
 }

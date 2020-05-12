@@ -79,8 +79,7 @@ public class StorageFirebaseHelper {
             public void onSuccess(Uri uri) {
                 // Got the download URL for 'users/me/profile.png'
                 // Pass it to Picasso to download, show in ImageView and caching
-                Picasso picasso = new Picasso.Builder(activity).build();
-                picasso.load(uri).into(imageView);
+                Picasso.get().load(uri).into(imageView);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
