@@ -45,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
 
         selectedFragment = new ReciepsFragment();
 
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                selectedFragment).commit();
+        navigationView.setCheckedItem(R.id.recipes_menu);
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
