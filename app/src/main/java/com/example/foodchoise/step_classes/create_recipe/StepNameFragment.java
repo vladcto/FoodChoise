@@ -70,12 +70,12 @@ public class StepNameFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Вызываем стандартную галерею для выбора изображения с помощью Intent.ACTION_PICK:
-                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
                 //Тип получаемых объектов - image:
                 photoPickerIntent.setType("image/*");
                 //Запускаем переход с ожиданием обратного результата в виде информации об изображении:
                 Timber.i("Запуск галереи для получения изображения");
-                startActivityForResult(photoPickerIntent, CARDIMAGE_REQUEST);
+                startActivityForResult(Intent.createChooser(photoPickerIntent, "Выбор изображения"), CARDIMAGE_REQUEST);
             }
         });
     }
