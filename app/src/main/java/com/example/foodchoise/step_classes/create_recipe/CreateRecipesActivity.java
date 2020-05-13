@@ -142,8 +142,6 @@ public class CreateRecipesActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        ImageView imageView = findViewById(R.id.dishes_image);
-        imageView.destroyDrawingCache();
         this.finish();
     }
 }

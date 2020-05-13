@@ -80,10 +80,7 @@ public class ReciepsFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         if(requestCode==REQUEST_ACCESS_TYPE){
             if(resultCode==RESULT_OK){
-                RecipeCard recipeCard = data.getParcelableExtra(BRIEFCARD_DATA);
-                RecyclerView recyclerView = getActivity().findViewById(R.id.recyclerView);
-                BriefRecipeCardAdapter adapter =(BriefRecipeCardAdapter) recyclerView.getAdapter();
-                adapter.addRecipeCard(recipeCard);
+
             }
         }
     }
