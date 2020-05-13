@@ -19,8 +19,6 @@ public class FirestoreHelper extends FirestoreHelperBasic {
     //region Singleton
     private static FirestoreHelper firestoreHelper;
 
-    private FirestoreHelper() {super();}
-
     public static FirestoreHelper getInstance() {
         if (firestoreHelper == null) {
             firestoreHelper = new FirestoreHelper();
@@ -28,6 +26,13 @@ public class FirestoreHelper extends FirestoreHelperBasic {
         return firestoreHelper;
     }
     //endregion
+
+    private FirestoreHelperIntegration firestoreHelperIntegration;
+
+    private FirestoreHelper() {
+        super();
+        firestoreHelperIntegration = new FirestoreHelperIntegration();
+    }
 
 
     //region public_const
@@ -40,13 +45,13 @@ public class FirestoreHelper extends FirestoreHelperBasic {
     public Task<DocumentReference> addRecipeCard(RecipeCard recipeCard) {
         CollectionReference recipesCollection = db.collection(COLLECTION_RECIPES);
 
-        Map<String, Object> recipeData = FirestoreHelperIntegration.createMapFromRecipeCard(recipeCard);
+        Map<String, Object> recipeData = firestoreHelperIntegration.createMapFromRecipeCard(recipeCard);
 
         return recipesCollection.add(recipeData);
     }
 
-    public List<RecipeCard> getRecipesCard(){
-        List<Map<String,Object>> maps = super.getMapDocumentsInCollection(COLLECTION_RECIPES);
-        return FirestoreHelperIntegration.createRecipeCardsFromMaps(maps);
+    public List<RecipeCard> getRecipesCard() {
+        List<Map<String, Object>> maps = super.getMapDocumentsInCollection(COLLECTION_RECIPES);
+        return firestoreHelperIntegration.createRecipeCardsFromMaps(maps);
     }
 }

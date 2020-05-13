@@ -30,7 +30,7 @@ import timber.log.Timber;
 
 class FirestoreHelperBasic {
 
-    protected FirestoreHelperBasic() {
+    FirestoreHelperBasic() {
         db = FirebaseFirestore.getInstance();
     }
 

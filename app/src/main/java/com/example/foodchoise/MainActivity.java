@@ -19,7 +19,6 @@ import com.google.android.material.navigation.NavigationView;
 import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
-    Fragment selectedFragment = null;
     private Toolbar toolbar;
     NavigationView navigationView;
     //TODO: ЧТО ЭТО ДЕЛАЕТ??
@@ -29,10 +28,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(BuildConfig.DEBUG){
-            Timber.plant(new Timber.DebugTree());
-        }
-
         setContentView(R.layout.activity_main);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -41,17 +36,20 @@ public class MainActivity extends AppCompatActivity {
                 this, drawerLayout, toolbar, R.string.text, R.string.text);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        setSupportActionBar(toolbar);
 
-        selectedFragment = new ReciepsFragment();
-
+        //Загружаю страницу по умолчанию
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                selectedFragment).commit();
+                new ReciepsFragment()).commit();
         navigationView.setCheckedItem(R.id.recipes_menu);
+        MenuItem menuItem = navigationView.getCheckedItem();
+        toolbar.setTitle(menuItem.getTitle());
+
+        setSupportActionBar(toolbar);
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                Fragment selectedFragment = getSelectedFragment();
                 //TODO: Профиль может быть статичным, быть может, не надо каждый раз создавать новый.
                 switch (menuItem.getItemId()){
                     case R.id.fast_choise:
@@ -90,5 +88,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public Fragment getSelectedFragment() {
+        return getSupportFragmentManager().findFragmentById(R.id.fragment_container);
     }
 }

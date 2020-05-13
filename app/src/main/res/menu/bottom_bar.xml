@@ -7,11 +7,10 @@
         android:icon = "@drawable/ic_whatshot_black_24dp"
         android:title="Карточки"
     />
-    <item
-        android:id = "@+id/recipes_menu"
-        android:icon = "@drawable/ic_restaurant_black_24dp"
-        android:title="Рецепты"
-        />
+        <item
+            android:id="@+id/recipes_menu"
+            android:icon="@drawable/ic_restaurant_black_24dp"
+            android:title="@string/menu_recipes" />
     <item
         android:id = "@+id/profile"
         android:icon = "@drawable/ic_person_black_24dp"

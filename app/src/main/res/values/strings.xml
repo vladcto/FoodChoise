@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">FoodChoise</string>
     <string name="text">test</string>
+    <string name="menu_recipes">Рецепты</string>
 </resources>

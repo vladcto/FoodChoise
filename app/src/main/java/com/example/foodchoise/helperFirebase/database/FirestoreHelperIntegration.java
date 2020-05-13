@@ -18,7 +18,7 @@ import java.util.Map;
 //Этот класс нужен ,чтобы FirestoreHelper не занимался созданием рецптов и т.п., а только БД.
 final class FirestoreHelperIntegration {
 
-    static Map<String, Object> createMapFromRecipeCard(RecipeCard recipeCard) {
+    Map<String, Object> createMapFromRecipeCard(RecipeCard recipeCard) {
         Map<String, Object> recipeData = new HashMap<>();
 
         recipeData.put("complexity_rating", recipeCard.getDishesComplexityRating());
@@ -31,7 +31,7 @@ final class FirestoreHelperIntegration {
         return recipeData;
     }
 
-    static List<RecipeCard> createRecipeCardsFromMaps(List<Map<String, Object>> maps){
+    List<RecipeCard> createRecipeCardsFromMaps(List<Map<String, Object>> maps){
         List<RecipeCard> recipeCards = new ArrayList<RecipeCard>();
         for (Map<String,Object> map : maps) {
             recipeCards.add(createRecipeCardFromMap(map));
@@ -39,7 +39,7 @@ final class FirestoreHelperIntegration {
         return recipeCards;
     }
 
-    private static RecipeCard createRecipeCardFromMap(Map<String, Object> map){
+    private RecipeCard createRecipeCardFromMap(Map<String, Object> map){
         //TODO: Проверка на то, что такого ключа нет.
         String dishes_descr = (String)map.get("dishes_descr");
         long complexity_rating = (long)map.get("complexity_rating");

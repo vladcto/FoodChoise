@@ -18,13 +18,16 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.InputStream;
+import java.lang.ref.WeakReference;
 
 public class StorageFirebaseHelper {
     //region Singleton
     private static StorageFirebaseHelper storageFirebaseHelper;
+    private WeakReference<Picasso> picasso;
 
     private StorageFirebaseHelper() {
         firebaseStorage = FirebaseStorage.getInstance();
+        picasso = new WeakReference<>(Picasso.get());
     }
 
     public static StorageFirebaseHelper getInstance() {
@@ -77,9 +80,7 @@ public class StorageFirebaseHelper {
         reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                // Got the download URL for 'users/me/profile.png'
-                // Pass it to Picasso to download, show in ImageView and caching
-                Picasso.get().load(uri).into(imageView);
+                picasso.get().load(uri).into(imageView);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

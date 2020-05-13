@@ -16,6 +16,7 @@ import com.example.foodchoise.helperFirebase.database.FirestoreHelper;
 import com.example.foodchoise.helperFirebase.storage.StorageFirebaseHelper;
 import com.example.foodchoise.step_classes.display_recipe.DisplayRecipeActivity;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,10 +25,10 @@ import timber.log.Timber;
 public class BriefRecipeCardAdapter extends RecyclerView.Adapter<BriefRecipeCardAdapter.BriefRecipeCardViewHolder> {
     static public String RECIPECARD_DATA = "RECIPECARD_DATA";
     private ArrayList<RecipeCard> recipeCards = new ArrayList<RecipeCard>();
-    private Activity activity;
+    private WeakReference<Activity> activity;
 
     public BriefRecipeCardAdapter( Activity activity){
-        this.activity = activity;
+        this.activity = new WeakReference<>(activity);
     }
 
     @NonNull
@@ -46,12 +47,6 @@ public class BriefRecipeCardAdapter extends RecyclerView.Adapter<BriefRecipeCard
     @Override
     public int getItemCount() {
         return recipeCards.size();
-    }
-
-    public void addRecipeCard(RecipeCard card){
-        recipeCards.add(card);
-        Timber.i("BriefRecipeCard добавлена в Adapter");
-        notifyDataSetChanged();
     }
 
     public void addRecipesCard(List<RecipeCard> recipeCards){
@@ -73,26 +68,27 @@ public class BriefRecipeCardAdapter extends RecyclerView.Adapter<BriefRecipeCard
         }
 
         public void bind(final RecipeCard recipeCard){
-            dishesImage.setImageURI(recipeCard.getUriDishesImage());
             dishesName.setText(recipeCard.getDishesName());
             dishesTastyRating.setText(String.valueOf(recipeCard.getDishesTastyRating()));
             dishesComplexityRating.setText(String.valueOf(recipeCard.getDishesComplexityRating()));
             //TODO: убрать этот BriefRecipeCard, если так будет не рабоатть.
-            dishesImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(activity, DisplayRecipeActivity.class);
-                    intent.putExtra(RECIPECARD_DATA,recipeCard);
-                    activity.startActivity(intent);
-                }
-            });
+            if(!dishesImage.hasOnClickListeners()) {
+                dishesImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(activity.get(), DisplayRecipeActivity.class);
+                        intent.putExtra(RECIPECARD_DATA, recipeCard);
+                        activity.get().startActivity(intent);
+                    }
+                });
+            }
 
             //TODO: Подумать над логикой этой части.
 
             StorageFirebaseHelper storageFirebaseHelper = StorageFirebaseHelper.getInstance();
             storageFirebaseHelper.downloadPhotoInImageView(StorageFirebaseHelper.RECIPES_MAIN_PHOTO+"/"+recipeCard.getID()+"/main_photo",
                     dishesImage,
-                    activity);
+                    activity.get());
         }
     }
 }
