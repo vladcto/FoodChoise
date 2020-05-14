@@ -111,7 +111,7 @@ public class CreateRecipesActivity extends AppCompatActivity {
 
         //endregion
 
-        final RecipeCard recipeCard = new RecipeCard(null, dishes_name, dishes_descr, dishes_ingridients, dishes_instructions);
+        final RecipeCard recipeCard = new RecipeCard(image_uri, dishes_name, dishes_descr, dishes_ingridients, dishes_instructions);
 
         final StorageFirebaseHelper storageFirebaseHelper = StorageFirebaseHelper.getInstance();
         FirestoreHelper firestoreHelper = FirestoreHelper.getInstance();

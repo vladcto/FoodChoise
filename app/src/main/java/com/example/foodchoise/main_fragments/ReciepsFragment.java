@@ -55,7 +55,9 @@ public class ReciepsFragment extends Fragment {
             }
         });
 
-        new MyTask(adapter).execute();
+        MyTask myTask = new MyTask(adapter);
+        AppWatcher.INSTANCE.getObjectWatcher().watch(adapter,"MyTask was detached");
+        myTask.execute();
         return view;
     }
 

@@ -15,6 +15,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.foodchoise.R;
+import com.yalantis.ucrop.UCrop;
+
+import java.io.File;
 
 import timber.log.Timber;
 
@@ -55,27 +58,22 @@ public class StepNameFragment extends Fragment {
 
         if (imageUri != null) {
             ImageButton imageButton = view.findViewById(R.id.select_foto_imagebutton);
-            Timber.d("Ставим в изображение URI: %s",imageUri);
+            Timber.d("Ставим в изображение URI: %s", imageUri);
             imageButton.setImageURI(imageUri);
         }
         return view;
     }
 
+    Activity activity;
     @Override
     public void onStart() {
         super.onStart();
-        Activity activity = getActivity();
+        activity = getActivity();
         ImageButton imageButton = activity.findViewById(R.id.select_foto_imagebutton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Вызываем стандартную галерею для выбора изображения с помощью Intent.ACTION_PICK:
-                Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                //Тип получаемых объектов - image:
-                photoPickerIntent.setType("image/*");
-                //Запускаем переход с ожиданием обратного результата в виде информации об изображении:
-                Timber.i("Запуск галереи для получения изображения");
-                startActivityForResult(Intent.createChooser(photoPickerIntent, "Выбор изображения"), CARDIMAGE_REQUEST);
+                openGallery();
             }
         });
     }
@@ -84,19 +82,21 @@ public class StepNameFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
 
-        switch (requestCode) {
-            //Запрос изображения.
-            case CARDIMAGE_REQUEST:
-                if (resultCode == RESULT_OK) {
-                    //Получаем URI изображения, преобразуем его в Bitmap
-                    //объект и отображаем в элементе ImageView нашего интерфейса:
-                    imageUri = imageReturnedIntent.getData();
-                    Timber.i("Получено изображение");
-                    Timber.d("URI Изображения: %s",imageUri);
-                    ImageButton button = (ImageButton) getActivity().findViewById(R.id.select_foto_imagebutton);
-                    button.setImageURI(imageUri);
-                }
-                break;
+        if (requestCode == CARDIMAGE_REQUEST && resultCode == RESULT_OK) {
+            //Получаем URI изображения, преобразуем его в Bitmap
+            //объект и отображаем в элементе ImageView нашего интерфейса:
+            imageUri = imageReturnedIntent.getData();
+            Timber.i("Получено изображение");
+            Timber.d("URI Изображения: %s", imageUri);
+            File file = getMainImageFile();
+            Uri destinationUri = Uri.fromFile(file);
+            UCrop.of(imageUri, destinationUri)
+                    .withAspectRatio(1f, 1f)
+                    .start(getActivity(),this);
+        } else if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
+            imageUri = UCrop.getOutput(imageReturnedIntent);
+            ImageButton button = (ImageButton) getActivity().findViewById(R.id.select_foto_imagebutton);
+            button.setImageURI(imageUri);
         }
     }
 
@@ -112,5 +112,24 @@ public class StepNameFragment extends Fragment {
         textDescrDishes = text.getText().toString();
     }
 
+    private void openCamera() {
 
+    }
+
+    private void openGallery() {
+        //Вызываем стандартную галерею для выбора изображения с помощью Intent.ACTION_PICK:
+        Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        //Тип получаемых объектов - image:
+        photoPickerIntent.setType("image/*");
+        //Запускаем переход с ожиданием обратного результата в виде информации об изображении:
+        //TODO: Выбор типов.
+        Timber.i("Запуск галереи для получения изображения");
+        startActivityForResult(Intent.createChooser(photoPickerIntent, "Выбор изображения"), CARDIMAGE_REQUEST);
+    }
+
+    private File getMainImageFile() {
+        File file = new File(activity.getFilesDir(), "main_photo");
+        return file;
+
+    }
 }
