@@ -27,6 +27,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+import leakcanary.AppWatcher;
+import leakcanary.LeakCanary;
+
 import static android.app.Activity.RESULT_OK;
 
 public class ReciepsFragment extends Fragment {
@@ -37,11 +40,12 @@ public class ReciepsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.page_recieps,container,false);
-        final BriefRecipeCardAdapter adapter = new BriefRecipeCardAdapter(getActivity());
+        BriefRecipeCardAdapter adapter = new BriefRecipeCardAdapter(getActivity());
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         final Activity activity = getActivity();
+        AppWatcher.INSTANCE.getObjectWatcher().watch(adapter,"adapter was detached");
         ImageButton button = view.findViewById(R.id.add_recipe_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,5 +89,8 @@ public class ReciepsFragment extends Fragment {
         }
     }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }

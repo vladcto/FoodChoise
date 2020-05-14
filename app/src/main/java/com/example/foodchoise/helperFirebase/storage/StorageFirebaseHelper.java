@@ -27,7 +27,8 @@ public class StorageFirebaseHelper {
 
     private StorageFirebaseHelper() {
         firebaseStorage = FirebaseStorage.getInstance();
-        picasso = new WeakReference<>(Picasso.get());
+        Picasso tmpPicasso = Picasso.get();
+        picasso = new WeakReference<>(tmpPicasso);
     }
 
     public static StorageFirebaseHelper getInstance() {
@@ -80,7 +81,8 @@ public class StorageFirebaseHelper {
         reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                picasso.get().load(uri).into(imageView);
+                //Можно масштабировать разрешение взависимости от разрешения дисплея.
+                picasso.get().load(uri).resize(300,300).into(imageView);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
