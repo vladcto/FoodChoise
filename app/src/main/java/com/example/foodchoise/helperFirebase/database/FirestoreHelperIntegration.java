@@ -1,10 +1,7 @@
 package com.example.foodchoise.helperFirebase.database;
 
-import android.content.ContentResolver;
-import android.content.res.Resources;
 import android.net.Uri;
 
-import com.example.foodchoise.R;
 import com.example.foodchoise.entity_classes.RecipeCard;
 
 import java.util.ArrayList;
@@ -49,7 +46,7 @@ final class FirestoreHelperIntegration {
         long tasty_rating = (long)map.get("tasty_rating");
         //TODO: СДЕЛАТЬ КОСНТРУКТОР.
         Uri uri = Uri.parse("android.resource://com.example.foodchoise/drawable/back.xml");
-        RecipeCard recipeCard = new RecipeCard(uri,name,tasty_rating,complexity_rating,dishes_descr,ingridients,instr);
+        RecipeCard recipeCard = new RecipeCard(name,tasty_rating,complexity_rating,dishes_descr,ingridients,instr);
         recipeCard.addId((String)map.get("id"));
         return recipeCard;
     }

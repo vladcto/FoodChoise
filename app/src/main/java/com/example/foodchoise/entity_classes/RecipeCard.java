@@ -27,15 +27,15 @@ public class RecipeCard extends BriefRecipeCard  implements Parcelable {
 
     //region Конструкторы
 
-    public RecipeCard(Uri uri_dishes_image, String dishes_name, long dishes_tasty_rating, long dishes_complexity_rating, String dishesDescr, ArrayList<String> dishesIngridient, ArrayList<String> dishesInstr) {
-        super(uri_dishes_image, dishes_name, dishes_tasty_rating, dishes_complexity_rating);
+    public RecipeCard(String dishes_name, long dishes_tasty_rating, long dishes_complexity_rating, String dishesDescr, ArrayList<String> dishesIngridient, ArrayList<String> dishesInstr) {
+        super(dishes_name, dishes_tasty_rating, dishes_complexity_rating);
         this.dishesDescr = dishesDescr;
         this.dishesIngridient = dishesIngridient;
         this.dishesInstr = dishesInstr;
     }
 
-    public RecipeCard(Uri uri_dishes_image, String dishes_name, String dishesDescr, ArrayList<String> dishesIngridient, ArrayList<String> dishesInstr) {
-        super(uri_dishes_image, dishes_name);
+    public RecipeCard(String dishes_name, String dishesDescr, ArrayList<String> dishesIngridient, ArrayList<String> dishesInstr) {
+        super(dishes_name);
         this.dishesDescr = dishesDescr;
         this.dishesIngridient = dishesIngridient;
         this.dishesInstr = dishesInstr;

@@ -3,7 +3,6 @@ package com.example.foodchoise.step_classes.create_recipe;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +17,6 @@ import com.example.foodchoise.main_fragments.ReciepsFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 
@@ -111,7 +109,7 @@ public class CreateRecipesActivity extends AppCompatActivity {
 
         //endregion
 
-        final RecipeCard recipeCard = new RecipeCard(image_uri, dishes_name, dishes_descr, dishes_ingridients, dishes_instructions);
+        final RecipeCard recipeCard = new RecipeCard(dishes_name, dishes_descr, dishes_ingridients, dishes_instructions);
 
         final StorageFirebaseHelper storageFirebaseHelper = StorageFirebaseHelper.getInstance();
         FirestoreHelper firestoreHelper = FirestoreHelper.getInstance();

@@ -8,16 +8,10 @@ import android.os.Parcelable;
  * Класс для отображения в RecipesFragment
  */
 public class BriefRecipeCard implements Parcelable {
-    protected Uri uriDishesImage;
     protected String dishesName;
     protected long dishesTastyRating;
     protected long dishesComplexityRating;
     protected String ID;
-
-    //region getter's
-    public Uri getUriDishesImage() {
-        return uriDishesImage;
-    }
 
     public String getDishesName() {
         return dishesName;
@@ -36,15 +30,13 @@ public class BriefRecipeCard implements Parcelable {
     }
     //endregion
 
-    public BriefRecipeCard(Uri uriDishesImage, String dishesName) {
-        this.uriDishesImage = uriDishesImage;
+    public BriefRecipeCard(String dishesName) {
         this.dishesName = dishesName;
         dishesTastyRating = 0;
         dishesComplexityRating = 0;
     }
 
-    public BriefRecipeCard(Uri uriDishesImage, String dishesName, long dishesTastyRating, long dishesComplexityRating) {
-        this.uriDishesImage = uriDishesImage;
+    public BriefRecipeCard(String dishesName, long dishesTastyRating, long dishesComplexityRating) {
         this.dishesName = dishesName;
         this.dishesTastyRating = dishesTastyRating;
         this.dishesComplexityRating = dishesComplexityRating;
@@ -54,7 +46,6 @@ public class BriefRecipeCard implements Parcelable {
 
     //Конструктор для Parcelable
     protected BriefRecipeCard(Parcel in) {
-        uriDishesImage = Uri.parse(in.readString());
         dishesName = in.readString();
         dishesTastyRating = in.readLong();
         dishesComplexityRating = in.readLong();
@@ -81,7 +72,6 @@ public class BriefRecipeCard implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(uriDishesImage.toString());
         dest.writeString(dishesName);
         dest.writeLong(dishesTastyRating);
         dest.writeLong(dishesComplexityRating);
