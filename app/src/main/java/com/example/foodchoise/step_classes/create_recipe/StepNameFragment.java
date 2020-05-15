@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Debug;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,11 +65,10 @@ public class StepNameFragment extends Fragment {
         return view;
     }
 
-    Activity activity;
     @Override
     public void onStart() {
         super.onStart();
-        activity = getActivity();
+        Activity activity = getActivity();
         ImageButton imageButton = activity.findViewById(R.id.select_foto_imagebutton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,20 +83,26 @@ public class StepNameFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
 
         if (requestCode == CARDIMAGE_REQUEST && resultCode == RESULT_OK) {
-            //Получаем URI изображения, преобразуем его в Bitmap
-            //объект и отображаем в элементе ImageView нашего интерфейса:
-            imageUri = imageReturnedIntent.getData();
-            Timber.i("Получено изображение");
-            Timber.d("URI Изображения: %s", imageUri);
+            //Получаем URI изображения, затем запрашиваем его кадрирование.
+            Uri sourceUri = imageReturnedIntent.getData();
+            assert sourceUri != null;
+            Timber.i("Получено изображение из галереи.");
+
             File file = getMainImageFile();
             Uri destinationUri = Uri.fromFile(file);
-            UCrop.of(imageUri, destinationUri)
+            UCrop.of(sourceUri, destinationUri)
                     .withAspectRatio(1f, 1f)
                     .start(getActivity(),this);
+
         } else if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
+            //Получаем URI обрезанного изображения.
             imageUri = UCrop.getOutput(imageReturnedIntent);
+            Timber.d("ImageUri = %s", imageUri.toString());
             ImageButton button = (ImageButton) getActivity().findViewById(R.id.select_foto_imagebutton);
             button.setImageURI(imageUri);
+
+        }else {
+            Timber.w("Не отработан requestCode = %s , resultCode = %s",requestCode,requestCode);
         }
     }
 
@@ -117,6 +123,7 @@ public class StepNameFragment extends Fragment {
     }
 
     private void openGallery() {
+        Timber.v("Выбрана галерея.");
         //Вызываем стандартную галерею для выбора изображения с помощью Intent.ACTION_PICK:
         Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
         //Тип получаемых объектов - image:
@@ -128,8 +135,17 @@ public class StepNameFragment extends Fragment {
     }
 
     private File getMainImageFile() {
-        File file = new File(activity.getFilesDir(), "main_photo");
+        File file = new File(getActivity().getFilesDir(), "main_photo");
         return file;
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //Не знаю, нужно ли обнулять , но лучше обнулю руками, чем получить утечку памяти.
+        imageUri = null;
+        textNameDishes = null;
+        textDescrDishes = null;
     }
 }
