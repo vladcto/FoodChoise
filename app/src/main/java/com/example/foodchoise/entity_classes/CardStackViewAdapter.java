@@ -19,7 +19,7 @@ public class CardStackViewAdapter extends RecyclerView.Adapter<CardStackViewAdap
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_recipe_main, parent, false);
+                .inflate(R.layout.item_recipe_choose, parent, false);
         return new MyViewHolder(view);
     }
 
