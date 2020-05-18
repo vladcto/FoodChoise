@@ -1,20 +1,14 @@
 package com.example.foodchoise.main_fragments;
 
-import com.example.foodchoise.helperFirebase.database.FirestoreHelper;
-import com.example.foodchoise.step_classes.create_recipe.CreateRecipesActivity;
-import com.example.foodchoise.entity_classes.*;
-
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.ImageButton;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -22,13 +16,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodchoise.R;
-import com.google.firebase.storage.FirebaseStorage;
+import com.example.foodchoise.entity_classes.BriefRecipeCardAdapter;
+import com.example.foodchoise.entity_classes.RecipeCard;
+import com.example.foodchoise.helperFirebase.database.FirestoreHelper;
+import com.example.foodchoise.step_classes.create_recipe.CreateRecipesActivity;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
 
 import leakcanary.AppWatcher;
-import leakcanary.LeakCanary;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -78,7 +74,9 @@ public class ReciepsFragment extends Fragment {
 
         @Override
         protected void onPostExecute(List<RecipeCard> result) {
+            //TODO: NPE , есди перейти на другой фрагмент
             mAdapter.get().addRecipesCard(result);
+            mAdapter = null;
         }
     }
 
