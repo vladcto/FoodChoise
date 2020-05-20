@@ -8,17 +8,21 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:colorBackground">@color/white</item>
+        <!--<item name="android:colorBackground">@color/white</item>-->
         <item name="android:textColor">@color/black</item>
-        <item name="android:textColorPrimary">@color/colorAccent</item>
-        <!--TODO: нужно ли это? -->
+        <item name="android:textColorPrimary">@color/black</item>
         <item name="android:windowNoTitle">true</item>
+
+        <item name="myColor">@color/white_pink</item>
     </style>
 
+    <!-- region AppTheme -->
+    <!-- endregion -->
 
     <style name="bottomBar">
         <item name="android:background">@color/colorAccent</item>
     </style>
+
     
     <style name="topBar">
         <item name="android:layout_width">match_parent</item>
