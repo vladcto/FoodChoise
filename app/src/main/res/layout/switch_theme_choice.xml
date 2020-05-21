@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.SwitchCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/switchThemeButton"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:thumb="@drawable/switch_theme_thumb"
+    android:layout_gravity="center"
+    app:track="@drawable/track_switch_theme" />

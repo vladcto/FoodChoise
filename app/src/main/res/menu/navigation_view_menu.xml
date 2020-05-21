@@ -17,10 +17,18 @@
         android:title="Ваш профиль"
         />
 
-        <item
-            android:id="@+id/themes_choice"
-            android:icon="@drawable/themes_icon"
-            android:title="Темы"/>
+    </group>
+
+    <group
+        android:id="@+id/groupTheme"
+        android:checkableBehavior="none">
+        <item xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/navi_item_create_notifications_sound"
+            android:title="Тема"
+            android:enabled="false"
+            app:actionLayout="@layout/switch_theme_choice"
+            app:showAsAction="always" />
+
     </group>
     <!--
     <item android:title="Communicate">
