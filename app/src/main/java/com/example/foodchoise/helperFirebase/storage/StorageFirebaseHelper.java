@@ -1,7 +1,5 @@
 package com.example.foodchoise.helperFirebase.storage;
 
-import android.app.Activity;
-import android.content.Context;
 import android.net.Uri;
 import android.widget.ImageView;
 
@@ -75,7 +73,7 @@ public class StorageFirebaseHelper {
         return reference.getFile(new File(pathInLocal));
     }
 
-    public void downloadPhotoInImageView(String fullPathDownload, final ImageView imageView, final Activity activity) {
+    public void downloadPhotoInImageView(String fullPathDownload, final ImageView imageView) {
         StorageReference reference = firebaseStorage.getReference().child(fullPathDownload);
 
         reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

@@ -22,7 +22,8 @@
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Установите изображения блюда:" />
+                android:text="Установите изображения блюда:"
+                style="@style/container"/>
 
             <com.example.foodchoise.my_palette.SquareImageView
                 android:id="@+id/recipe_image"
@@ -34,24 +35,28 @@
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Назовите блюдо:" />
+                android:text="Назовите блюдо:"
+                style="@style/container"/>
 
             <TextView
                 android:id="@+id/recipe_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="TextView"
+                style="@style/container"/>
 
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Опишите в пару словах блюдо." />
+                android:text="Опишите в пару словах блюдо."
+                style="@style/container"/>
 
             <TextView
                 android:id="@+id/recipe_descr"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                style="@style/container"/>
 
         </LinearLayout>
 

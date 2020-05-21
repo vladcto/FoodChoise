@@ -1,7 +1,6 @@
 package com.example.foodchoise.step_classes.display_recipe;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +14,6 @@ import androidx.fragment.app.Fragment;
 import com.example.foodchoise.R;
 import com.example.foodchoise.entity_classes.RecipeCard;
 import com.example.foodchoise.helperFirebase.storage.StorageFirebaseHelper;
-
-import timber.log.Timber;
 
 public class DisplayNameFragment extends Fragment {
     DisplayRecipeActivity activity;
@@ -32,8 +29,7 @@ public class DisplayNameFragment extends Fragment {
         ImageView imageView = view.findViewById(R.id.recipe_image);
         StorageFirebaseHelper storageFirebaseHelper  = StorageFirebaseHelper.getInstance();
         storageFirebaseHelper.downloadPhotoInImageView(StorageFirebaseHelper.RECIPES_MAIN_PHOTO+"/"+recipeCard.getID()+"/main_photo",
-                imageView,
-                activity);
+                imageView);
 
         TextView textView = view.findViewById(R.id.recipe_name);
         textView.setText(recipeCard.getDishesName());

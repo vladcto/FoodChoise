@@ -13,12 +13,14 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:text="num "
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        style="@style/container"/>
 
     <TextView
         android:id="@+id/display_instruction_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:ems="10" />
+        android:ems="10"
+        style="@style/container"/>
 </LinearLayout>

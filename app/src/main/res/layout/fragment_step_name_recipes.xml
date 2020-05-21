@@ -20,11 +20,13 @@
 
             <TextView
                 android:id="@+id/textView5"
+                style="@style/container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Установите изображения блюда:" />
 
             <com.example.foodchoise.my_palette.SquareButtonView
+                style="@style/container"
                 android:id="@+id/select_foto_imagebutton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,6 +35,7 @@
 
             <TextView
                 android:id="@+id/textView6"
+                style="@style/container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Назовите блюдо:" />
@@ -40,10 +43,12 @@
             <EditText
                 android:id="@+id/edit_name_dishes"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                style="@style/container"/>
 
             <TextView
                 android:id="@+id/textView7"
+                style="@style/container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Опишите в пару словах блюдо." />
@@ -51,7 +56,8 @@
             <EditText
                 android:id="@+id/edit_descr_dishes"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                style="@style/container"/>
 
         </LinearLayout>
 

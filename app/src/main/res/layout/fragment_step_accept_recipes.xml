@@ -12,12 +12,14 @@
         android:id="@+id/textView9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Опубликйте рецепт" />
+        android:text="Опубликйте рецепт"
+        style="@style/container"/>
 
     <Button
         android:id="@+id/accept_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="Button"
+        style="@style/container"/>
 
 </LinearLayout>

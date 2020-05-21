@@ -12,15 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodchoise.R;
-import com.example.foodchoise.helperFirebase.database.FirestoreHelper;
 import com.example.foodchoise.helperFirebase.storage.StorageFirebaseHelper;
 import com.example.foodchoise.step_classes.display_recipe.DisplayRecipeActivity;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
-
-import timber.log.Timber;
 
 public class BriefRecipeCardAdapter extends RecyclerView.Adapter<BriefRecipeCardAdapter.BriefRecipeCardViewHolder> {
     static public String RECIPECARD_DATA = "RECIPECARD_DATA";
@@ -87,8 +84,7 @@ public class BriefRecipeCardAdapter extends RecyclerView.Adapter<BriefRecipeCard
 
             StorageFirebaseHelper storageFirebaseHelper = StorageFirebaseHelper.getInstance();
             storageFirebaseHelper.downloadPhotoInImageView(StorageFirebaseHelper.RECIPES_MAIN_PHOTO+"/"+recipeCard.getID()+"/main_photo",
-                    dishesImage,
-                    activity.get());
+                    dishesImage);
         }
     }
 }
