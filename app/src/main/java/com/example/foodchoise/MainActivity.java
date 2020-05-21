@@ -2,12 +2,10 @@ package com.example.foodchoise;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -16,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.example.foodchoise.main_fragments.CardFragment;
 import com.example.foodchoise.main_fragments.ProfileFragment;
 import com.example.foodchoise.main_fragments.ReciepsFragment;
+import com.example.foodchoise.main_fragments.ThemesFragment;
 import com.example.foodchoise.themeUtil.ThemeController;
 import com.google.android.material.navigation.NavigationView;
 
@@ -39,21 +38,6 @@ public class MainActivity extends AppCompatActivity {
                 this, drawerLayout, toolbar, R.string.text, R.string.text);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        //TODO: Лучше это вывести в настрйоки темы.
-        SwitchCompat switchCompat = navigationView.getHeaderView(0).findViewById(R.id.switchThemeButton);
-        switchCompat.setChecked(ThemeController.getIdThemeNow() == 1);
-        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //TODO: Поменять на isChecked в xml;
-                if(!isChecked){
-                    ThemeController.setLightTheme(getBaseContext());
-                }else{
-                    ThemeController.setDarkTheme(getBaseContext());
-                }
-                recreate();
-            }
-        });
 
         //Загружаю страницу по умолчанию
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -83,6 +67,11 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.profile:
                         if(!(selectedFragment instanceof ProfileFragment)) {
                             selectedFragment = new ProfileFragment();
+                        }
+                        break;
+                    case R.id.themes_choice:
+                        if(!(selectedFragment instanceof ThemesFragment)) {
+                            selectedFragment = new ThemesFragment();
                         }
                         break;
                 }

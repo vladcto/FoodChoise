@@ -16,6 +16,11 @@
         android:icon = "@drawable/ic_person_black_24dp"
         android:title="Ваш профиль"
         />
+
+        <item
+            android:id="@+id/themes_choice"
+            android:icon="@drawable/themes_icon"
+            android:title="Темы"/>
     </group>
     <!--
     <item android:title="Communicate">

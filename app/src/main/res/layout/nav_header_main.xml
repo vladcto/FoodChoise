@@ -23,13 +23,6 @@
             android:layout_height="wrap_content"
             android:paddingTop="2dp"
             app:srcCompat="@mipmap/ic_launcher_round" />
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switchThemeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:thumb="@drawable/switch_theme_thumb"
-            app:track="@drawable/track_switch_theme" />
     </LinearLayout>
 
     <TextView
