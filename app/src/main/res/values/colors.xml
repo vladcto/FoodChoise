@@ -7,4 +7,5 @@
     <color name="black">#000</color>
     <color name="lightCardViewBackground">#FCF8F8</color>
     <color name="darkCardViewBackground">#3C3C3C</color>
+    <color name="transparent">#00000000</color>
 </resources>

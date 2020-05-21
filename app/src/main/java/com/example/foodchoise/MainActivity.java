@@ -2,10 +2,12 @@ package com.example.foodchoise;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -16,7 +18,10 @@ import com.example.foodchoise.main_fragments.ProfileFragment;
 import com.example.foodchoise.main_fragments.ReciepsFragment;
 import com.google.android.material.navigation.NavigationView;
 
+import timber.log.Timber;
+
 public class MainActivity extends AppCompatActivity {
+    private static final String THEME_CODE = "THEME_CODE";
     private Toolbar toolbar;
     NavigationView navigationView;
     //TODO: ЧТО ЭТО ДЕЛАЕТ??
@@ -24,8 +29,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        int defaultTheme = getSharedPreferences("settings",MODE_PRIVATE).getInt(THEME_CODE,0);
+        switch (defaultTheme){
+            case 0 :
+                setTheme(R.style.LightTheme);
+                break;
+            case 1:
+                setTheme(R.style.DarkTheme);
+                break;
+        }
 
+        super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -35,6 +49,23 @@ public class MainActivity extends AppCompatActivity {
                 this, drawerLayout, toolbar, R.string.text, R.string.text);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        //TODO: Лучше это вывести в настрйоки темы.
+        SwitchCompat switchCompat = navigationView.getHeaderView(0).findViewById(R.id.switchThemeButton);
+        switchCompat.setChecked(defaultTheme == 1);
+        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                //TODO: Поменять на isChecked в xml;
+                if(!isChecked){
+                    Timber.i("Устанавливаем светлую тему");
+                    getSharedPreferences("settings",MODE_PRIVATE).edit().putInt(THEME_CODE,0).apply();
+                }else{
+                    Timber.i("Устанавливаем темную тему");
+                    getSharedPreferences("settings",MODE_PRIVATE).edit().putInt(THEME_CODE,1).apply();
+                }
+                recreate();
+            }
+        });
 
         //Загружаю страницу по умолчанию
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,

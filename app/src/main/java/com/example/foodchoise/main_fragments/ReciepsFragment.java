@@ -31,6 +31,7 @@ import static android.app.Activity.RESULT_OK;
 public class ReciepsFragment extends Fragment {
     private static  final int REQUEST_ACCESS_TYPE=1;
     public static final String BRIEFCARD_DATA = "BRIEFCARD_DATA";
+    MyTask myTask;
 
     @Nullable
     @Override
@@ -51,7 +52,7 @@ public class ReciepsFragment extends Fragment {
             }
         });
 
-        MyTask myTask = new MyTask(adapter);
+        myTask = new MyTask(adapter);
         AppWatcher.INSTANCE.getObjectWatcher().watch(adapter,"MyTask was detached");
         myTask.execute();
         return view;
@@ -75,7 +76,10 @@ public class ReciepsFragment extends Fragment {
         @Override
         protected void onPostExecute(List<RecipeCard> result) {
             //TODO: NPE , есди перейти на другой фрагмент
-            mAdapter.get().addRecipesCard(result);
+            //Костыль.
+            if(mAdapter!= null) {
+                mAdapter.get().addRecipesCard(result);
+            }
             mAdapter = null;
         }
     }
@@ -87,6 +91,12 @@ public class ReciepsFragment extends Fragment {
 
             }
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        myTask.cancel(true);
+        super.onDestroyView();
     }
 
     @Override
