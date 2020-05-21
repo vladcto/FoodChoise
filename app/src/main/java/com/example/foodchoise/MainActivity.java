@@ -16,9 +16,8 @@ import androidx.fragment.app.Fragment;
 import com.example.foodchoise.main_fragments.CardFragment;
 import com.example.foodchoise.main_fragments.ProfileFragment;
 import com.example.foodchoise.main_fragments.ReciepsFragment;
+import com.example.foodchoise.themeUtil.ThemeController;
 import com.google.android.material.navigation.NavigationView;
-
-import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
     private static final String THEME_CODE = "THEME_CODE";
@@ -29,16 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        int defaultTheme = getSharedPreferences("settings",MODE_PRIVATE).getInt(THEME_CODE,0);
-        switch (defaultTheme){
-            case 0 :
-                setTheme(R.style.LightTheme);
-                break;
-            case 1:
-                setTheme(R.style.DarkTheme);
-                break;
-        }
-
+        ThemeController.setNowTheme(this);
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
@@ -51,17 +41,15 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
         //TODO: Лучше это вывести в настрйоки темы.
         SwitchCompat switchCompat = navigationView.getHeaderView(0).findViewById(R.id.switchThemeButton);
-        switchCompat.setChecked(defaultTheme == 1);
+        switchCompat.setChecked(ThemeController.getIdThemeNow() == 1);
         switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 //TODO: Поменять на isChecked в xml;
                 if(!isChecked){
-                    Timber.i("Устанавливаем светлую тему");
-                    getSharedPreferences("settings",MODE_PRIVATE).edit().putInt(THEME_CODE,0).apply();
+                    ThemeController.setLightTheme(getBaseContext());
                 }else{
-                    Timber.i("Устанавливаем темную тему");
-                    getSharedPreferences("settings",MODE_PRIVATE).edit().putInt(THEME_CODE,1).apply();
+                    ThemeController.setDarkTheme(getBaseContext());
                 }
                 recreate();
             }

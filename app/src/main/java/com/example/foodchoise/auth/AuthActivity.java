@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.foodchoise.MainActivity;
 import com.example.foodchoise.R;
+import com.example.foodchoise.themeUtil.ThemeController;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -29,6 +30,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
+        ThemeController.setNowTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
 

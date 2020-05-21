@@ -5,6 +5,8 @@ import android.content.Context;
 import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
 
+import com.example.foodchoise.themeUtil.ThemeController;
+
 import timber.log.Timber;
 
 public class MainApplication extends MultiDexApplication {
@@ -22,5 +24,6 @@ public class MainApplication extends MultiDexApplication {
         if(BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         }
+        ThemeController.registerThemeController(getApplicationContext()) ;
     }
 }

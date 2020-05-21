@@ -14,6 +14,7 @@ import com.example.foodchoise.entity_classes.RecipeCard;
 import com.example.foodchoise.helperFirebase.database.FirestoreHelper;
 import com.example.foodchoise.helperFirebase.storage.StorageFirebaseHelper;
 import com.example.foodchoise.main_fragments.ReciepsFragment;
+import com.example.foodchoise.themeUtil.ThemeController;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -26,6 +27,7 @@ public class CreateRecipesActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        ThemeController.setNowTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_creation);
         StepFragmentsAdapter adapter = new StepFragmentsAdapter(getSupportFragmentManager());

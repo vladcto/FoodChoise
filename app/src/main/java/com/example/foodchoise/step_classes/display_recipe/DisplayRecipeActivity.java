@@ -9,12 +9,14 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.foodchoise.R;
 import com.example.foodchoise.entity_classes.BriefRecipeCardAdapter;
 import com.example.foodchoise.entity_classes.RecipeCard;
+import com.example.foodchoise.themeUtil.ThemeController;
 
 public class DisplayRecipeActivity extends AppCompatActivity {
 
     RecipeCard recipeCard ;
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        ThemeController.setNowTheme(this);
         super.onCreate(savedInstanceState);
         recipeCard = getIntent().getParcelableExtra(BriefRecipeCardAdapter.RECIPECARD_DATA);
         setContentView(R.layout.activity_display_recipe);
