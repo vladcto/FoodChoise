@@ -29,4 +29,5 @@ public class StepFragmentsAdapter extends FragmentPagerAdapter implements GetFra
     public int getCount() {
         return 4;
     }
+
 }

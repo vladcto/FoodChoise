@@ -1,65 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
-        style="@style/topBar"
-        android:text="Шаг 1" />
+    <com.example.foodchoise.my_palette.SquareImageView
+        android:id="@+id/recipe_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Установите изображения блюда:"
-                style="@style/container"/>
+            android:orientation="vertical">
 
             <com.example.foodchoise.my_palette.SquareImageView
-                android:id="@+id/recipe_image"
+                android:id="@+id/squareImageView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scaleType="centerCrop" />
+                app:srcCompat="@android:drawable/screen_background_dark_transparent"
+                tools:layout_editor_absoluteY="380dp"
+                tools:visibility="invisible" />
 
-            <TextView
-                android:id="@+id/textView6"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Назовите блюдо:"
-                style="@style/container"/>
+                android:layout_height="120dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="-8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="4dp"
+                app:cardBackgroundColor="?myColor"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
 
-            <TextView
-                android:id="@+id/recipe_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                style="@style/container"/>
+                <TextView
+                    android:id="@+id/textDescr"
+                    style="@style/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="TextView"
+                    android:textSize="18sp"
+                    app:autoSizeTextType="none" />
+            </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:id="@+id/textView7"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Опишите в пару словах блюдо."
-                style="@style/container"/>
+                android:layout_height="120dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="8dp"
+                app:cardBackgroundColor="?myColor"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp" />
 
-            <TextView
-                android:id="@+id/recipe_descr"
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/container"/>
+                android:layout_height="100dp" />
 
         </LinearLayout>
 
     </ScrollView>
 
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

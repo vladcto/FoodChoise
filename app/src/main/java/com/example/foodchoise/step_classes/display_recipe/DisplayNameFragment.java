@@ -31,10 +31,7 @@ public class DisplayNameFragment extends Fragment {
         storageFirebaseHelper.downloadPhotoInImageView(StorageFirebaseHelper.RECIPES_MAIN_PHOTO+"/"+recipeCard.getID()+"/main_photo",
                 imageView);
 
-        TextView textView = view.findViewById(R.id.recipe_name);
-        textView.setText(recipeCard.getDishesName());
-
-        textView = view.findViewById(R.id.recipe_descr);
+        TextView textView = view.findViewById(R.id.textDescr);
         textView.setText(recipeCard.getDishesDescription());
 
         return view;

@@ -3,10 +3,12 @@ package com.example.foodchoise.step_classes.create_recipe;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.foodchoise.R;
@@ -34,13 +36,23 @@ public class CreateRecipesActivity extends AppCompatActivity {
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(0);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     /**
      * Приказывает Activity начать собирать BriefRecipeCard , отслеживая все ошибки пользователя.
      */
     void buildBriefRecipeCard() {
-        //TODO: Посмотреть про различия тегов , и если что , поменять эти теги и все ост.
         Timber.i("Начало создание RecipeCard");
         ViewPager viewPager = findViewById(R.id.view_pager);
 

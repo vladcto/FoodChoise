@@ -3,5 +3,6 @@
     <declare-styleable name="Theme">
         <attr name="myColor" format="reference"/>
         <attr name="cardStyle" format="reference"/>
+        <attr name="toolbarBackground" format="reference"/>
     </declare-styleable>
 </resources>
