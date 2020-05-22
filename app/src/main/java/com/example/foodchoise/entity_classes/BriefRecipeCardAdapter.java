@@ -86,8 +86,10 @@ public class BriefRecipeCardAdapter extends RecyclerView.Adapter<BriefRecipeCard
             //TODO: Подумать над логикой этой части.
 
             StorageFirebaseHelper storageFirebaseHelper = StorageFirebaseHelper.getInstance();
+            dishesImage.setImageDrawable(null);
             storageFirebaseHelper.downloadPhotoInImageView(StorageFirebaseHelper.RECIPES_MAIN_PHOTO + "/" + recipeCard.getID() + "/main_photo",
                     dishesImage);
         }
+
     }
 }

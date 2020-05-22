@@ -5,6 +5,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
+import com.example.foodchoise.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -16,17 +17,15 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.InputStream;
-import java.lang.ref.WeakReference;
 
 public class StorageFirebaseHelper {
     //region Singleton
     private static StorageFirebaseHelper storageFirebaseHelper;
-    private WeakReference<Picasso> picasso;
+    private  Picasso picasso;
 
     private StorageFirebaseHelper() {
         firebaseStorage = FirebaseStorage.getInstance();
-        Picasso tmpPicasso = Picasso.get();
-        picasso = new WeakReference<>(tmpPicasso);
+        picasso = Picasso.get();
     }
 
     public static StorageFirebaseHelper getInstance() {
@@ -79,8 +78,11 @@ public class StorageFirebaseHelper {
         reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                //Можно масштабировать разрешение взависимости от разрешения дисплея.
-                picasso.get().load(uri).resize(300,300).into(imageView);
+                picasso.load(uri)
+                        .placeholder(R.drawable.themes_icon)
+                        .error(R.drawable.ic_person_black_24dp)
+                        .fit()
+                        .into(imageView);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
