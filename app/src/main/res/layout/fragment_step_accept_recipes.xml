@@ -4,11 +4,6 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView"
-        style="@style/topBar"
-        android:text="Шаг 4" />
-
-    <TextView
         android:id="@+id/textView9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

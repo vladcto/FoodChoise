@@ -19,6 +19,7 @@ import com.example.foodchoise.main_fragments.ReciepsFragment;
 import com.example.foodchoise.themeUtil.ThemeController;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.DocumentReference;
 
 import java.util.ArrayList;
@@ -47,6 +48,9 @@ public class CreateRecipesActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     /**
