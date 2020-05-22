@@ -5,8 +5,7 @@
     <item
         android:id = "@+id/fast_choise"
         android:icon = "@drawable/ic_whatshot_black_24dp"
-        android:title="Карточки"
-    />
+        android:title="Карточки" />
         <item
             android:id="@+id/recipes_menu"
             android:icon="@drawable/ic_restaurant_black_24dp"
@@ -14,9 +13,7 @@
     <item
         android:id = "@+id/profile"
         android:icon = "@drawable/ic_person_black_24dp"
-        android:title="Ваш профиль"
-        />
-
+        android:title="Ваш профиль" />
     </group>
 
     <group
@@ -28,7 +25,6 @@
             android:enabled="false"
             app:actionLayout="@layout/switch_theme_choice"
             app:showAsAction="always" />
-
     </group>
     <!--
     <item android:title="Communicate">

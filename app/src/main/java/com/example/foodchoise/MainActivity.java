@@ -2,7 +2,9 @@ package com.example.foodchoise;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -39,6 +41,11 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                 this, drawerLayout, toolbar, R.string.text, R.string.text);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        View navHeader = navigationView.getHeaderView(0);
+        TextView textView = navHeader.findViewById(R.id.name_profile);
+        textView.setText(getIntent().getStringExtra("name"));
+        textView = navHeader.findViewById(R.id.email_profile);
+        textView.setText(getIntent().getStringExtra("email"));
 
         SwitchCompat switchChoiceTheme = (SwitchCompat) navigationView.getMenu().getItem(3).getActionView();
         //TODO: Исправить эту фигню

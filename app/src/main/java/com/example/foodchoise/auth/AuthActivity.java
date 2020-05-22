@@ -124,6 +124,8 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
 
     private void startMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("name",mAuth.getCurrentUser().getDisplayName());
+        intent.putExtra("email",mAuth.getCurrentUser().getEmail());
         startActivity(intent);
         mAuth.removeAuthStateListener(mAuthListener);
         finish();
