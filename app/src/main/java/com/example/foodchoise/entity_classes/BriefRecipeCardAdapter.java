@@ -19,12 +19,14 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import timber.log.Timber;
+
 public class BriefRecipeCardAdapter extends RecyclerView.Adapter<BriefRecipeCardAdapter.BriefRecipeCardViewHolder> {
     static public String RECIPECARD_DATA = "RECIPECARD_DATA";
     private ArrayList<RecipeCard> recipeCards = new ArrayList<RecipeCard>();
     private WeakReference<Activity> activity;
 
-    public BriefRecipeCardAdapter( Activity activity){
+    public BriefRecipeCardAdapter(Activity activity) {
         this.activity = new WeakReference<>(activity);
     }
 
@@ -33,7 +35,7 @@ public class BriefRecipeCardAdapter extends RecyclerView.Adapter<BriefRecipeCard
     public BriefRecipeCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_recipe_main, parent, false);
-        return new  BriefRecipeCardViewHolder(view);
+        return new BriefRecipeCardViewHolder(view);
     }
 
     @Override
@@ -46,11 +48,12 @@ public class BriefRecipeCardAdapter extends RecyclerView.Adapter<BriefRecipeCard
         return recipeCards.size();
     }
 
-    public void addRecipesCard(List<RecipeCard> recipeCards){
+    public void addRecipesCard(List<RecipeCard> recipeCards) {
         this.recipeCards.addAll(recipeCards);
         notifyDataSetChanged();
     }
-    class BriefRecipeCardViewHolder extends RecyclerView.ViewHolder{
+
+    class BriefRecipeCardViewHolder extends RecyclerView.ViewHolder {
         ImageView dishesImage;
         TextView dishesName;
         TextView dishesTastyRating;
@@ -64,26 +67,26 @@ public class BriefRecipeCardAdapter extends RecyclerView.Adapter<BriefRecipeCard
             dishesComplexityRating = itemView.findViewById(R.id.dishes_complexity_rating);
         }
 
-        public void bind(final RecipeCard recipeCard){
+        public void bind(final RecipeCard recipeCard) {
             dishesName.setText(recipeCard.getDishesName());
             dishesTastyRating.setText(String.valueOf(recipeCard.getDishesTastyRating()));
             dishesComplexityRating.setText(String.valueOf(recipeCard.getDishesComplexityRating()));
             //TODO: убрать этот BriefRecipeCard, если так будет не рабоатть.
-            if(!dishesImage.hasOnClickListeners()) {
-                dishesImage.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(activity.get(), DisplayRecipeActivity.class);
-                        intent.putExtra(RECIPECARD_DATA, recipeCard);
-                        activity.get().startActivity(intent);
-                    }
-                });
-            }
+            dishesImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Timber.d("Сработал OnClickListener");
+                    Intent intent = new Intent(activity.get(), DisplayRecipeActivity.class);
+                    intent.putExtra(RECIPECARD_DATA, recipeCard);
+                    activity.get().startActivity(intent);
+                }
+            });
+
 
             //TODO: Подумать над логикой этой части.
 
             StorageFirebaseHelper storageFirebaseHelper = StorageFirebaseHelper.getInstance();
-            storageFirebaseHelper.downloadPhotoInImageView(StorageFirebaseHelper.RECIPES_MAIN_PHOTO+"/"+recipeCard.getID()+"/main_photo",
+            storageFirebaseHelper.downloadPhotoInImageView(StorageFirebaseHelper.RECIPES_MAIN_PHOTO + "/" + recipeCard.getID() + "/main_photo",
                     dishesImage);
         }
     }
