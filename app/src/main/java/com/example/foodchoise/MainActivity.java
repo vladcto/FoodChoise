@@ -16,6 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.foodchoise.main_fragments.CardFragment;
+import com.example.foodchoise.main_fragments.FavoritesFragment;
 import com.example.foodchoise.main_fragments.ProfileFragment;
 import com.example.foodchoise.main_fragments.ReciepsFragment;
 import com.example.foodchoise.themeUtil.ThemeController;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         switchChoiceTheme.setChecked(1 == ThemeController.getIdThemeNow());
         switchChoiceTheme.setOnCheckedChangeListener(this);
 
+        //TODO: Перенести в имплементирования слушателя , а то читать невозможно.
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -72,6 +74,11 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
                                     selectedFragment = new ProfileFragment();
                                 }
                                 break;
+                    case R.id.good_recipes:
+                        if (!(selectedFragment instanceof FavoritesFragment)) {
+                            selectedFragment = new FavoritesFragment();
+                        }
+                        break;
                 }getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         selectedFragment).commit();
                 toolbar.setTitle(menuItem.getTitle());
