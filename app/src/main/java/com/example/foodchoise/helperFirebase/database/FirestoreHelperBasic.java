@@ -1,13 +1,5 @@
 package com.example.foodchoise.helperFirebase.database;
 
-import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.CollectionReference;
@@ -16,17 +8,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.nio.channels.NonWritableChannelException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutionException;
-
-import javax.annotation.Nullable;
-
-import timber.log.Timber;
 
 class FirestoreHelperBasic {
 
@@ -71,7 +57,7 @@ class FirestoreHelperBasic {
         return documentSnapshots;
     }
 
-    public List<Map<String, Object>> getMapDocumentsInCollection(String collectionName) {
+    protected List<Map<String, Object>> getMapDocumentsInCollection(String collectionName) {
         List<Map<String, Object>> documentMap = new ArrayList<>();
         List<DocumentSnapshot> documentSnapshots = getDocumentsInCollection(collectionName);
         for (DocumentSnapshot documentSnapshot : documentSnapshots) {

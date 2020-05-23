@@ -1,11 +1,15 @@
 package com.example.foodchoise.helperFirebase.database;
 
+import androidx.annotation.NonNull;
+
 import com.example.foodchoise.entity_classes.RecipeCard;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 
 import java.util.HashMap;
 import java.util.List;
@@ -60,14 +64,23 @@ public class FirestoreHelper extends FirestoreHelperBasic {
         //Потом посмторю , а пока так.
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         assert user!= null ;
-        String uidUser = user.getUid();
+        final String uidUser = user.getUid();
 
-        HashMap<String,Object> map = new HashMap<>();
+        final HashMap<String,Object> map = new HashMap<String, Object>();
         map.put(FAVORITE_RECIPES,recipeUid);
 
-        CollectionReference users_collection = db.collection(USERS_COLLECTION);
-        //TODO: передалть update с другими данными.
-        users_collection.document(uidUser).update(map);
+        final CollectionReference users_collection = db.collection(USERS_COLLECTION);
+        users_collection.document(uidUser).update(FAVORITE_RECIPES, FieldValue.arrayUnion(recipeUid)).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                users_collection.document(uidUser).set(map).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+        });
     }
 
 }

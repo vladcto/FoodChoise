@@ -2,6 +2,7 @@ package com.example.foodchoise.step_classes.display_recipe;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -12,6 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.foodchoise.R;
 import com.example.foodchoise.entity_classes.BriefRecipeCardAdapter;
 import com.example.foodchoise.entity_classes.RecipeCard;
+import com.example.foodchoise.helperFirebase.database.FirestoreHelper;
 import com.example.foodchoise.themeUtil.ThemeController;
 import com.google.android.material.tabs.TabLayout;
 
@@ -49,6 +51,15 @@ public class DisplayRecipeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.tollbar_display_recipe_menu, menu);
+        MenuItem menuItem = menu.findItem(R.id.addToLove);
+        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                FirestoreHelper firestoreHelper = FirestoreHelper.getInstance();
+                firestoreHelper.addToFavorite(recipeCard.getID());
+                return true;
+            }
+        });
         return true;
     }
 
