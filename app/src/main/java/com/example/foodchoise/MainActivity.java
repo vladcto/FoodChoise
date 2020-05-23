@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         textView = navHeader.findViewById(R.id.email_profile);
         textView.setText(getIntent().getStringExtra("email"));
 
-        SwitchCompat switchChoiceTheme = (SwitchCompat) navigationView.getMenu().getItem(3).getActionView();
+        SwitchCompat switchChoiceTheme = (SwitchCompat) navigationView.getMenu().findItem(R.id.switchTheme).getActionView();
         //TODO: Исправить эту фигню
         switchChoiceTheme.setChecked(1 == ThemeController.getIdThemeNow());
         switchChoiceTheme.setOnCheckedChangeListener(this);

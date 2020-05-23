@@ -1,19 +1,15 @@
 package com.example.foodchoise.helperFirebase.database;
 
 import com.example.foodchoise.entity_classes.RecipeCard;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.annotation.Nullable;
 
 public class FirestoreHelper extends FirestoreHelperBasic {
     //region Singleton
@@ -38,8 +34,12 @@ public class FirestoreHelper extends FirestoreHelperBasic {
     //region public_const
     public static final String COLLECTION_RECIPES = "recipes";
     public static final String TEST = "test";
+    public static final String USERS_COLLECTION = "users";
     //endregion
 
+    //region private_const
+    private static final String FAVORITE_RECIPES = "favorite_recipes";
+    //endregion
 
     //Мда... это бы в Котлине передалать, код в разы понятней будет.
     public Task<DocumentReference> addRecipeCard(RecipeCard recipeCard) {
@@ -54,4 +54,20 @@ public class FirestoreHelper extends FirestoreHelperBasic {
         List<Map<String, Object>> maps = super.getMapDocumentsInCollection(COLLECTION_RECIPES);
         return firestoreHelperIntegration.createRecipeCardsFromMaps(maps);
     }
+
+    public void addToFavorite(String recipeUid){
+        //Не очень уверен , что стоит этому классу заниматься аунтентификацией.
+        //Потом посмторю , а пока так.
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        assert user!= null ;
+        String uidUser = user.getUid();
+
+        HashMap<String,Object> map = new HashMap<>();
+        map.put(FAVORITE_RECIPES,recipeUid);
+
+        CollectionReference users_collection = db.collection(USERS_COLLECTION);
+        //TODO: передалть update с другими данными.
+        users_collection.document(uidUser).update(map);
+    }
+
 }

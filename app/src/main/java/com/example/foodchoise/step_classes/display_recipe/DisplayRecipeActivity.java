@@ -1,6 +1,7 @@
 package com.example.foodchoise.step_classes.display_recipe;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -42,6 +43,13 @@ public class DisplayRecipeActivity extends AppCompatActivity {
 
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.tollbar_display_recipe_menu, menu);
+        return true;
     }
 
     public RecipeCard getRecipeCard() {
@@ -52,5 +60,6 @@ public class DisplayRecipeActivity extends AppCompatActivity {
     public void onBackPressed() {
         finish();
     }
+
 }
 

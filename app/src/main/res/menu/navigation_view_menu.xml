@@ -2,31 +2,42 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-    <item
-        android:id = "@+id/fast_choise"
-        android:icon = "@drawable/ic_whatshot_black_24dp"
-        android:title="Карточки" />
+        <item
+            android:id="@+id/fast_choise"
+            android:icon="@drawable/ic_whatshot_black_24dp"
+            android:title="Карточки" />
         <item
             android:id="@+id/recipes_menu"
             android:icon="@drawable/ic_restaurant_black_24dp"
             android:title="@string/menu_recipes" />
-    <item
-        android:id = "@+id/profile"
-        android:icon = "@drawable/ic_person_black_24dp"
-        android:title="Ваш профиль" />
     </group>
+
+    <item android:title="Вы">
+        <menu>
+            <group
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/profile"
+                    android:icon="@drawable/ic_person_black_24dp"
+                    android:title="Ваш профиль" />
+                <item
+                    android:id="@+id/good_recipes"
+                    android:icon="@drawable/ic_star_black_24dp"
+                    android:title="Избранные рецепты" />
+            </group>
+        </menu>
+    </item>
 
     <group
         android:id="@+id/groupTheme"
         android:checkableBehavior="none">
         <item xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/navi_item_create_notifications_sound"
-            android:title="Тема"
+            android:id="@+id/switchTheme"
             android:enabled="false"
+            android:title="Тема"
             app:actionLayout="@layout/switch_theme_choice"
             app:showAsAction="always" />
-    </group>
-    <!--
+    </group><!--
     <item android:title="Communicate">
         <menu>
             <item
