@@ -1,6 +1,5 @@
 package com.example.foodchoise.entity_classes;
 
-import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -30,18 +29,26 @@ public class BriefRecipeCard implements Parcelable {
     }
     //endregion
 
-    public BriefRecipeCard(String dishesName) {
+    public BriefRecipeCard(String dishesName, String id) {
         this.dishesName = dishesName;
+        this.ID = id;
         dishesTastyRating = 0;
         dishesComplexityRating = 0;
     }
 
-    public BriefRecipeCard(String dishesName, long dishesTastyRating, long dishesComplexityRating) {
+    public BriefRecipeCard(String dishesName, String id , long dishesTastyRating, long dishesComplexityRating) {
+        this.ID = id;
         this.dishesName = dishesName;
         this.dishesTastyRating = dishesTastyRating;
         this.dishesComplexityRating = dishesComplexityRating;
     }
 
+    //TODO: КОСТЫЛЬ !!! УБРАТЬ ПЕРЕД РЕЛИЗОМ
+    public BriefRecipeCard(String dishesName) {
+        this.dishesName = dishesName;
+        dishesTastyRating = 0;
+        dishesComplexityRating = 0;
+    }
     //region Реализация Parcelable
 
     //Конструктор для Parcelable
@@ -79,7 +86,4 @@ public class BriefRecipeCard implements Parcelable {
     }
     //endregion
 
-    public void addId(String ID){
-        this.ID = ID;
-    }
 }

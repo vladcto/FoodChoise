@@ -1,7 +1,5 @@
 package com.example.foodchoise.helperFirebase.database;
 
-import android.net.Uri;
-
 import com.example.foodchoise.entity_classes.RecipeCard;
 
 import java.util.ArrayList;
@@ -13,6 +11,7 @@ import java.util.Map;
  * Класс для инкапсулирования методов не связанных непосредственно с работой Firestore.
  */
 //Этот класс нужен ,чтобы FirestoreHelper не занимался созданием рецптов и т.п., а только БД.
+//TODO: Сделать статичным.
 final class FirestoreHelperIntegration {
 
     Map<String, Object> createMapFromRecipeCard(RecipeCard recipeCard) {
@@ -38,16 +37,17 @@ final class FirestoreHelperIntegration {
 
     private RecipeCard createRecipeCardFromMap(Map<String, Object> map){
         //TODO: Проверка на то, что такого ключа нет.
+        //region Считываем данные
         String dishes_descr = (String)map.get("dishes_descr");
         long complexity_rating = (long)map.get("complexity_rating");
         ArrayList<String> ingridients = (ArrayList<String>) map.get("ingridients");
         ArrayList<String> instr = (ArrayList<String>) map.get("instr");
         String name = (String)map.get("name");
+        String id = (String) map.get("id");
         long tasty_rating = (long)map.get("tasty_rating");
-        //TODO: СДЕЛАТЬ КОСНТРУКТОР.
-        Uri uri = Uri.parse("android.resource://com.example.foodchoise/drawable/back.xml");
-        RecipeCard recipeCard = new RecipeCard(name,tasty_rating,complexity_rating,dishes_descr,ingridients,instr);
-        recipeCard.addId((String)map.get("id"));
+        //endregion
+
+        RecipeCard recipeCard = new RecipeCard(name,tasty_rating,complexity_rating,dishes_descr,ingridients,instr,id);
         return recipeCard;
     }
 }

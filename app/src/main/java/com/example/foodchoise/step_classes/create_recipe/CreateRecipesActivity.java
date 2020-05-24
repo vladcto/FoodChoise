@@ -146,7 +146,6 @@ public class CreateRecipesActivity extends AppCompatActivity {
                         Timber.d(e.getStackTrace().toString());
                     }
                 });
-                recipeCard.addId(id);
             }
         });
         Timber.i("RecipeCard успешно создана");

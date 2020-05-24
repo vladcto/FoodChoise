@@ -26,8 +26,6 @@ import java.util.List;
 
 import leakcanary.AppWatcher;
 
-import static android.app.Activity.RESULT_OK;
-
 public class ReciepsFragment extends Fragment {
     private static  final int REQUEST_ACCESS_TYPE=1;
     public static final String BRIEFCARD_DATA = "BRIEFCARD_DATA";
@@ -48,7 +46,7 @@ public class ReciepsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(activity, CreateRecipesActivity.class);
-                startActivityForResult(intent,REQUEST_ACCESS_TYPE);
+                startActivity(intent);
             }
         });
 
@@ -70,7 +68,7 @@ public class ReciepsFragment extends Fragment {
         @Override
         protected List<RecipeCard> doInBackground(Void... params) {
             FirestoreHelper firestoreHelper = FirestoreHelper.getInstance();
-            return firestoreHelper.getRecipesCard();
+            return firestoreHelper.getRecipesCardIn(FirestoreHelper.COLLECTION_RECIPES);
         }
 
         @Override
@@ -81,15 +79,6 @@ public class ReciepsFragment extends Fragment {
                 mAdapter.get().addRecipesCard(result);
             }
             mAdapter = null;
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(requestCode==REQUEST_ACCESS_TYPE){
-            if(resultCode==RESULT_OK){
-
-            }
         }
     }
 

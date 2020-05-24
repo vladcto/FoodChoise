@@ -5,15 +5,20 @@ import androidx.annotation.NonNull;
 import com.example.foodchoise.entity_classes.RecipeCard;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class FirestoreHelper extends FirestoreHelperBasic {
     //region Singleton
@@ -54,31 +59,81 @@ public class FirestoreHelper extends FirestoreHelperBasic {
         return recipesCollection.add(recipeData);
     }
 
-    public List<RecipeCard> getRecipesCard() {
-        List<Map<String, Object>> maps = super.getMapDocumentsInCollection(COLLECTION_RECIPES);
+    public List<RecipeCard> getRecipesCardIn(String recipesCollection) {
+        List<Map<String, Object>> maps = super.getMapDocumentsInCollection(recipesCollection);
         return firestoreHelperIntegration.createRecipeCardsFromMaps(maps);
     }
 
-    public void addToFavorite(String recipeUid){
+    public List<RecipeCard> getFavoritesRecipesCard() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        assert user != null;
+        final String uidUser = user.getUid();
+
+        List<RecipeCard> recipeCards = new ArrayList<>();
+        Task<DocumentSnapshot> snapshotTask = db.collection(USERS_COLLECTION)
+                .document(uidUser)
+                .get();
+        try {
+            Tasks.await(snapshotTask);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            return recipeCards;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return recipeCards;
+        }
+
+        List<Map<String,Object>> recipesCardData = new ArrayList<>();
+
+        DocumentSnapshot snapshot = snapshotTask.getResult();
+        ArrayList<DocumentReference>   favoritesRecipes =(ArrayList<DocumentReference>) snapshot.get(FAVORITE_RECIPES);
+        Map<String,Object> map;
+        for (DocumentReference favoritesRecipe: favoritesRecipes) {
+            Task<DocumentSnapshot> task = favoritesRecipe.get();
+            try {
+                Tasks.await(task);
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+                continue;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                continue;
+            }
+            map = task.getResult().getData();
+            //TODO: Костыль?
+            map.put("id",favoritesRecipe.getId());
+            recipesCardData.add(map);
+        }
+
+        return firestoreHelperIntegration.createRecipeCardsFromMaps(recipesCardData);
+    }
+
+    public void addToFavorite(String recipeUid) {
         //Не очень уверен , что стоит этому классу заниматься аунтентификацией.
         //Потом посмторю , а пока так.
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        assert user!= null ;
+        assert user != null;
         final String uidUser = user.getUid();
 
-        final HashMap<String,Object> map = new HashMap<String, Object>();
-        map.put(FAVORITE_RECIPES,recipeUid);
-
         final CollectionReference users_collection = db.collection(USERS_COLLECTION);
-        users_collection.document(uidUser).update(FAVORITE_RECIPES, FieldValue.arrayUnion(recipeUid)).addOnFailureListener(new OnFailureListener() {
+        final DocumentReference recipeReference = db.collection(COLLECTION_RECIPES).document(recipeUid);
+
+        final HashMap<String, DocumentReference> map = new HashMap<String, DocumentReference>();
+        map.put(FAVORITE_RECIPES, recipeReference);
+
+        users_collection.document(uidUser).update(FAVORITE_RECIPES, FieldValue.arrayUnion(recipeReference)).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                users_collection.document(uidUser).set(map).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        e.printStackTrace();
-                    }
-                });
+                if (e instanceof FirebaseFirestoreException)
+                    users_collection.document(uidUser).set(map).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
+                else {
+                    e.printStackTrace();
+                }
             }
         });
     }
