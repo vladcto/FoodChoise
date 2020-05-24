@@ -4,44 +4,30 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecipeCard extends BriefRecipeCard  implements Parcelable {
     private String dishesDescr;
-    private ArrayList<String> dishesIngridient = new ArrayList<String>();
-    private ArrayList<String> dishesInstr = new ArrayList<String>();
+    private List<String> dishesIngridient = new ArrayList<>();
+    private List<String> dishesInstr = new ArrayList<>();
     //region getter's
     public String getDishesDescription(){
         return dishesDescr;
     }
 
-    public ArrayList<String> getDishesIngridient() {
-        return dishesIngridient = dishesIngridient;
+    public List<String> getDishesIngridient() {
+        return dishesIngridient;
     }
 
-    public ArrayList<String> getDishesInstruction(){
+    public List<String> getDishesInstruction(){
         return dishesInstr;
     }
 
     //endregion
 
     //region Конструкторы
-
-    public RecipeCard(String dishes_name, long dishes_tasty_rating, long dishes_complexity_rating, String dishesDescr, ArrayList<String> dishesIngridient, ArrayList<String> dishesInstr,String id) {
+    RecipeCard(String dishes_name, long dishes_tasty_rating, long dishes_complexity_rating, String dishesDescr, List<String> dishesIngridient, List<String> dishesInstr, String id) {
         super(dishes_name, id,dishes_tasty_rating, dishes_complexity_rating);
-        this.dishesDescr = dishesDescr;
-        this.dishesIngridient = dishesIngridient;
-        this.dishesInstr = dishesInstr;
-    }
-
-    public RecipeCard(String dishes_name, String dishesDescr, ArrayList<String> dishesIngridient, ArrayList<String> dishesInstr,String id) {
-        super(dishes_name,id);
-        this.dishesDescr = dishesDescr;
-        this.dishesIngridient = dishesIngridient;
-        this.dishesInstr = dishesInstr;
-    }
-
-    public RecipeCard(String dishes_name, String dishesDescr, ArrayList<String> dishesIngridient, ArrayList<String> dishesInstr) {
-        super(dishes_name);
         this.dishesDescr = dishesDescr;
         this.dishesIngridient = dishesIngridient;
         this.dishesInstr = dishesInstr;

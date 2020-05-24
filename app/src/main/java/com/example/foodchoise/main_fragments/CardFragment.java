@@ -11,13 +11,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.foodchoise.R;
 import com.example.foodchoise.entity_classes.CardStackViewAdapter;
+import com.example.foodchoise.entity_classes.RecipeBuilder;
 import com.example.foodchoise.entity_classes.RecipeCard;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackView;
 import com.yuyakaido.android.cardstackview.Direction;
 import com.yuyakaido.android.cardstackview.StackFrom;
-
-import java.util.ArrayList;
 
 import timber.log.Timber;
 
@@ -44,20 +43,23 @@ public class CardFragment extends Fragment implements com.yuyakaido.android.card
         adapter.addRecipesCard(firestoreHelper.getRecipesCard());
          */
 
-        adapter.TEST_addRecipeCard(new RecipeCard("name", "dssd", new ArrayList<String>(), new ArrayList<String>()));
-        adapter.TEST_addRecipeCard(new RecipeCard("name", "dssd", new ArrayList<String>(), new ArrayList<String>()));
-        adapter.TEST_addRecipeCard(new RecipeCard("name", "dssd", new ArrayList<String>(), new ArrayList<String>()));
-        adapter.TEST_addRecipeCard(new RecipeCard("name", "dssd", new ArrayList<String>(), new ArrayList<String>()));
-        adapter.TEST_addRecipeCard(new RecipeCard("name", "dssd", new ArrayList<String>(), new ArrayList<String>()));
-        adapter.TEST_addRecipeCard(new RecipeCard("name", "dssd", new ArrayList<String>(), new ArrayList<String>()));
-        adapter.TEST_addRecipeCard(new RecipeCard("name", "dssd", new ArrayList<String>(), new ArrayList<String>()));
-        adapter.TEST_addRecipeCard(new RecipeCard("name", "dssd", new ArrayList<String>(), new ArrayList<String>()));
-        adapter.TEST_addRecipeCard(new RecipeCard("name", "dssd", new ArrayList<String>(), new ArrayList<String>()));
-        adapter.TEST_addRecipeCard(new RecipeCard("name", "dssd", new ArrayList<String>(), new ArrayList<String>()));
-        adapter.TEST_addRecipeCard(new RecipeCard("name", "dssd", new ArrayList<String>(), new ArrayList<String>()));
-        adapter.TEST_addRecipeCard(new RecipeCard("name", "dssd", new ArrayList<String>(), new ArrayList<String>()));
-        adapter.TEST_addRecipeCard(new RecipeCard("name", "dssd", new ArrayList<String>(), new ArrayList<String>()));
-        adapter.TEST_addRecipeCard(new RecipeCard("name", "dssd", new ArrayList<String>(), new ArrayList<String>()));
+        RecipeCard recipeCard = new RecipeBuilder().getTestCard();
+        adapter.TEST_addRecipeCard(recipeCard);
+        adapter.TEST_addRecipeCard(recipeCard);
+        adapter.TEST_addRecipeCard(recipeCard);
+        adapter.TEST_addRecipeCard(recipeCard);
+        adapter.TEST_addRecipeCard(recipeCard);
+        adapter.TEST_addRecipeCard(recipeCard);
+        adapter.TEST_addRecipeCard(recipeCard);
+        adapter.TEST_addRecipeCard(recipeCard);
+        adapter.TEST_addRecipeCard(recipeCard);
+        adapter.TEST_addRecipeCard(recipeCard);
+        adapter.TEST_addRecipeCard(recipeCard);
+        adapter.TEST_addRecipeCard(recipeCard);
+        adapter.TEST_addRecipeCard(recipeCard);
+        adapter.TEST_addRecipeCard(recipeCard);
+        adapter.TEST_addRecipeCard(recipeCard);
+        adapter.TEST_addRecipeCard(recipeCard);
         return view;
     }
 

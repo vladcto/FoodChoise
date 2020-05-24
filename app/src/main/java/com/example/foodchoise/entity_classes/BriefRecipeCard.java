@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * Класс для отображения в RecipesFragment
  */
-public class BriefRecipeCard implements Parcelable {
+class BriefRecipeCard implements Parcelable {
     protected String dishesName;
     protected long dishesTastyRating;
     protected long dishesComplexityRating;
@@ -29,26 +29,13 @@ public class BriefRecipeCard implements Parcelable {
     }
     //endregion
 
-    public BriefRecipeCard(String dishesName, String id) {
-        this.dishesName = dishesName;
-        this.ID = id;
-        dishesTastyRating = 0;
-        dishesComplexityRating = 0;
-    }
-
-    public BriefRecipeCard(String dishesName, String id , long dishesTastyRating, long dishesComplexityRating) {
+    protected BriefRecipeCard(String dishesName, String id , long dishesTastyRating, long dishesComplexityRating) {
         this.ID = id;
         this.dishesName = dishesName;
         this.dishesTastyRating = dishesTastyRating;
         this.dishesComplexityRating = dishesComplexityRating;
     }
 
-    //TODO: КОСТЫЛЬ !!! УБРАТЬ ПЕРЕД РЕЛИЗОМ
-    public BriefRecipeCard(String dishesName) {
-        this.dishesName = dishesName;
-        dishesTastyRating = 0;
-        dishesComplexityRating = 0;
-    }
     //region Реализация Parcelable
 
     //Конструктор для Parcelable

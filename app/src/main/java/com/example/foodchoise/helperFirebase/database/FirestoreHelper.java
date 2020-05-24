@@ -86,8 +86,17 @@ public class FirestoreHelper extends FirestoreHelperBasic {
         List<Map<String,Object>> recipesCardData = new ArrayList<>();
 
         DocumentSnapshot snapshot = snapshotTask.getResult();
-        ArrayList<DocumentReference>   favoritesRecipes =(ArrayList<DocumentReference>) snapshot.get(FAVORITE_RECIPES);
+        Object documentsReference =  snapshot.get(FAVORITE_RECIPES);
+        ArrayList<DocumentReference> favoritesRecipes;
+        try {
+            favoritesRecipes = (ArrayList<DocumentReference>) documentsReference;
+        }
+        catch (ClassCastException e){
+            favoritesRecipes = new ArrayList<DocumentReference>();
+            favoritesRecipes.add(((DocumentReference)documentsReference));
+        }
         Map<String,Object> map;
+        //TODO: NPE если у пользователя нет любимых рецептов.
         for (DocumentReference favoritesRecipe: favoritesRecipes) {
             Task<DocumentSnapshot> task = favoritesRecipe.get();
             try {

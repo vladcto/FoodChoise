@@ -10,12 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodchoise.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class DisplayIngrAdapter extends RecyclerView.Adapter<DisplayIngrAdapter.IngridientViewHolder> {
-    ArrayList<String> displayIngr = new ArrayList<String>();
+    List<String> displayIngr;
 
-    public DisplayIngrAdapter(ArrayList<String> displayIngr) {
+    public DisplayIngrAdapter(List<String> displayIngr) {
         this.displayIngr = displayIngr;
     }
 

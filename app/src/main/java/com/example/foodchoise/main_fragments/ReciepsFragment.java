@@ -27,9 +27,8 @@ import java.util.List;
 import leakcanary.AppWatcher;
 
 public class ReciepsFragment extends Fragment {
-    private static  final int REQUEST_ACCESS_TYPE=1;
     public static final String BRIEFCARD_DATA = "BRIEFCARD_DATA";
-    MyTask myTask;
+    private MyTask myTask;
 
     @Nullable
     @Override
@@ -73,12 +72,11 @@ public class ReciepsFragment extends Fragment {
 
         @Override
         protected void onPostExecute(List<RecipeCard> result) {
-            //TODO: NPE , есди перейти на другой фрагмент
             //Костыль.
-            if(mAdapter!= null) {
+            try{
                 mAdapter.get().addRecipesCard(result);
-            }
-            mAdapter = null;
+                mAdapter = null;
+            }catch (NullPointerException ignored){}
         }
     }
 

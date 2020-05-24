@@ -57,12 +57,11 @@ public class FavoritesFragment extends Fragment {
 
         @Override
         protected void onPostExecute(List<RecipeCard> result) {
-            //TODO: NPE , есди перейти на другой фрагмент
             //Костыль.
-            if(mAdapter!= null) {
+            try{
                 mAdapter.get().addRecipesCard(result);
-            }
-            mAdapter = null;
+                mAdapter = null;
+            }catch (NullPointerException ignored){}
         }
     }
 }
