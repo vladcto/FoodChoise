@@ -49,24 +49,28 @@ public class RegistrationFragment extends Fragment implements Button.OnClickList
 
             String email = emailEditText.getText().toString().trim();
             //region TODO: ВЫНЕСТИ В ОТДЕЛЬНЫЙ МЕТОД
-            if (!emailVerife(email)){
+            if (!emailVerife(email)) {
                 return;
             }
 
             String password = passwordEditText.getText().toString().trim();
-            if(!passwordVerife(password)){
+            if (!passwordVerife(password)) {
                 return;
             }
 
             String name = nameEditText.getText().toString().trim();
-            if(!nameVerife(name)){
+            if (!nameVerife(name)) {
                 Timber.w("Name not allowed");
                 return;
             }
 
             //endregion
 
-            registration(email,password,name);
+            registration(email, password, name);
+        } else if (v.getId() == R.id.backButton) {
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainer,new SignFragment())
+                    .commit();
         } else {
             Timber.w("There is no listener at the button - %s .", getResources().getResourceEntryName(v.getId()));
         }
@@ -77,12 +81,12 @@ public class RegistrationFragment extends Fragment implements Button.OnClickList
         return email != null;
     }
 
-    private boolean passwordVerife(String password){
+    private boolean passwordVerife(String password) {
         Timber.e("Non implement passwordVerife");
         return password != null;
     }
 
-    private boolean nameVerife(String name){
+    private boolean nameVerife(String name) {
         return name != null && name.length() != 0;
     }
 
@@ -92,15 +96,15 @@ public class RegistrationFragment extends Fragment implements Button.OnClickList
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(getContext(),"+",Toast.LENGTH_SHORT).show();
+                if (task.isSuccessful()) {
+                    Toast.makeText(getContext(), "+", Toast.LENGTH_SHORT).show();
                     FirebaseUser user = mAuth.getCurrentUser();
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                             .setDisplayName(name).build();
                     user.updateProfile(profileUpdates);
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,new SignFragment()).commit();
-                }else{
-                    Toast.makeText(getContext(),"-",Toast.LENGTH_SHORT).show();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new SignFragment()).commit();
+                } else {
+                    Toast.makeText(getContext(), "-", Toast.LENGTH_SHORT).show();
                 }
             }
         });

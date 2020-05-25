@@ -95,8 +95,11 @@ public class FirestoreHelper extends FirestoreHelperBasic {
             favoritesRecipes = new ArrayList<DocumentReference>();
             favoritesRecipes.add(((DocumentReference)documentsReference));
         }
+
+        if(favoritesRecipes == null){
+            return null;
+        }
         Map<String,Object> map;
-        //TODO: NPE если у пользователя нет любимых рецептов.
         for (DocumentReference favoritesRecipe: favoritesRecipes) {
             Task<DocumentSnapshot> task = favoritesRecipe.get();
             try {
