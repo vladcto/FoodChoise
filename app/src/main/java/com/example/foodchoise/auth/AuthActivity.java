@@ -32,7 +32,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(final Bundle savedInstanceState) {
         ThemeController.setNowTheme(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_auth);
+        setContentView(R.layout.activity_auth_main);
 
         email = (EditText) findViewById(R.id.emailInput);
         password = (EditText) findViewById(R.id.passwordInput);
