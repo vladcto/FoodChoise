@@ -29,6 +29,7 @@ public class RegistrationFragment extends Fragment implements Button.OnClickList
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.auth_registration, container, false);
         Button button = view.findViewById(R.id.registrationButton);
+        button.setOnClickListener(this);
         return view;
     }
 
@@ -49,16 +50,18 @@ public class RegistrationFragment extends Fragment implements Button.OnClickList
             String email = emailEditText.getText().toString().trim();
             //region TODO: ВЫНЕСТИ В ОТДЕЛЬНЫЙ МЕТОД
             if (!emailVerife(email)){
+                return;
             }
 
             String password = passwordEditText.getText().toString().trim();
             if(!passwordVerife(password)){
-
+                return;
             }
 
             String name = nameEditText.getText().toString().trim();
             if(!nameVerife(name)){
                 Timber.w("Name not allowed");
+                return;
             }
 
             //endregion
@@ -71,12 +74,12 @@ public class RegistrationFragment extends Fragment implements Button.OnClickList
 
     private boolean emailVerife(String email) {
         Timber.e("Non implement emailVerife");
-        return true;
+        return email != null;
     }
 
     private boolean passwordVerife(String password){
         Timber.e("Non implement passwordVerife");
-        return true;
+        return password != null;
     }
 
     private boolean nameVerife(String name){
@@ -95,10 +98,12 @@ public class RegistrationFragment extends Fragment implements Button.OnClickList
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                             .setDisplayName(name).build();
                     user.updateProfile(profileUpdates);
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,new SignFragment()).commit();
                 }else{
                     Toast.makeText(getContext(),"-",Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
+
 }

@@ -4,25 +4,20 @@ package com.example.foodchoise.auth;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.example.foodchoise.MainActivity;
 import com.example.foodchoise.R;
 import com.example.foodchoise.themeUtil.ThemeController;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class AuthActivity extends AppCompatActivity implements View.OnClickListener {
+public class AuthActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     EditText email;
@@ -32,7 +27,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(final Bundle savedInstanceState) {
         ThemeController.setNowTheme(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_auth_main);
+        setContentView(R.layout.activity_auth);
 
         email = (EditText) findViewById(R.id.emailInput);
         password = (EditText) findViewById(R.id.passwordInput);
@@ -70,49 +65,27 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
             }
         };
         mAuth.addAuthStateListener(mAuthListener);
-        Button button;
-        button = findViewById(R.id.registration);
-        button.setOnClickListener(this);
-        button = findViewById(R.id.signIn);
-        button.setOnClickListener(this);
-
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,new SignFragment()).commit();
     }
 
-    @Override
-    public void onClick(View v) {
-        String email = this.email.getText().toString();
-        String password = this.password.getText().toString();
-        Log.i("auth", "Email: " + email);
-        Log.i("auth", "Password: " + password);
-        if (v.getId() == R.id.signIn) {
-            signIn(email, password);
-
-        } else if (v.getId() == R.id.registration) {
-        } else {
-            throw new IllegalStateException("Unexpected value: " + v.getId());
-        }
-    }
-
-    private void signIn(String email, String password) {
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(AuthActivity.this, "+", Toast.LENGTH_LONG).show();
-                    startMainActivity();
-                } else {
-                    Toast.makeText(AuthActivity.this, "-", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-    }
-
-    private void startMainActivity() {
+    void startMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("name",mAuth.getCurrentUser().getDisplayName());
         intent.putExtra("email",mAuth.getCurrentUser().getEmail());
         startActivity(intent);
+        //TODO:
         mAuth.removeAuthStateListener(mAuthListener);
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //Можно использовать паттерн стратегия.
+        Fragment fragment = getSupportFragmentManager().getFragments().get(0);
+        if(fragment instanceof RegistrationFragment){
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,new SignFragment()).commit();
+        }else {
+            finish();
+        }
     }
 }
