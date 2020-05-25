@@ -2,4 +2,6 @@
     <string name="app_name">FoodChoise</string>
     <string name="text">test</string>
     <string name="menu_recipes">Рецепты</string>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Пароль</string>
 </resources>
