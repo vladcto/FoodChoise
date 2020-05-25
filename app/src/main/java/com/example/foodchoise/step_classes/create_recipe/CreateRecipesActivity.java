@@ -83,7 +83,7 @@ public class CreateRecipesActivity extends AppCompatActivity {
             return;
         }
         Timber.i("dishes_name = %s .", dishes_name);
-        recipeBuilder.setDescription(dishes_name);
+        recipeBuilder.setName(dishes_name);
 
         String dishes_descr = stepNameFragment.getTextDescrDishes().trim();
         //TODO: Сделать ограничение по символам.
