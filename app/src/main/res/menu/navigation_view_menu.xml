@@ -5,25 +5,25 @@
         <item
             android:id="@+id/fast_choise"
             android:icon="@drawable/ic_whatshot_black_24dp"
-            android:title="Карточки" />
+            android:title="@string/cards" />
         <item
             android:id="@+id/recipes_menu"
             android:icon="@drawable/ic_restaurant_black_24dp"
-            android:title="@string/menu_recipes" />
+            android:title="@string/recipes" />
     </group>
 
-    <item android:title="Вы">
+    <item android:title="@string/your">
         <menu>
             <group
                 android:checkableBehavior="single">
                 <item
                     android:id="@+id/profile"
                     android:icon="@drawable/ic_person_black_24dp"
-                    android:title="Ваш профиль" />
+                    android:title="@string/your_profile" />
                 <item
                     android:id="@+id/good_recipes"
                     android:icon="@drawable/ic_star_black_24dp"
-                    android:title="Избранные рецепты" />
+                    android:title="@string/favorite_recipes" />
             </group>
         </menu>
     </item>
@@ -34,21 +34,8 @@
         <item xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/switchTheme"
             android:enabled="false"
-            android:title="Тема"
+            android:title="@string/theme"
             app:actionLayout="@layout/switch_theme_choice"
             app:showAsAction="always" />
-    </group><!--
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="@string/menu_share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/menu_send" />
-        </menu>
-    </item>
-    -->
+    </group>
 </menu>

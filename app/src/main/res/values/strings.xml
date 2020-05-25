@@ -1,8 +1,35 @@
 <resources>
     <string name="app_name">FoodChoise</string>
     <string name="text">test</string>
-    <string name="menu_recipes">Рецепты</string>
+
+    <!-- Auth -->
     <string name="e_mail">E-mail</string>
     <string name="password">Пароль</string>
     <string name="name">Имя</string>
+    <string name="sign_in">Войти</string>
+    <string name="registrate">Нет аккаунта? Создайте!</string>
+    <string name="other_auth">Войти с помощью соц. сетей</string>
+    <string name="create_profile">Создать</string>
+
+    <!-- Recipe Display | Create -->
+    <string name="info">Инфо</string>
+    <string name="ingredient">Состав</string>
+    <string name="steps">Шаги</string>
+    <string name="rating">Оценка</string>
+    <string name="ready">Готово</string>
+    <string name="publish">Опубликовать</string>
+    <string name="add_ingredients">Добавьте ингридиенты:</string>
+    <string name="add_instructions">Опишите шаги:</string>
+    <string name="add_photo">Установите изображения блюда:</string>
+    <string name="add_name">Добавьте название: </string>
+    <string name="add_description">Опишите в пару словах блюдо: </string>
+
+    <!-- Menu -->
+    <string name="add_to_favorite">Добавить в избранные</string>
+    <string name="cards">Карточки</string>
+    <string name="your">Вы</string>
+    <string name="recipes">Рецепты</string>
+    <string name="your_profile">Ваш профиль</string>
+    <string name="favorite_recipes">Избранные рецепты</string>
+    <string name="theme">Тема</string>
 </resources>

@@ -12,9 +12,9 @@
 
     <Button
         android:id="@+id/accept_button"
+        style="@style/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"
-        style="@style/container"/>
+        android:text="@string/publish" />
 
 </LinearLayout>

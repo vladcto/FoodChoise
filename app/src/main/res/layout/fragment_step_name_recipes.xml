@@ -18,7 +18,7 @@
                 style="@style/container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Установите изображения блюда:" />
+                android:text="@string/add_photo" />
 
             <com.example.foodchoise.my_palette.SquareButtonView
                 style="@style/container"
@@ -33,7 +33,7 @@
                 style="@style/container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Назовите блюдо:" />
+                android:text="@string/add_name" />
 
             <EditText
                 android:id="@+id/edit_name_dishes"
