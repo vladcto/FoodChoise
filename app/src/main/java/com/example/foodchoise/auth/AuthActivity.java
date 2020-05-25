@@ -88,8 +88,6 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
             signIn(email, password);
 
         } else if (v.getId() == R.id.registration) {
-            registration(email, password);
-
         } else {
             throw new IllegalStateException("Unexpected value: " + v.getId());
         }
@@ -102,19 +100,6 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                 if (task.isSuccessful()) {
                     Toast.makeText(AuthActivity.this, "+", Toast.LENGTH_LONG).show();
                     startMainActivity();
-                } else {
-                    Toast.makeText(AuthActivity.this, "-", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-    }
-
-    private void registration(String email, String password) {
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(AuthActivity.this, "+", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(AuthActivity.this, "-", Toast.LENGTH_LONG).show();
                 }
