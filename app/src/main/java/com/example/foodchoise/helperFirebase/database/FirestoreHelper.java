@@ -2,7 +2,6 @@ package com.example.foodchoise.helperFirebase.database;
 
 import androidx.annotation.NonNull;
 
-import com.example.foodchoise.callback.BasicCallback;
 import com.example.foodchoise.entity_classes.RecipeCard;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -84,24 +83,23 @@ public class FirestoreHelper extends FirestoreHelperBasic {
             return recipeCards;
         }
 
-        List<Map<String,Object>> recipesCardData = new ArrayList<>();
+        List<Map<String, Object>> recipesCardData = new ArrayList<>();
 
         DocumentSnapshot snapshot = snapshotTask.getResult();
-        Object documentsReference =  snapshot.get(FAVORITE_RECIPES);
+        Object documentsReference = snapshot.get(FAVORITE_RECIPES);
         ArrayList<DocumentReference> favoritesRecipes;
         try {
             favoritesRecipes = (ArrayList<DocumentReference>) documentsReference;
-        }
-        catch (ClassCastException e){
+        } catch (ClassCastException e) {
             favoritesRecipes = new ArrayList<DocumentReference>();
-            favoritesRecipes.add(((DocumentReference)documentsReference));
+            favoritesRecipes.add(((DocumentReference) documentsReference));
         }
 
-        if(favoritesRecipes == null){
+        if (favoritesRecipes == null) {
             return null;
         }
-        Map<String,Object> map;
-        for (DocumentReference favoritesRecipe: favoritesRecipes) {
+        Map<String, Object> map;
+        for (DocumentReference favoritesRecipe : favoritesRecipes) {
             Task<DocumentSnapshot> task = favoritesRecipe.get();
             try {
                 Tasks.await(task);
@@ -113,16 +111,14 @@ public class FirestoreHelper extends FirestoreHelperBasic {
                 continue;
             }
             map = task.getResult().getData();
-            map.put("id",favoritesRecipe.getId());
+            map.put("id", favoritesRecipe.getId());
             recipesCardData.add(map);
         }
 
         return firestoreHelperIntegration.createRecipeCardsFromMaps(recipesCardData);
     }
 
-    public List<DocumentReference> getFavoritesRecipesRefernce(){
-        BasicCallback<List<DocumentReference>> callback = new BasicCallback<List<DocumentReference>>() {
-        }
+    public List<DocumentReference> getFavoritesRecipesRefernce() {
         ArrayList<DocumentReference> favoritesRecipes = null;
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         assert user != null;
@@ -143,13 +139,12 @@ public class FirestoreHelper extends FirestoreHelperBasic {
         }
 
         DocumentSnapshot snapshot = snapshotTask.getResult();
-        Object documentsReference =  snapshot.get(FAVORITE_RECIPES);
+        Object documentsReference = snapshot.get(FAVORITE_RECIPES);
         try {
             favoritesRecipes = (ArrayList<DocumentReference>) documentsReference;
-        }
-        catch (ClassCastException e){
+        } catch (ClassCastException e) {
             favoritesRecipes = new ArrayList<DocumentReference>();
-            favoritesRecipes.add(((DocumentReference)documentsReference));
+            favoritesRecipes.add(((DocumentReference) documentsReference));
         }
 
         return favoritesRecipes;
@@ -184,10 +179,10 @@ public class FirestoreHelper extends FirestoreHelperBasic {
         });
     }
 
-    public static RecipeCard createRecipeCardFromSnapshot(DocumentSnapshot snapshot){
+    public static RecipeCard createRecipeCardFromSnapshot(DocumentSnapshot snapshot) {
         RecipeCard.Builder builder = new RecipeCard.Builder();
-        Map<String,Object> map = snapshot.getData();
-        map.put("id",snapshot.getId());
+        Map<String, Object> map = snapshot.getData();
+        map.put("id", snapshot.getId());
         return FirestoreHelperIntegration.createRecipeCardFromMap(map);
     }
 }
