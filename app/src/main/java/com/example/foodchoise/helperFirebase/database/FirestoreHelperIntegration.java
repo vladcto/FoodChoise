@@ -1,6 +1,5 @@
 package com.example.foodchoise.helperFirebase.database;
 
-import com.example.foodchoise.entity_classes.RecipeBuilder;
 import com.example.foodchoise.entity_classes.RecipeCard;
 
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ final class FirestoreHelperIntegration {
         return recipeCards;
     }
 
-    private RecipeCard createRecipeCardFromMap(Map<String, Object> map){
+    static  RecipeCard createRecipeCardFromMap(Map<String, Object> map){
         //TODO: Проверка на то, что такого ключа нет.
         //region Считываем данные
         String dishes_descr = (String)map.get("dishes_descr");
@@ -48,7 +47,7 @@ final class FirestoreHelperIntegration {
         Long tasty_rating = (Long) map.get("tasty_rating");
         //endregion
 
-        RecipeCard recipeCard = new RecipeBuilder()
+        RecipeCard recipeCard = new RecipeCard.Builder()
                 .setName(name)
                 .setTastyRating(tasty_rating.intValue())
                 .setComplexityRating(complexity_rating.intValue())

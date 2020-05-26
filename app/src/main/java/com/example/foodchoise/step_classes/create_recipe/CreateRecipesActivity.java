@@ -12,7 +12,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.foodchoise.R;
-import com.example.foodchoise.entity_classes.RecipeBuilder;
 import com.example.foodchoise.entity_classes.RecipeCard;
 import com.example.foodchoise.helperFirebase.database.FirestoreHelper;
 import com.example.foodchoise.helperFirebase.storage.StorageFirebaseHelper;
@@ -64,7 +63,7 @@ public class CreateRecipesActivity extends AppCompatActivity {
 
         StepFragmentsAdapter adapter = (StepFragmentsAdapter) viewPager.getAdapter();
         StepNameFragment stepNameFragment = (StepNameFragment) adapter.getItem(0);
-        RecipeBuilder recipeBuilder = new RecipeBuilder();
+        RecipeCard.Builder builder = new RecipeCard.Builder();
         //region Проверка заполнненых данных под RecipeCard.
 
         //region StepNameFragment
@@ -80,7 +79,7 @@ public class CreateRecipesActivity extends AppCompatActivity {
             viewPager.setCurrentItem(0);
             return;
         }else {
-            recipeBuilder.setName(stepNameFragment.getTextDescrDishes()).
+            builder.setName(stepNameFragment.getTextDescrDishes()).
                     setDescription(stepNameFragment.getTextNameDishes());
         }
 
@@ -97,7 +96,7 @@ public class CreateRecipesActivity extends AppCompatActivity {
             viewPager.setCurrentItem(1);
             return;
         }
-        recipeBuilder.setIngredient(dishes_ingridients);
+        builder.setIngredient(dishes_ingridients);
         Timber.i("Проверка StepIngridientFragment прошла успешна");
         //endregion StepIngridientFragment
 
@@ -111,7 +110,7 @@ public class CreateRecipesActivity extends AppCompatActivity {
             viewPager.setCurrentItem(2);
             return;
         }
-        recipeBuilder.setInstructions(dishes_instructions);
+        builder.setInstructions(dishes_instructions);
         Timber.i("Проверка StepInstrFragment прошла успешна");
         //endregion StepInstrFragment
 
@@ -122,7 +121,7 @@ public class CreateRecipesActivity extends AppCompatActivity {
 
         //endregion
 
-        final RecipeCard recipeCard = recipeBuilder.setNewRecipe().getResult();
+        final RecipeCard recipeCard = builder.setNewRecipe().getResult();
 
         final StorageFirebaseHelper storageFirebaseHelper = StorageFirebaseHelper.getInstance();
         FirestoreHelper firestoreHelper = FirestoreHelper.getInstance();

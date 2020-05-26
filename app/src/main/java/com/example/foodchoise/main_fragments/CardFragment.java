@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.foodchoise.R;
 import com.example.foodchoise.entity_classes.CardStackViewAdapter;
-import com.example.foodchoise.entity_classes.RecipeBuilder;
 import com.example.foodchoise.entity_classes.RecipeCard;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackView;
@@ -43,7 +42,7 @@ public class CardFragment extends Fragment implements com.yuyakaido.android.card
         adapter.addRecipesCard(firestoreHelper.getRecipesCard());
          */
 
-        RecipeCard recipeCard = new RecipeBuilder().getTestCard();
+        RecipeCard recipeCard = new RecipeCard.Builder().getTestCard();
         adapter.TEST_addRecipeCard(recipeCard);
         adapter.TEST_addRecipeCard(recipeCard);
         adapter.TEST_addRecipeCard(recipeCard);

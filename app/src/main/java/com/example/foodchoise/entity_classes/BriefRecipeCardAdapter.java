@@ -14,20 +14,32 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodchoise.R;
 import com.example.foodchoise.helperFirebase.storage.StorageFirebaseHelper;
 import com.example.foodchoise.step_classes.display_recipe.DisplayRecipeActivity;
+import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
+import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.List;
 
 import timber.log.Timber;
 
-public class BriefRecipeCardAdapter extends RecyclerView.Adapter<BriefRecipeCardAdapter.BriefRecipeCardViewHolder> {
+public class BriefRecipeCardAdapter extends FirestorePagingAdapter<RecipeCard, BriefRecipeCardAdapter.BriefRecipeCardViewHolder> {
     static public String RECIPECARD_DATA = "RECIPECARD_DATA";
     private ArrayList<RecipeCard> recipeCards = new ArrayList<RecipeCard>();
     private WeakReference<Activity> activity;
 
-    public BriefRecipeCardAdapter(Activity activity) {
+    /**
+     * Construct a new FirestorePagingAdapter from the given {@link FirestorePagingOptions}.
+     *
+     * @param options
+     */
+    public BriefRecipeCardAdapter(@NonNull FirestorePagingOptions<RecipeCard> options,Activity activity) {
+        super(options);
         this.activity = new WeakReference<>(activity);
+    }
+
+    @Override
+    protected void onBindViewHolder(@NonNull BriefRecipeCardViewHolder holder, int position, @NonNull RecipeCard model) {
+        holder.bind(model);
     }
 
     @NonNull
@@ -38,22 +50,8 @@ public class BriefRecipeCardAdapter extends RecyclerView.Adapter<BriefRecipeCard
         return new BriefRecipeCardViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull BriefRecipeCardViewHolder holder, int position) {
-        holder.bind(recipeCards.get(position));
-    }
 
-    @Override
-    public int getItemCount() {
-        return recipeCards.size();
-    }
-
-    public void addRecipesCard(List<RecipeCard> recipeCards) {
-        this.recipeCards.addAll(recipeCards);
-        notifyDataSetChanged();
-    }
-
-    class BriefRecipeCardViewHolder extends RecyclerView.ViewHolder {
+    public class BriefRecipeCardViewHolder extends RecyclerView.ViewHolder {
         ImageView dishesImage;
         TextView dishesName;
         TextView dishesTastyRating;

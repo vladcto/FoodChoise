@@ -112,7 +112,6 @@ public class FirestoreHelper extends FirestoreHelperBasic {
                 continue;
             }
             map = task.getResult().getData();
-            //TODO: Костыль?
             map.put("id",favoritesRecipe.getId());
             recipesCardData.add(map);
         }
@@ -150,4 +149,10 @@ public class FirestoreHelper extends FirestoreHelperBasic {
         });
     }
 
+    public static RecipeCard createRecipeCardFromSnapshot(DocumentSnapshot snapshot){
+        RecipeCard.Builder builder = new RecipeCard.Builder();
+        Map<String,Object> map = snapshot.getData();
+        map.put("id",snapshot.getId());
+        return FirestoreHelperIntegration.createRecipeCardFromMap(map);
+    }
 }
