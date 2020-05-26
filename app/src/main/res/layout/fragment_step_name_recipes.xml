@@ -29,6 +29,7 @@
                 app:srcCompat="@drawable/ic_launcher_background" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id = "@+id/inputNameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:counterEnabled="true"
@@ -42,6 +43,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputDescriptionLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:counterEnabled="true"

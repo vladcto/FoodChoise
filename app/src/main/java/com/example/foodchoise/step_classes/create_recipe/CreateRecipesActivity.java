@@ -38,6 +38,7 @@ public class CreateRecipesActivity extends AppCompatActivity {
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(0);
+        viewPager.setOffscreenPageLimit(4);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -75,25 +76,13 @@ public class CreateRecipesActivity extends AppCompatActivity {
         }
         Timber.i("image_uri = %s", image_uri.toString());
 
-        String dishes_name = stepNameFragment.getTextNameDishes().trim();
-        //TODO: Сделать ограничение по символам.
-        if (dishes_name.isEmpty()) {
-            Timber.i("Пустое имя для dishes_name");
+        if(stepNameFragment.hasErrorFields()){
             viewPager.setCurrentItem(0);
             return;
+        }else {
+            recipeBuilder.setName(stepNameFragment.getTextDescrDishes()).
+                    setDescription(stepNameFragment.getTextNameDishes());
         }
-        Timber.i("dishes_name = %s .", dishes_name);
-        recipeBuilder.setName(dishes_name);
-
-        String dishes_descr = stepNameFragment.getTextDescrDishes().trim();
-        //TODO: Сделать ограничение по символам.
-        if (dishes_descr.isEmpty()) {
-            Timber.i("Пустое имя для dishes_descr");
-            viewPager.setCurrentItem(0);
-            return;
-        }
-        Timber.i("dishes_descr = %s .", dishes_descr);
-        recipeBuilder.setDescription(dishes_descr);
 
         Timber.i("Проверка StepNameFragment прошла успешна");
         //endregion StepNameFragment

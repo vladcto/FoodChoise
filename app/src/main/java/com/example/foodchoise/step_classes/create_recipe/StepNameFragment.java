@@ -4,7 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Debug;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.foodchoise.R;
+import com.google.android.material.textfield.TextInputLayout;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
@@ -29,40 +31,125 @@ public class StepNameFragment extends Fragment {
     private String textNameDishes = null;
     private String textDescrDishes = null;
     private final int CARDIMAGE_REQUEST = 1;
+    private TextInputLayout inputLayoutName, inputLayoutDescription;
+    private EditText textName, textDescr;
 
-    public String getTextNameDishes() {
+    String getTextNameDishes() {
         return textNameDishes;
     }
 
-    public String getTextDescrDishes() {
+    String getTextDescrDishes() {
         return textDescrDishes;
     }
 
-    public Uri getImageUri() {
+    Uri getImageUri() {
         return imageUri;
     }
 
+    public boolean hasErrorFields() {
+        checkNameField();
+        checkDescriptionError();
+        return inputLayoutName.isErrorEnabled() && inputLayoutDescription.isErrorEnabled();
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_step_name_recipes, container, false);
-        if (textNameDishes != null) {
-            EditText text = view.findViewById(R.id.edit_name_dishes);
-            text.setText(textNameDishes);
-        }
 
-        if (textDescrDishes != null) {
-            EditText text = view.findViewById(R.id.edit_descr_dishes);
-            text.setText(textDescrDishes);
+        textName = view.findViewById(R.id.edit_name_dishes);
+        inputLayoutName = view.findViewById(R.id.inputNameLayout);
+        if (textNameDishes != null) {
+            textName.setText(textNameDishes);
         }
+        textName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = s.toString().trim();
+                checkNameField();
+                textDescrDishes = text;
+            }
+        });
+
+        textDescr = view.findViewById(R.id.edit_descr_dishes);
+        inputLayoutDescription = view.findViewById(R.id.inputDescriptionLayout);
+        if (textDescrDishes != null) {
+            textDescr.setText(textDescrDishes);
+        }
+        textDescr.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = s.toString().trim();
+                checkDescriptionError();
+                textNameDishes = text;
+            }
+        });
 
         if (imageUri != null) {
             ImageButton imageButton = view.findViewById(R.id.select_foto_imagebutton);
             Timber.d("Ставим в изображение URI: %s", imageUri);
             imageButton.setImageURI(imageUri);
         }
+
         return view;
+    }
+
+    private void checkNameField(){
+        String text = textName.getText().toString().trim();
+        if (text.length() > inputLayoutName.getCounterMaxLength()) {
+            showNameError(EditTextErrors.MAX_LENGTH);
+        } else if (text.length() == 0) {
+            showNameError(EditTextErrors.EMPTY);
+        } else {
+            inputLayoutName.setErrorEnabled(false);
+        }
+    }
+
+    private void checkDescriptionError(){
+        String text = textDescr.getText().toString().trim();
+        if (text.length() > inputLayoutDescription.getCounterMaxLength()) {
+            showDescrError(EditTextErrors.MAX_LENGTH);
+        } else if (text.length() == 0) {
+            showDescrError(EditTextErrors.EMPTY);
+        } else {
+            inputLayoutDescription.setErrorEnabled(false);
+        }
+    }
+
+    private void showNameError(EditTextErrors editTextErrors) {
+        if (editTextErrors == EditTextErrors.MAX_LENGTH) {
+            inputLayoutName.setError(getResources().getText(R.string.error_max_length) + " "
+                    + inputLayoutName.getCounterMaxLength());
+        } else {
+            inputLayoutName.setError(getResources().getText(R.string.required_input));
+        }
+    }
+
+    private void showDescrError(EditTextErrors editTextErrors) {
+        if (editTextErrors == EditTextErrors.MAX_LENGTH) {
+            inputLayoutDescription.setError(getResources().getText(R.string.error_max_length) + " "
+                    + inputLayoutDescription.getCounterMaxLength());
+        } else {
+            inputLayoutDescription.setError(getResources().getText(R.string.required_input));
+        }
     }
 
     @Override
@@ -92,7 +179,7 @@ public class StepNameFragment extends Fragment {
             Uri destinationUri = Uri.fromFile(file);
             UCrop.of(sourceUri, destinationUri)
                     .withAspectRatio(1f, 1f)
-                    .start(getActivity(),this);
+                    .start(getActivity(), this);
 
         } else if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
             //Получаем URI обрезанного изображения.
@@ -101,21 +188,9 @@ public class StepNameFragment extends Fragment {
             ImageButton button = (ImageButton) getActivity().findViewById(R.id.select_foto_imagebutton);
             button.setImageURI(imageUri);
 
-        }else {
-            Timber.w("Не отработан requestCode = %s , resultCode = %s",requestCode,requestCode);
+        } else {
+            Timber.w("Не отработан requestCode = %s , resultCode = %s", requestCode, requestCode);
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        //Сохоранения данных для последующего востановления фрагмента или
-        //для создания RecipeCard по этим данным
-        Activity activity = getActivity();
-        EditText text = activity.findViewById(R.id.edit_name_dishes);
-        textNameDishes = text.getText().toString();
-        text = activity.findViewById(R.id.edit_descr_dishes);
-        textDescrDishes = text.getText().toString();
     }
 
     private void openCamera() {
@@ -135,8 +210,7 @@ public class StepNameFragment extends Fragment {
     }
 
     private File getMainImageFile() {
-        File file = new File(getActivity().getFilesDir(), "main_photo");
-        return file;
+        return new File(getActivity().getFilesDir(), "main_photo");
 
     }
 
@@ -148,4 +222,5 @@ public class StepNameFragment extends Fragment {
         textNameDishes = null;
         textDescrDishes = null;
     }
+
 }

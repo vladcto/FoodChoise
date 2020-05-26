@@ -23,6 +23,8 @@
     <string name="add_photo">Установите изображения блюда:</string>
     <string name="add_name">Добавьте название: </string>
     <string name="add_description">Опишите в пару словах блюдо: </string>
+    <string name="error_max_length">Максимальная длина</string>
+    <string name="required_input">Обязательно к заполнению.</string>
 
     <!-- Menu -->
     <string name="add_to_favorite">Добавить в избранные</string>
