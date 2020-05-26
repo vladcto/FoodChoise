@@ -17,7 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodchoise.R;
 import com.example.foodchoise.entity_classes.AdapterBuilder;
 import com.example.foodchoise.entity_classes.BriefRecipeCardAdapter;
+import com.example.foodchoise.helperFirebase.database.FirestoreHelper;
 import com.example.foodchoise.step_classes.create_recipe.CreateRecipesActivity;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import leakcanary.AppWatcher;
 
@@ -30,7 +33,8 @@ public class ReciepsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.page_recieps,container,false);
 
-        adapter = AdapterBuilder.getAdapter(getActivity());
+        Query query = FirebaseFirestore.getInstance().collection(FirestoreHelper.COLLECTION_RECIPES);
+        adapter = AdapterBuilder.getAdapter(getActivity(),query);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setAdapter(adapter);

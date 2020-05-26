@@ -2,6 +2,7 @@ package com.example.foodchoise.helperFirebase.database;
 
 import androidx.annotation.NonNull;
 
+import com.example.foodchoise.callback.BasicCallback;
 import com.example.foodchoise.entity_classes.RecipeCard;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -119,6 +120,41 @@ public class FirestoreHelper extends FirestoreHelperBasic {
         return firestoreHelperIntegration.createRecipeCardsFromMaps(recipesCardData);
     }
 
+    public List<DocumentReference> getFavoritesRecipesRefernce(){
+        BasicCallback<List<DocumentReference>> callback = new BasicCallback<List<DocumentReference>>() {
+        }
+        ArrayList<DocumentReference> favoritesRecipes = null;
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        assert user != null;
+        final String uidUser = user.getUid();
+
+        List<RecipeCard> recipeCards = new ArrayList<>();
+        Task<DocumentSnapshot> snapshotTask = db.collection(USERS_COLLECTION)
+                .document(uidUser)
+                .get();
+        try {
+            Tasks.await(snapshotTask);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            return favoritesRecipes;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return favoritesRecipes;
+        }
+
+        DocumentSnapshot snapshot = snapshotTask.getResult();
+        Object documentsReference =  snapshot.get(FAVORITE_RECIPES);
+        try {
+            favoritesRecipes = (ArrayList<DocumentReference>) documentsReference;
+        }
+        catch (ClassCastException e){
+            favoritesRecipes = new ArrayList<DocumentReference>();
+            favoritesRecipes.add(((DocumentReference)documentsReference));
+        }
+
+        return favoritesRecipes;
+    }
+
     public void addToFavorite(String recipeUid) {
         //Не очень уверен , что стоит этому классу заниматься аунтентификацией.
         //Потом посмторю , а пока так.
@@ -126,13 +162,12 @@ public class FirestoreHelper extends FirestoreHelperBasic {
         assert user != null;
         final String uidUser = user.getUid();
 
-        final CollectionReference users_collection = db.collection(USERS_COLLECTION);
-        final DocumentReference recipeReference = db.collection(COLLECTION_RECIPES).document(recipeUid);
+        final CollectionReference users_collection = db.collection(COLLECTION_RECIPES);
 
-        final HashMap<String, DocumentReference> map = new HashMap<String, DocumentReference>();
-        map.put(FAVORITE_RECIPES, recipeReference);
+        final HashMap<String, String> map = new HashMap<String, String>();
+        map.put(FAVORITE_RECIPES, uidUser);
 
-        users_collection.document(uidUser).update(FAVORITE_RECIPES, FieldValue.arrayUnion(recipeReference)).addOnFailureListener(new OnFailureListener() {
+        users_collection.document(recipeUid).update(FAVORITE_RECIPES, FieldValue.arrayUnion(uidUser)).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 if (e instanceof FirebaseFirestoreException)

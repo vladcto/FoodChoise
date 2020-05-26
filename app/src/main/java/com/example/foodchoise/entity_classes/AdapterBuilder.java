@@ -9,14 +9,10 @@ import com.example.foodchoise.helperFirebase.database.FirestoreHelper;
 import com.firebase.ui.firestore.SnapshotParser;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 public class AdapterBuilder {
-    public static BriefRecipeCardAdapter getAdapter(Activity activity){
-        //Query
-        Query baseQuery = FirebaseFirestore.getInstance()
-                .collection(FirestoreHelper.COLLECTION_RECIPES);
+    public static BriefRecipeCardAdapter getAdapter(Activity activity, Query baseQuery) {
 
         //Config
         PagedList.Config config = new PagedList.Config.Builder()
@@ -35,7 +31,6 @@ public class AdapterBuilder {
                     }
                 })
                 .build();
-
-        return new BriefRecipeCardAdapter(options,activity);
+        return new BriefRecipeCardAdapter(options, activity);
     }
 }
