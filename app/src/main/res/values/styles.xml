@@ -15,6 +15,7 @@
         <!-- attr -->
         <item name="myColor">@color/lightCardViewBackground</item>
         <item name="toolbarBackground">@color/toolbarBackgroundLight</item>
+        <item name="backgroundProfile">@drawable/light_gradient</item>
     </style>
 
     <!-- region AppTheme -->
@@ -35,6 +36,7 @@
         <!-- attr -->
         <item name="myColor">@color/cardview_dark_background</item>
         <item name="toolbarBackground">@color/toolbarBackgroundDark</item>
+        <item name="backgroundProfile">?android:windowBackground</item>
     </style>
 
     <!-- region DarkTheme -->

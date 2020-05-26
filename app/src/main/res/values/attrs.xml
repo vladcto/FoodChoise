@@ -4,5 +4,6 @@
         <attr name="myColor" format="reference"/>
         <attr name="cardStyle" format="reference"/>
         <attr name="toolbarBackground" format="reference"/>
+        <attr name="backgroundProfile" format="reference|color"/>
     </declare-styleable>
 </resources>
