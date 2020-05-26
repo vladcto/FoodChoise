@@ -28,31 +28,31 @@
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/ic_launcher_background" />
 
-            <TextView
-                android:id="@+id/textView6"
-                style="@style/container"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/add_name" />
+                android:layout_height="match_parent"
+                app:counterEnabled="true"
+                app:counterMaxLength="40">
 
-            <EditText
-                android:id="@+id/edit_name_dishes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/container"/>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_name_dishes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/add_name" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/textView7"
-                style="@style/container"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Опишите в пару словах блюдо." />
+                android:layout_height="match_parent"
+                app:counterEnabled="true"
+                app:counterMaxLength="250">
 
-            <EditText
-                android:id="@+id/edit_descr_dishes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/container"/>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_descr_dishes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/add_description" />
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 

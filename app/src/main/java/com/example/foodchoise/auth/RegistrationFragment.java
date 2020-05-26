@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,13 +24,15 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 
 import timber.log.Timber;
 
-public class RegistrationFragment extends Fragment implements Button.OnClickListener {
+public class RegistrationFragment extends Fragment implements Button.OnClickListener{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.auth_registration, container, false);
         Button button = view.findViewById(R.id.registrationButton);
         button.setOnClickListener(this);
+        ImageButton imageButton = view.findViewById(R.id.backButton);
+        imageButton.setOnClickListener(this);
         return view;
     }
 
