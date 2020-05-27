@@ -1,6 +1,5 @@
 package com.example.foodchoise.main_fragments;
 
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,70 +14,57 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodchoise.R;
 import com.example.foodchoise.entity_classes.AdapterBuilder;
+import com.example.foodchoise.entity_classes.BriefRecipeCardAdapter;
 import com.example.foodchoise.helperFirebase.database.FirestoreHelper;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import timber.log.Timber;
 
 public class FavoritesFragment extends Fragment {
-    private MyTask task;
+    RecyclerView recyclerView;
+    BriefRecipeCardAdapter adapter;
+    AsyncTask task;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.page_favorites,container,false);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-        task = new MyTask(recyclerView,getActivity());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        task = FirestoreHelper.getInstance().getFavoritesRecipesRefernce();
+        List<String> ids = new ArrayList<>();
+        //TODO: Реализовать патерн слушатель , что бы экран не зависал.
+        task.execute();
+        try {
+           ids =(List<String>) task.get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Query query = FirebaseFirestore.getInstance().collection(FirestoreHelper.COLLECTION_RECIPES)
+                .whereIn(FieldPath.documentId(),ids);
+        Timber.e("id: %s", ids.toString());
+        adapter = AdapterBuilder.getAdapter(getActivity(),query);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(adapter);
         return view;
-    }
-
-    private static class MyTask extends AsyncTask<Void, Void, List<DocumentReference>> {
-
-        private WeakReference<RecyclerView> recyclerViewWeakReference;
-        private WeakReference<Activity> activityWeakReference;
-
-        // only retain a weak reference to the activity
-        MyTask(RecyclerView recyclerView,Activity activity) {
-            recyclerViewWeakReference = new WeakReference<>(recyclerView);
-            activityWeakReference = new WeakReference<>(activity);
-        }
-
-        @Override
-        protected List<DocumentReference> doInBackground(Void... params) {
-            FirestoreHelper firestoreHelper = FirestoreHelper.getInstance();
-            return firestoreHelper.getFavoritesRecipesRefernce();
-        }
-
-        @Override
-        protected void onPostExecute(List<DocumentReference> result) {
-            try{
-                Query query = FirebaseFirestore.getInstance()
-                        .collection(FirestoreHelper.COLLECTION_RECIPES)
-                        .whereIn(FieldPath.documentId(),result);
-                recyclerViewWeakReference.get().setAdapter(
-                        AdapterBuilder.getAdapter(activityWeakReference.get(),query)
-                );
-            }catch (NullPointerException ignored){}
-            activityWeakReference.clear();
-            recyclerViewWeakReference.clear();
-        }
-
-        @Override
-        protected void onCancelled() {
-            super.onCancelled();
-            activityWeakReference.clear();
-            recyclerViewWeakReference.clear();
-        }
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         task.cancel(true);
+        super.onDestroy();
+    }
+
+    @Override
+    public void onStart() {
+        adapter.startListening();
+        super.onStart();
     }
 }
