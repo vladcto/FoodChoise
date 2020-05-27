@@ -1,6 +1,7 @@
 package com.example.foodchoise.helperFirebase.database;
 
 import com.example.foodchoise.entity_classes.RecipeCard;
+import com.example.foodchoise.entity_classes.UserReview;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,9 +15,10 @@ import java.util.Map;
 //TODO: Сделать статичным.
 final class FirestoreHelperIntegration {
 
-    Map<String, Object> createMapFromRecipeCard(RecipeCard recipeCard) {
+    Map<String, Object> mapFromRecipeCard(RecipeCard recipeCard) {
         Map<String, Object> recipeData = new HashMap<>();
 
+        //TODO: В нормальной последовательности это пихнуть.
         recipeData.put("complexity_rating", recipeCard.getDishesComplexityRating());
         recipeData.put("dishes_descr", recipeCard.getDishesDescription());
         recipeData.put("ingridients", recipeCard.getDishesIngridient());
@@ -27,15 +29,15 @@ final class FirestoreHelperIntegration {
         return recipeData;
     }
 
-    List<RecipeCard> createRecipeCardsFromMaps(List<Map<String, Object>> maps){
+    List<RecipeCard> recipeCardsFromMaps(List<Map<String, Object>> maps){
         List<RecipeCard> recipeCards = new ArrayList<RecipeCard>();
         for (Map<String,Object> map : maps) {
-            recipeCards.add(createRecipeCardFromMap(map));
+            recipeCards.add(recipeCardFromMap(map));
         }
         return recipeCards;
     }
 
-    static  RecipeCard createRecipeCardFromMap(Map<String, Object> map){
+    static RecipeCard recipeCardFromMap(Map<String, Object> map){
         //TODO: Проверка на то, что такого ключа нет.
         //region Считываем данные
         String dishes_descr = (String)map.get("dishes_descr");
@@ -58,5 +60,14 @@ final class FirestoreHelperIntegration {
                 .build();
 
         return recipeCard;
+    }
+
+    static Map<String,Object> mapFromUserReview(UserReview userReview){
+        Map<String,Object> map = new HashMap<>();
+        map.put("tasty_rating",userReview.getTastyRating());
+        map.put("hard_rating",userReview.getHardRating());
+        map.put("price_rating",userReview.getPriceRating());
+        map.put("comment",userReview.getComment());
+        return map;
     }
 }

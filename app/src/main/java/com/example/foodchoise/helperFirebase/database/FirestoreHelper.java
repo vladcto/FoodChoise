@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import androidx.annotation.NonNull;
 
 import com.example.foodchoise.entity_classes.RecipeCard;
+import com.example.foodchoise.entity_classes.UserReview;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
@@ -47,6 +48,7 @@ public class FirestoreHelper extends FirestoreHelperBasic {
     public static final String COLLECTION_RECIPES = "recipes";
     public static final String TEST = "test";
     public static final String USERS_COLLECTION = "users";
+    public static final String COLLECTION_USER_REVIEWS = "user_reviews";
     //endregion
 
     //region private_const
@@ -57,14 +59,14 @@ public class FirestoreHelper extends FirestoreHelperBasic {
     public Task<DocumentReference> addRecipeCard(RecipeCard recipeCard) {
         CollectionReference recipesCollection = db.collection(COLLECTION_RECIPES);
 
-        Map<String, Object> recipeData = firestoreHelperIntegration.createMapFromRecipeCard(recipeCard);
+        Map<String, Object> recipeData = firestoreHelperIntegration.mapFromRecipeCard(recipeCard);
 
         return recipesCollection.add(recipeData);
     }
 
     public List<RecipeCard> getRecipesCardIn(String recipesCollection) {
         List<Map<String, Object>> maps = super.getMapDocumentsInCollection(recipesCollection);
-        return firestoreHelperIntegration.createRecipeCardsFromMaps(maps);
+        return firestoreHelperIntegration.recipeCardsFromMaps(maps);
     }
 
     public List<RecipeCard> getFavoritesRecipesCard() {
@@ -118,7 +120,7 @@ public class FirestoreHelper extends FirestoreHelperBasic {
             recipesCardData.add(map);
         }
 
-        return firestoreHelperIntegration.createRecipeCardsFromMaps(recipesCardData);
+        return firestoreHelperIntegration.recipeCardsFromMaps(recipesCardData);
     }
 
     public AsyncTask getFavoritesRecipesRefernce() {
@@ -203,10 +205,20 @@ public class FirestoreHelper extends FirestoreHelperBasic {
         RecipeCard.Builder builder = new RecipeCard.Builder();
         Map<String, Object> map = snapshot.getData();
         map.put("id", snapshot.getId());
-        return FirestoreHelperIntegration.createRecipeCardFromMap(map);
+        return FirestoreHelperIntegration.recipeCardFromMap(map);
     }
 
-    public void sendReview(){
+    public void sendReview(UserReview userReview, String recipe_ID){
+        DocumentReference recipeRefernce = db.collection(COLLECTION_RECIPES).document(recipe_ID);
+        CollectionReference usersReviewCollection = recipeRefernce.collection(COLLECTION_USER_REVIEWS);
 
+        Map<String,Object> map = FirestoreHelperIntegration.mapFromUserReview(userReview);
+        final String uidUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        usersReviewCollection.document(uidUser).set(map);
+        recipeRefernce.update("all_tasty_rating",FieldValue.increment(userReview.getTastyRating()),
+                "all_hard_rating",FieldValue.increment(userReview.getPriceRating()),
+                "all_price_rating",FieldValue.increment(userReview.getPriceRating()),
+                "users_complete",FieldValue.increment(1));
     }
 }

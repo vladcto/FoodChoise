@@ -1,6 +1,7 @@
 package com.example.foodchoise.entity_classes;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class UserReview {
     private float tastyRating, priceRating;
@@ -26,6 +27,7 @@ public class UserReview {
         return hardRating;
     }
 
+    @Nullable
     public String getComment() {
         return comment;
     }

@@ -12,12 +12,13 @@ import androidx.fragment.app.Fragment;
 
 import com.example.foodchoise.R;
 import com.example.foodchoise.entity_classes.UserReview;
+import com.example.foodchoise.helperFirebase.database.FirestoreHelper;
 import com.willy.ratingbar.ScaleRatingBar;
 
 import timber.log.Timber;
 
-public class DisplayRewiewFragment extends Fragment {
-    ScaleRatingBar tastyRatingBar,priceRatingBar;
+public class DisplayReviewFragment extends Fragment {
+    private ScaleRatingBar tastyRatingBar,priceRatingBar;
 
     @Nullable
     @Override
@@ -29,10 +30,17 @@ public class DisplayRewiewFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DisplayRecipeActivity activity = (DisplayRecipeActivity) getActivity();
                 float tastyRating = tastyRatingBar.getRating();
                 float priceRating = priceRatingBar.getRating();
                 Timber.i(tastyRating +" "+ priceRating);
+
                 UserReview.Builder builder = new UserReview.Builder();
+                builder.setTastyRating(tastyRating)
+                        .setPriceRating(priceRating)
+                        //FIXME Нет под коробкой добавления
+                        .setHardRating(2);
+                FirestoreHelper.getInstance().sendReview(builder.build(),activity.getRecipeCard().getID());
             }
         });
         return view;

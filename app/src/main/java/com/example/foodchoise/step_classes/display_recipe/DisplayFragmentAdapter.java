@@ -20,7 +20,7 @@ public class DisplayFragmentAdapter extends FragmentPagerAdapter implements GetF
         fragments.add(new DisplayNameFragment(activity));
         fragments.add(new DisplayIngrFragment(activity));
         fragments.add(new DisplayInstrFragment(activity));
-        fragments.add(new DisplayRewiewFragment());
+        fragments.add(new DisplayReviewFragment());
     }
 
     @Override
