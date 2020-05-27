@@ -25,7 +25,11 @@
     <string name="add_description">Опишите в пару словах блюдо: </string>
     <string name="error_max_length">Максимальная длина</string>
     <string name="required_input">Обязательно к заполнению.</string>
-
+    <string name="taste">Вкус</string>
+    <string name="Complexity">Сложность</string>
+    <string name="price">Цена</string>
+    <string name="add_Comments">Добавьте комментарий</string>
+    
     <!-- Menu -->
     <string name="add_to_favorite">Добавить в избранные</string>
     <string name="cards">Карточки</string>
