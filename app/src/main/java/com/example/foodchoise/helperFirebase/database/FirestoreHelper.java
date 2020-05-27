@@ -124,7 +124,6 @@ public class FirestoreHelper extends FirestoreHelperBasic {
     public AsyncTask getFavoritesRecipesRefernce() {
         return new MyTask();
     }
-
     private static class MyTask extends AsyncTask<Object,Object,List<String>> {
 
 
@@ -169,6 +168,7 @@ public class FirestoreHelper extends FirestoreHelperBasic {
             return result;
         }
     }
+
     public void addToFavorite(String recipeUid) {
         //Не очень уверен , что стоит этому классу заниматься аунтентификацией.
         //Потом посмторю , а пока так.
@@ -204,5 +204,9 @@ public class FirestoreHelper extends FirestoreHelperBasic {
         Map<String, Object> map = snapshot.getData();
         map.put("id", snapshot.getId());
         return FirestoreHelperIntegration.createRecipeCardFromMap(map);
+    }
+
+    public void sendReview(){
+
     }
 }

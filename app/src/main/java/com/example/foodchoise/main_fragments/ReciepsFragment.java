@@ -22,7 +22,6 @@ import com.example.foodchoise.step_classes.create_recipe.CreateRecipesActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-import leakcanary.AppWatcher;
 
 public class ReciepsFragment extends Fragment {
     public static final String BRIEFCARD_DATA = "BRIEFCARD_DATA";
@@ -40,7 +39,6 @@ public class ReciepsFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         final Activity activity = getActivity();
-        AppWatcher.INSTANCE.getObjectWatcher().watch(adapter,"adapter was detached");
         ImageButton button = view.findViewById(R.id.add_recipe_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
