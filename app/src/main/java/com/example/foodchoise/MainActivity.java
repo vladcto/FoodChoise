@@ -94,8 +94,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         navigationView.setCheckedItem(R.id.recipes_menu);
         MenuItem menuItem = navigationView.getCheckedItem();
         toolbar.setTitle(menuItem.getTitle());
-
         setSupportActionBar(toolbar);
+        drawerLayout.openDrawer(navigationView);
     }
 
     @Override
