@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -70,6 +71,7 @@ public class CreateRecipesActivity extends AppCompatActivity {
         final Uri image_uri = stepNameFragment.getImageUri();
         if (image_uri == null) {
             Timber.i("Нет ссылки на изображения для image_uri");
+            Toast.makeText(this,R.string.not_main_photo_recipe,Toast.LENGTH_LONG).show();
             viewPager.setCurrentItem(0);
             return;
         }
@@ -90,11 +92,18 @@ public class CreateRecipesActivity extends AppCompatActivity {
         StepIngridientFragment stepIngridientFragment = (StepIngridientFragment) adapter.getItem(1);
 
         ArrayList<String> dishes_ingridients = stepIngridientFragment.getIngridients();
-        //TODO: Проверить на пустые ингридиенты.
         if (dishes_ingridients.size() == 0) {
             Timber.i("Не указано ни одного ингридиента.");
+            Toast.makeText(this,R.string.not_ingredients,Toast.LENGTH_LONG).show();
             viewPager.setCurrentItem(1);
             return;
+        }
+        for(String s : dishes_ingridients){
+            if(s.trim().length() == 0){
+                viewPager.setCurrentItem(1);
+                Toast.makeText(this,R.string.empty_ingredient,Toast.LENGTH_LONG).show();
+                return;
+            }
         }
         builder.setIngredient(dishes_ingridients);
         Timber.i("Проверка StepIngridientFragment прошла успешна");
@@ -104,11 +113,18 @@ public class CreateRecipesActivity extends AppCompatActivity {
         StepInstrFragment instrFragment = (StepInstrFragment) adapter.getItem(2);
 
         ArrayList<String> dishes_instructions = instrFragment.getInstructions();
-        //TODO: Проверить на пустые инструкции.
         if (dishes_instructions.size() == 0) {
             Timber.i("Не указано ни одной инструкции.");
+            Toast.makeText(this,R.string.not_instructions,Toast.LENGTH_LONG).show();
             viewPager.setCurrentItem(2);
             return;
+        }
+        for(String s : dishes_instructions){
+            if(s.trim().length() == 0){
+                viewPager.setCurrentItem(2);
+                Toast.makeText(this,R.string.empty_instruction,Toast.LENGTH_LONG).show();
+                return;
+            }
         }
         builder.setInstructions(dishes_instructions);
         Timber.i("Проверка StepInstrFragment прошла успешна");

@@ -29,7 +29,12 @@
     <string name="Complexity">Сложность</string>
     <string name="price">Цена</string>
     <string name="add_Comments">Добавьте комментарий</string>
-    
+    <string name="empty_ingredient">Указан пустой ингридиент</string>
+    <string name="empty_instruction">Указана пустая инструкция</string>
+    <string name="not_instructions">Не указано ни одной инструкции</string>
+    <string name="not_ingredients">Не указано ни одного ингридиента.</string>
+    <string name="not_main_photo_recipe">Нет изображение рецепта</string>
+
     <!-- Menu -->
     <string name="add_to_favorite">Добавить в избранные</string>
     <string name="cards">Карточки</string>
