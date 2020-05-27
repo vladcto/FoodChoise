@@ -142,7 +142,7 @@ public class RecipeCard extends BriefRecipeCard  implements Parcelable {
         }
 
         @Override
-        public RecipeCard getResult() {
+        public RecipeCard build() {
             return new RecipeCard(name,tastyRating,complexityRating,description,ingredients,instructions,id);
         }
 

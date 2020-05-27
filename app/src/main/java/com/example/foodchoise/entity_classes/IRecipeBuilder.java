@@ -23,7 +23,7 @@ public interface IRecipeBuilder {
 
     public IRecipeBuilder setInstructions(List<String> instructions);
 
-    public RecipeCard getResult();
+    public RecipeCard build();
 
     @TestOnly
     public RecipeCard getTestCard();

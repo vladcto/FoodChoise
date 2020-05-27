@@ -54,21 +54,15 @@ public class BriefRecipeCardAdapter extends FirestorePagingAdapter<RecipeCard, B
     public class BriefRecipeCardViewHolder extends RecyclerView.ViewHolder {
         ImageView dishesImage;
         TextView dishesName;
-        TextView dishesTastyRating;
-        TextView dishesComplexityRating;
 
         public BriefRecipeCardViewHolder(@NonNull View itemView) {
             super(itemView);
             dishesImage = itemView.findViewById(R.id.dishes_image);
             dishesName = itemView.findViewById(R.id.dishes_name);
-            dishesTastyRating = itemView.findViewById(R.id.dishes_tasty_rating);
-            dishesComplexityRating = itemView.findViewById(R.id.dishes_complexity_rating);
         }
 
         public void bind(final RecipeCard recipeCard) {
             dishesName.setText(recipeCard.getDishesName());
-            dishesTastyRating.setText(String.valueOf(recipeCard.getDishesTastyRating()));
-            dishesComplexityRating.setText(String.valueOf(recipeCard.getDishesComplexityRating()));
             //TODO: убрать этот BriefRecipeCard, если так будет не рабоатть.
             dishesImage.setOnClickListener(new View.OnClickListener() {
                 @Override

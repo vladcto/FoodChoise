@@ -55,7 +55,7 @@ final class FirestoreHelperIntegration {
                 .setID(id)
                 .setIngredient(ingridients)
                 .setInstructions(instr)
-                .getResult();
+                .build();
 
         return recipeCard;
     }

@@ -8,7 +8,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:clipChildren="true"
         android:clipToPadding="true"
@@ -47,16 +47,24 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:layout_weight="0"
+                    android:layout_gravity="center"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/dishes_tasty_rating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="TextView"
-                        style="@style/container"/>
+                    <com.willy.ratingbar.ScaleRatingBar
+                        android:id="@+id/xzfsfsddf"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="false"
+                        android:gravity="center"
+                        app:srb_clearRatingEnabled="false"
+                        app:srb_clickable="false"
+                        app:srb_drawableEmpty="@drawable/empty_star"
+                        app:srb_drawableFilled="@drawable/full_start"
+                        app:srb_isIndicator="true"
+                        app:srb_numStars="5"
+                        app:srb_scrollable="false"
+                        app:srb_stepSize="0.5" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -64,13 +72,21 @@
                     android:layout_height="45dp"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/dishes_complexity_rating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="TextView"
-                        style="@style/container"/>
+
+                    <com.willy.ratingbar.ScaleRatingBar
+                        android:id="@+id/xzfsfsddsdf"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="false"
+                        android:gravity="center"
+                        app:srb_clearRatingEnabled="false"
+                        app:srb_clickable="false"
+                        app:srb_drawableEmpty="@drawable/empty_star"
+                        app:srb_drawableFilled="@drawable/full_start"
+                        app:srb_isIndicator="true"
+                        app:srb_numStars="5"
+                        app:srb_scrollable="false"
+                        app:srb_stepSize="0.5" />
                 </LinearLayout>
 
             </LinearLayout>
