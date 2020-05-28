@@ -95,4 +95,15 @@ final class FirestoreHelperIntegration {
         map.put("comment",userReview.getComment());
         return map;
     }
+
+    static UserReview userReviewFromMap(Map<String, Object> map) {
+        //FIXME Потенциальная ошибка при целочисленном отзыве.
+        Long complexity_rating = (Long) map.get("complexity_rating");
+        return new UserReview.Builder()
+                .setHardRating(complexity_rating.intValue())
+                .setPriceRating((double) map.get("price_rating"))
+                .setTastyRating((double) map.get("tasty_rating"))
+                .addComment((String) map.get("comment"))
+                .build();
+    }
 }

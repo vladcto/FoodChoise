@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.example.foodchoise.entity_classes.RecipeCard;
 import com.example.foodchoise.entity_classes.UserReview;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
@@ -14,9 +15,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -126,7 +129,8 @@ public class FirestoreHelper extends FirestoreHelperBasic {
     public AsyncTask getFavoritesRecipesRefernce() {
         return new MyTask();
     }
-    private static class MyTask extends AsyncTask<Object,Object,List<String>> {
+
+    private static class MyTask extends AsyncTask<Object, Object, List<String>> {
 
 
         @Override
@@ -152,14 +156,14 @@ public class FirestoreHelper extends FirestoreHelperBasic {
             DocumentSnapshot snapshot = snapshotTask.getResult();
             Object documentsReference = snapshot.get(FAVORITE_RECIPES);
             ArrayList<String> result = new ArrayList<>();
-            if(documentsReference == null){
+            if (documentsReference == null) {
                 //Костыль , так как для запроса Query понадобиться хот что-то.
                 result.add("null");
                 return result;
             }
             try {
                 List<DocumentReference> references = (ArrayList<DocumentReference>) documentsReference;
-                for (DocumentReference reference: references){
+                for (DocumentReference reference : references) {
                     result.add(reference.getId());
                 }
             } catch (ClassCastException e) {
@@ -207,21 +211,69 @@ public class FirestoreHelper extends FirestoreHelperBasic {
         return FirestoreHelperIntegration.recipeCardFromMap(map);
     }
 
-    public void sendReview(UserReview userReview, String recipe_ID){
-        DocumentReference recipeRefernce = db.collection(COLLECTION_RECIPES).document(recipe_ID);
-        CollectionReference usersReviewCollection = recipeRefernce.collection(COLLECTION_USER_REVIEWS);
+    private Runnable reviewSending;
 
-        Map<String,Object> map = FirestoreHelperIntegration.mapFromUserReview(userReview);
-        final String uidUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    //ЭТО РАБОТАЕТ И Я ПОНИМАЮ КАК!!!!!!!!!!!!
+    //Можно возвращать true или false если есть уже отправка рецепта.
+    public void sendReview(final UserReview userReview, final String recipe_ID) {
+        if (reviewSending == null) {
+            reviewSending = new Runnable() {
+                @Override
+                public void run() {
+                    final DocumentReference recipeRefernce = db.collection(COLLECTION_RECIPES).document(recipe_ID);
+                    final CollectionReference usersReviewCollection = recipeRefernce.collection(COLLECTION_USER_REVIEWS);
 
-        //Ставим отзыв к рецепту.
-        usersReviewCollection.document(uidUser).set(map);
-        //Увеличиваем число сделанных рецептов.
-        db.collection(USERS_COLLECTION).document(uidUser).update("count_made_recipe",FieldValue.increment(1));
-        //Обновляем характеристики рецепта.
-        recipeRefernce.update("all_tasty_rating",FieldValue.increment(userReview.getTastyRating()),
-                "all_complexity_rating",FieldValue.increment(userReview.getPriceRating()),
-                "all_price_rating",FieldValue.increment(userReview.getPriceRating()),
-                "users_complete",FieldValue.increment(1));
+
+                    final String uidUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                    //Пытаемся узнать , есть ли этот рецепт в бд.
+                    usersReviewCollection
+                            .whereEqualTo(FieldPath.documentId(), uidUser)
+                            .get()
+                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                //Если у пользователя был отзыв.
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    try {
+                                        //TODO: Вынести в if блок.
+                                        //Если у пользователя есть рецепт , то это не даст ошибки.
+                                        DocumentSnapshot documentSnapshot = queryDocumentSnapshots.getDocuments().get(0);
+
+                                        //Получаем разницу на которую нужно заменить отзыв.
+                                        UserReview lastUserReview = FirestoreHelperIntegration.userReviewFromMap(documentSnapshot.getData());
+                                        UserReview changeUserReview = lastUserReview.differenceWith(userReview);
+                                        final Map<String, Object> map = FirestoreHelperIntegration.mapFromUserReview(userReview);
+                                        usersReviewCollection.document(uidUser).set(map);
+
+                                        //Обновляем характеристики рецепта.
+                                        recipeRefernce.update("all_tasty_rating", FieldValue.increment(changeUserReview.getTastyRating()),
+                                                "all_complexity_rating", FieldValue.increment(changeUserReview.getPriceRating()),
+                                                "all_price_rating", FieldValue.increment(changeUserReview.getPriceRating()));
+
+                                    } catch (IndexOutOfBoundsException e) {
+                                        //Если у пользователя не было отзыва.
+                                        //Ставим отзыв к рецепту.
+                                        final Map<String, Object> map = FirestoreHelperIntegration.mapFromUserReview(userReview);
+                                        usersReviewCollection.document(uidUser).set(map);
+
+                                        //Увеличиваем число сделанных рецептов.
+                                        db.collection(USERS_COLLECTION).document(uidUser).update("count_made_recipe", FieldValue.increment(1));
+
+                                        //Обновляем характеристики рецепта.
+                                        recipeRefernce.update("all_tasty_rating", FieldValue.increment(userReview.getTastyRating()),
+                                                "all_complexity_rating", FieldValue.increment(userReview.getPriceRating()),
+                                                "all_price_rating", FieldValue.increment(userReview.getPriceRating()),
+                                                "users_complete", FieldValue.increment(1));
+
+                                    }
+                                    //Обнуляю, тем самым говоря , что отзыва был отправлен.
+                                    reviewSending = null;
+                                }
+                            });
+
+                }
+            };
+            reviewSending.run();
+        }
     }
 }

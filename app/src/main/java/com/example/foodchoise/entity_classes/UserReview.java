@@ -32,6 +32,20 @@ public class UserReview {
         return comment;
     }
 
+    /**
+     * @param userReviewSecond Отзыв относительно которого высчитывается разница.
+     * @return На как много 1 отзыв меньше 2.
+     */
+    //Присваиваеться комменатрий второго.
+    public UserReview differenceWith(UserReview userReviewSecond) {
+        return new Builder()
+                .setHardRating(userReviewSecond.getHardRating() - hardRating)
+                .setTastyRating(userReviewSecond.getTastyRating() - tastyRating)
+                .setPriceRating(userReviewSecond.getPriceRating() - priceRating)
+                .addComment(userReviewSecond.getComment())
+                .build();
+    }
+
     public static class Builder implements IUserReviewBuilder{
         double tastyRating,priceRating;
         int hardRating;
