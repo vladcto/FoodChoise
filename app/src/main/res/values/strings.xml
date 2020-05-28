@@ -14,6 +14,10 @@
     <string name="email_reset_successful">Проверьте E-mail для дальнейших инструкций.</string>
     <string name="email_reset_failed">Что-то пошло не так :( Повторите попытку позже.</string>
     <string name="reset_password">Востановить пароль</string>
+    <string name="not_valid_email">Указан неверный E-mail</string>
+    <string name="empty_name">Не указано имя</string>
+    <string name="empty_password">Не указан пароль</string>
+    <string name="weak_password">Слабый пароль</string>
 
     <!-- Recipe Display | Create -->
     <string name="info">Инфо</string>

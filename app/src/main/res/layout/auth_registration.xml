@@ -54,10 +54,10 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout9"
+                android:id="@+id/inputLayoutEmail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@+id/textInputLayout8"
+                app:layout_constraintBottom_toTopOf="@+id/inputLayoutPassword"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toTopOf="@+id/guideline6">
@@ -71,13 +71,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout8"
+                android:id="@+id/inputLayoutPassword"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@+id/textInputLayout7"
+                app:layout_constraintBottom_toTopOf="@+id/inputLayoutName"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout9"
+                app:layout_constraintTop_toBottomOf="@+id/inputLayoutEmail"
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -89,13 +89,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout7"
+                android:id="@+id/inputLayoutName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toTopOf="@+id/registrationButton"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout8">
+                app:layout_constraintTop_toBottomOf="@+id/inputLayoutPassword">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/nameInput"
@@ -112,7 +112,7 @@
                 android:text="@string/create_profile"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout7" />
+                app:layout_constraintTop_toBottomOf="@+id/inputLayoutName" />
 
             <ImageButton
                 android:id="@+id/backButton"
