@@ -130,6 +130,7 @@ public class RegistrationFragment extends Fragment implements Button.OnClickList
         }
     }
 
+    //TODO: Вынести методы в отельный класс
     private boolean passwordVerife(String password) {
         if(password.isEmpty()){
             inputLayoutPassword.setError(getContext().getResources().getText(R.string.empty_password));
@@ -143,6 +144,7 @@ public class RegistrationFragment extends Fragment implements Button.OnClickList
         }
     }
 
+    //TODO: Вынести методы в отельный класс
     private boolean nameVerife(String name) {
         if(name.isEmpty()){
             inputLayoutName.setError(getContext().getResources().getText(R.string.empty_name));
@@ -153,6 +155,7 @@ public class RegistrationFragment extends Fragment implements Button.OnClickList
         }
     }
 
+    //TODO: Вынести методы в отельный класс
     private boolean emailVerife(String email){
         if(EmailValidator.getInstance().validate(email)){
             inputLayoutEmail.setError(null);
