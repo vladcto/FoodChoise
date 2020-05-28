@@ -33,7 +33,7 @@ public class ReciepsFragment extends Fragment {
         View view =  inflater.inflate(R.layout.page_recieps,container,false);
 
         Query query = FirebaseFirestore.getInstance().collection(FirestoreHelper.COLLECTION_RECIPES);
-        adapter = AdapterBuilder.getAdapter(getActivity(),query);
+        adapter = AdapterBuilder.getBriefRecipeAdapter(getActivity(),query);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setAdapter(adapter);

@@ -10,8 +10,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.foodchoise.R;
+import com.example.foodchoise.entity_classes.AdapterBuilder;
 import com.example.foodchoise.entity_classes.CardStackViewAdapter;
-import com.example.foodchoise.entity_classes.RecipeCard;
+import com.example.foodchoise.helperFirebase.database.FirestoreHelper;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackView;
 import com.yuyakaido.android.cardstackview.Direction;
@@ -21,6 +24,8 @@ import timber.log.Timber;
 
 
 public class CardFragment extends Fragment implements com.yuyakaido.android.cardstackview.CardStackListener {
+
+    CardStackViewAdapter adapter;
 
     @Nullable
     @Override
@@ -34,32 +39,18 @@ public class CardFragment extends Fragment implements com.yuyakaido.android.card
         cardStackLayoutManager.setStackFrom(StackFrom.None);
 
         stackView.setLayoutManager(cardStackLayoutManager);
-        CardStackViewAdapter adapter = new CardStackViewAdapter();
+        Query query = FirebaseFirestore.getInstance().collection(FirestoreHelper.COLLECTION_RECIPES)
+                .orderBy("random_1", Query.Direction.ASCENDING)
+                .limit(10);
+        adapter = AdapterBuilder.getCardStackAdapter(getActivity(),query);
         stackView.setAdapter(adapter);
-
-        /*
-        FirestoreHelper firestoreHelper = FirestoreHelper.getInstance();
-        adapter.addRecipesCard(firestoreHelper.getRecipesCard());
-         */
-
-        RecipeCard recipeCard = new RecipeCard.Builder().getTestCard();
-        adapter.TEST_addRecipeCard(recipeCard);
-        adapter.TEST_addRecipeCard(recipeCard);
-        adapter.TEST_addRecipeCard(recipeCard);
-        adapter.TEST_addRecipeCard(recipeCard);
-        adapter.TEST_addRecipeCard(recipeCard);
-        adapter.TEST_addRecipeCard(recipeCard);
-        adapter.TEST_addRecipeCard(recipeCard);
-        adapter.TEST_addRecipeCard(recipeCard);
-        adapter.TEST_addRecipeCard(recipeCard);
-        adapter.TEST_addRecipeCard(recipeCard);
-        adapter.TEST_addRecipeCard(recipeCard);
-        adapter.TEST_addRecipeCard(recipeCard);
-        adapter.TEST_addRecipeCard(recipeCard);
-        adapter.TEST_addRecipeCard(recipeCard);
-        adapter.TEST_addRecipeCard(recipeCard);
-        adapter.TEST_addRecipeCard(recipeCard);
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
     }
 
     //region Listener for StackView

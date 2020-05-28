@@ -29,7 +29,7 @@ final class FirestoreHelperIntegration {
         //Случайные числа для будующей случайной выборки.
         recipeData.put("random_1",random.nextLong());
         recipeData.put("random_2",random.nextLong());
-
+        recipeData.put("random_3",random.nextLong());
         //Дефолтные поля.
         recipeData.put("users_complete",(long)0);
         recipeData.put("all_complexity_rating",(double)0.0);

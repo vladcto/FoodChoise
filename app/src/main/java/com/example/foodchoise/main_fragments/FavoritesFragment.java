@@ -50,7 +50,7 @@ public class FavoritesFragment extends Fragment {
         Query query = FirebaseFirestore.getInstance().collection(FirestoreHelper.COLLECTION_RECIPES)
                 .whereIn(FieldPath.documentId(),ids);
         Timber.e("id: %s", ids.toString());
-        adapter = AdapterBuilder.getAdapter(getActivity(),query);
+        adapter = AdapterBuilder.getBriefRecipeAdapter(getActivity(),query);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
         return view;

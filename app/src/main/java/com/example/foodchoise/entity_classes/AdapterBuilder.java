@@ -12,7 +12,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
 public class AdapterBuilder {
-    public static BriefRecipeCardAdapter getAdapter(Activity activity, Query baseQuery) {
+    public static BriefRecipeCardAdapter getBriefRecipeAdapter(Activity activity, Query baseQuery) {
 
         //Config
         PagedList.Config config = new PagedList.Config.Builder()
@@ -32,5 +32,27 @@ public class AdapterBuilder {
                 })
                 .build();
         return new BriefRecipeCardAdapter(options, activity);
+    }
+
+    public static CardStackViewAdapter getCardStackAdapter(Activity activity, Query baseQuery){
+
+        //Config
+        PagedList.Config config = new PagedList.Config.Builder()
+                .setEnablePlaceholders(false)
+                .setPrefetchDistance(1)
+                .setPageSize(20)
+                .build();
+
+        //Options
+        FirestorePagingOptions<RecipeCard> options = new FirestorePagingOptions.Builder<RecipeCard>()
+                .setQuery(baseQuery, config, new SnapshotParser<RecipeCard>() {
+                    @NonNull
+                    @Override
+                    public RecipeCard parseSnapshot(@NonNull DocumentSnapshot snapshot) {
+                        return FirestoreHelper.createRecipeCardFromSnapshot(snapshot);
+                    }
+                })
+                .build();
+        return new CardStackViewAdapter(options, activity);
     }
 }

@@ -21,9 +21,8 @@ import com.willy.ratingbar.ScaleRatingBar;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-import timber.log.Timber;
-
 public class BriefRecipeCardAdapter extends FirestorePagingAdapter<RecipeCard, BriefRecipeCardAdapter.BriefRecipeCardViewHolder> {
+    //TODO: Перенести это в отдельный класс.
     static public String RECIPECARD_DATA = "RECIPECARD_DATA";
     private ArrayList<RecipeCard> recipeCards = new ArrayList<RecipeCard>();
     private WeakReference<Activity> activity;
@@ -72,7 +71,6 @@ public class BriefRecipeCardAdapter extends FirestorePagingAdapter<RecipeCard, B
             dishesImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Timber.d("Сработал OnClickListener");
                     Intent intent = new Intent(activity.get(), DisplayRecipeActivity.class);
                     intent.putExtra(RECIPECARD_DATA, recipeCard);
                     activity.get().startActivity(intent);
