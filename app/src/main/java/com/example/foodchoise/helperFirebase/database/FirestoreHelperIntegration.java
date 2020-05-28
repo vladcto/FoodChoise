@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Класс для инкапсулирования методов не связанных непосредственно с работой Firestore.
@@ -23,7 +24,10 @@ final class FirestoreHelperIntegration {
         recipeData.put("dishes_descr", recipeCard.getDishesDescription());
         recipeData.put("ingridients", recipeCard.getDishesIngridient());
         recipeData.put("instr", recipeCard.getDishesInstruction());
-
+        Random random = new Random();
+        //Случайные числа для будующей случайной выборки.
+        recipeData.put("random_1",random.nextLong());
+        recipeData.put("random_2",random.nextLong());
         return recipeData;
     }
 
