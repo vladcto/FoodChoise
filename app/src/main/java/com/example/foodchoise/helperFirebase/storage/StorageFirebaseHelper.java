@@ -5,6 +5,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
+import com.bumptech.glide.Glide;
 import com.example.foodchoise.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -13,7 +14,6 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.InputStream;
@@ -21,11 +21,9 @@ import java.io.InputStream;
 public class StorageFirebaseHelper {
     //region Singleton
     private static StorageFirebaseHelper storageFirebaseHelper;
-    private  Picasso picasso;
 
     private StorageFirebaseHelper() {
         firebaseStorage = FirebaseStorage.getInstance();
-        picasso = Picasso.get();
     }
 
     public static StorageFirebaseHelper getInstance() {
@@ -78,10 +76,11 @@ public class StorageFirebaseHelper {
         reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                picasso.load(uri)
+                Glide.with(imageView).load(uri)
+                        .centerCrop()
+                        .override(300, 300)
                         .placeholder(R.drawable.themes_icon)
                         .error(R.drawable.ic_person_black_24dp)
-                        .fit()
                         .into(imageView);
             }
         }).addOnFailureListener(new OnFailureListener() {
