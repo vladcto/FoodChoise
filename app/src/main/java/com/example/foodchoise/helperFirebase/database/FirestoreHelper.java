@@ -202,7 +202,6 @@ public class FirestoreHelper extends FirestoreHelperBasic {
     }
 
     public static RecipeCard createRecipeCardFromSnapshot(DocumentSnapshot snapshot) {
-        RecipeCard.Builder builder = new RecipeCard.Builder();
         Map<String, Object> map = snapshot.getData();
         map.put("id", snapshot.getId());
         return FirestoreHelperIntegration.recipeCardFromMap(map);
@@ -217,7 +216,7 @@ public class FirestoreHelper extends FirestoreHelperBasic {
 
         usersReviewCollection.document(uidUser).set(map);
         recipeRefernce.update("all_tasty_rating",FieldValue.increment(userReview.getTastyRating()),
-                "all_hard_rating",FieldValue.increment(userReview.getPriceRating()),
+                "all_complexity_rating",FieldValue.increment(userReview.getPriceRating()),
                 "all_price_rating",FieldValue.increment(userReview.getPriceRating()),
                 "users_complete",FieldValue.increment(1));
     }

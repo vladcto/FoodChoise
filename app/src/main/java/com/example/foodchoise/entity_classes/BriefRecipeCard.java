@@ -7,20 +7,20 @@ import android.os.Parcelable;
  * Класс для отображения в RecipesFragment
  */
 class BriefRecipeCard implements Parcelable {
-    protected String dishesName;
-    protected long dishesTastyRating;
-    protected long dishesComplexityRating;
-    protected String ID;
+    private String dishesName;
+    private double dishesTastyRating;
+    private double dishesComplexityRating;
+    private String ID;
 
     public String getDishesName() {
         return dishesName;
     }
 
-    public long getDishesTastyRating() {
+    public double getDishesTastyRating() {
         return dishesTastyRating;
     }
 
-    public long getDishesComplexityRating() {
+    public double getDishesComplexityRating() {
         return dishesComplexityRating;
     }
 
@@ -29,7 +29,7 @@ class BriefRecipeCard implements Parcelable {
     }
     //endregion
 
-    protected BriefRecipeCard(String dishesName, String id , long dishesTastyRating, long dishesComplexityRating) {
+    protected BriefRecipeCard(String dishesName, String id , double dishesTastyRating, double dishesComplexityRating) {
         this.ID = id;
         this.dishesName = dishesName;
         this.dishesTastyRating = dishesTastyRating;
@@ -41,8 +41,8 @@ class BriefRecipeCard implements Parcelable {
     //Конструктор для Parcelable
     protected BriefRecipeCard(Parcel in) {
         dishesName = in.readString();
-        dishesTastyRating = in.readLong();
-        dishesComplexityRating = in.readLong();
+        dishesTastyRating = in.readDouble();
+        dishesComplexityRating = in.readDouble();
         ID = in.readString();
     }
 
@@ -67,8 +67,8 @@ class BriefRecipeCard implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(dishesName);
-        dest.writeLong(dishesTastyRating);
-        dest.writeLong(dishesComplexityRating);
+        dest.writeDouble(dishesTastyRating);
+        dest.writeDouble(dishesComplexityRating);
         dest.writeString(ID);
     }
     //endregion

@@ -16,6 +16,7 @@ import com.example.foodchoise.helperFirebase.storage.StorageFirebaseHelper;
 import com.example.foodchoise.step_classes.display_recipe.DisplayRecipeActivity;
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
+import com.willy.ratingbar.ScaleRatingBar;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -54,16 +55,20 @@ public class BriefRecipeCardAdapter extends FirestorePagingAdapter<RecipeCard, B
     public class BriefRecipeCardViewHolder extends RecyclerView.ViewHolder {
         ImageView dishesImage;
         TextView dishesName;
+        ScaleRatingBar tastyRatingBar,complexityRatingBar;
 
         public BriefRecipeCardViewHolder(@NonNull View itemView) {
             super(itemView);
             dishesImage = itemView.findViewById(R.id.dishes_image);
             dishesName = itemView.findViewById(R.id.dishes_name);
+            tastyRatingBar = itemView.findViewById(R.id.tastyRatingBar);
+            complexityRatingBar = itemView.findViewById(R.id.complexityRatingBar);
         }
 
         public void bind(final RecipeCard recipeCard) {
             dishesName.setText(recipeCard.getDishesName());
-            //TODO: убрать этот BriefRecipeCard, если так будет не рабоатть.
+            complexityRatingBar.setRating((float) recipeCard.getDishesComplexityRating());
+            tastyRatingBar.setRating((float) recipeCard.getDishesTastyRating());
             dishesImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -73,9 +78,6 @@ public class BriefRecipeCardAdapter extends FirestorePagingAdapter<RecipeCard, B
                     activity.get().startActivity(intent);
                 }
             });
-
-
-            //TODO: Подумать над логикой этой части.
 
             StorageFirebaseHelper storageFirebaseHelper = StorageFirebaseHelper.getInstance();
             dishesImage.setImageDrawable(null);

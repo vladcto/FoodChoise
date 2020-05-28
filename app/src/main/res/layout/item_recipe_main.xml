@@ -51,7 +51,7 @@
                     android:orientation="horizontal">
 
                     <com.willy.ratingbar.ScaleRatingBar
-                        android:id="@+id/xzfsfsddf"
+                        android:id="@+id/tastyRatingBar"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:clickable="false"
@@ -74,7 +74,7 @@
 
 
                     <com.willy.ratingbar.ScaleRatingBar
-                        android:id="@+id/xzfsfsddsdf"
+                        android:id="@+id/complexityRatingBar"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:clickable="false"

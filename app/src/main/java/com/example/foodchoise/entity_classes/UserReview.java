@@ -4,22 +4,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class UserReview {
-    private float tastyRating, priceRating;
+    private double tastyRating, priceRating;
     private int hardRating;
     private String comment;
 
-    public UserReview(@NonNull float tastyRating, @NonNull float priceRating,@NonNull int hardRating, String comment) {
+    public UserReview(@NonNull double tastyRating, @NonNull double priceRating, @NonNull int hardRating, String comment) {
         this.tastyRating = tastyRating;
         this.priceRating = priceRating;
         this.hardRating = hardRating;
         this.comment = comment;
     }
 
-    public float getTastyRating() {
+    public double getTastyRating() {
         return tastyRating;
     }
 
-    public float getPriceRating() {
+    public double getPriceRating() {
         return priceRating;
     }
 
@@ -33,20 +33,20 @@ public class UserReview {
     }
 
     public static class Builder implements IUserReviewBuilder{
-        float tastyRating,priceRating;
+        double tastyRating,priceRating;
         int hardRating;
         String comment = null;
 
         public Builder() {}
 
         @Override
-        public IUserReviewBuilder setTastyRating(@NonNull float tastyRating) {
+        public IUserReviewBuilder setTastyRating(@NonNull double tastyRating) {
             this.tastyRating = tastyRating;
             return this;
         }
 
         @Override
-        public IUserReviewBuilder setPriceRating(@NonNull float priceRating) {
+        public IUserReviewBuilder setPriceRating(@NonNull double priceRating) {
             this.priceRating = priceRating;
             return this;
         }

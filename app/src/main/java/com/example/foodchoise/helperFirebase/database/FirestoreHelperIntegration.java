@@ -18,6 +18,7 @@ final class FirestoreHelperIntegration {
     Map<String, Object> mapFromRecipeCard(RecipeCard recipeCard) {
         Map<String, Object> recipeData = new HashMap<>();
 
+        //TODO: Сделать поля для оценок.
         recipeData.put("name", recipeCard.getDishesName());
         recipeData.put("dishes_descr", recipeCard.getDishesDescription());
         recipeData.put("ingridients", recipeCard.getDishesIngridient());
@@ -36,20 +37,28 @@ final class FirestoreHelperIntegration {
 
     static RecipeCard recipeCardFromMap(Map<String, Object> map){
         //TODO: Проверка на то, что такого ключа нет.
+        // Сделать присваивание дефолтное при создании рецепта.
         //region Считываем данные
+        double complexity_rating,tasty_rating;
+        long users_complete;
+        try {
+            users_complete = (long )map.get("users_complete");
+            complexity_rating = (double) map.get("all_complexity_rating");
+            tasty_rating = (double) map.get("all_tasty_rating");
+        }catch (NullPointerException e){
+            complexity_rating = tasty_rating = users_complete = 0;
+        }
         String dishes_descr = (String)map.get("dishes_descr");
-        Long complexity_rating = (Long) map.get("complexity_rating");
         ArrayList<String> ingridients = (ArrayList<String>) map.get("ingridients");
         ArrayList<String> instr = (ArrayList<String>) map.get("instr");
         String name = (String)map.get("name");
         String id = (String) map.get("id");
-        Long tasty_rating = (Long) map.get("tasty_rating");
         //endregion
 
         RecipeCard recipeCard = new RecipeCard.Builder()
                 .setName(name)
-                .setTastyRating(tasty_rating.intValue())
-                .setComplexityRating(complexity_rating.intValue())
+                .setTastyRating(tasty_rating/users_complete)
+                .setComplexityRating(complexity_rating/users_complete)
                 .setDescription(dishes_descr)
                 .setID(id)
                 .setIngredient(ingridients)
@@ -62,7 +71,7 @@ final class FirestoreHelperIntegration {
     static Map<String,Object> mapFromUserReview(UserReview userReview){
         Map<String,Object> map = new HashMap<>();
         map.put("tasty_rating",userReview.getTastyRating());
-        map.put("hard_rating",userReview.getHardRating());
+        map.put("complexity_rating",userReview.getHardRating());
         map.put("price_rating",userReview.getPriceRating());
         map.put("comment",userReview.getComment());
         return map;

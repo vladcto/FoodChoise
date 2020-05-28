@@ -11,9 +11,9 @@ public interface IRecipeBuilder {
 
     public IRecipeBuilder setName(String name);
 
-    public IRecipeBuilder setTastyRating(int tastyRating);
+    public IRecipeBuilder setTastyRating(double tastyRating);
 
-    public IRecipeBuilder setComplexityRating(int complexityRating);
+    public IRecipeBuilder setComplexityRating(double complexityRating);
 
     public IRecipeBuilder setID(String id);
 

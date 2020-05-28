@@ -3,9 +3,9 @@ package com.example.foodchoise.entity_classes;
 import androidx.annotation.NonNull;
 
 public interface IUserReviewBuilder {
-    public IUserReviewBuilder setTastyRating(@NonNull float tastyRating);
+    public IUserReviewBuilder setTastyRating(@NonNull double tastyRating);
 
-    public IUserReviewBuilder setPriceRating(@NonNull float priceRating);
+    public IUserReviewBuilder setPriceRating(@NonNull double priceRating);
 
     public IUserReviewBuilder setHardRating(@NonNull int hardRating);
 

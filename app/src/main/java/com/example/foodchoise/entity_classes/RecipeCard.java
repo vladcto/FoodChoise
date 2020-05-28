@@ -14,6 +14,7 @@ public class RecipeCard extends BriefRecipeCard  implements Parcelable {
     private String dishesDescr;
     private List<String> dishesIngridient = new ArrayList<>();
     private List<String> dishesInstr = new ArrayList<>();
+    private int usersComplete;
     //region getter's
     public String getDishesDescription(){
         return dishesDescr;
@@ -30,7 +31,7 @@ public class RecipeCard extends BriefRecipeCard  implements Parcelable {
     //endregion
 
     //region Конструкторы
-    RecipeCard(String dishes_name, long dishes_tasty_rating, long dishes_complexity_rating, String dishesDescr, List<String> dishesIngridient, List<String> dishesInstr, String id) {
+    RecipeCard(String dishes_name, double dishes_tasty_rating, double dishes_complexity_rating, String dishesDescr, List<String> dishesIngridient, List<String> dishesInstr, String id) {
         super(dishes_name, id,dishes_tasty_rating, dishes_complexity_rating);
         this.dishesDescr = dishesDescr;
         this.dishesIngridient = dishesIngridient;
@@ -80,7 +81,8 @@ public class RecipeCard extends BriefRecipeCard  implements Parcelable {
     public static class Builder implements IRecipeBuilder {
 
         private String name,id,description;
-        private Integer tastyRating,complexityRating;
+        private double tastyRating;
+        private double complexityRating;
         private List<String> instructions,ingredients;
 
         public Builder() { }
@@ -88,7 +90,7 @@ public class RecipeCard extends BriefRecipeCard  implements Parcelable {
         @Override
         public void reset() {
             name = id = description = null;
-            tastyRating = complexityRating = null;
+            tastyRating = complexityRating = 0;
             instructions = ingredients = null;
         }
 
@@ -104,14 +106,14 @@ public class RecipeCard extends BriefRecipeCard  implements Parcelable {
         }
 
         @Override
-        public IRecipeBuilder setTastyRating(int tastyRating) {
+        public IRecipeBuilder setTastyRating(double tastyRating) {
             this.tastyRating = tastyRating;
             return this;
         }
 
 
         @Override
-        public IRecipeBuilder setComplexityRating(int complexityRating) {
+        public IRecipeBuilder setComplexityRating(double complexityRating) {
             this.complexityRating = complexityRating;
             return this;
         }
