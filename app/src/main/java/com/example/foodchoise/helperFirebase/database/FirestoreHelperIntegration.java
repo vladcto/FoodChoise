@@ -2,6 +2,7 @@ package com.example.foodchoise.helperFirebase.database;
 
 import com.example.foodchoise.entity_classes.RecipeCard;
 import com.example.foodchoise.entity_classes.UserReview;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,15 +20,24 @@ final class FirestoreHelperIntegration {
     Map<String, Object> mapFromRecipeCard(RecipeCard recipeCard) {
         Map<String, Object> recipeData = new HashMap<>();
 
-        //TODO: Сделать поля для оценок.
         recipeData.put("name", recipeCard.getDishesName());
         recipeData.put("dishes_descr", recipeCard.getDishesDescription());
         recipeData.put("ingridients", recipeCard.getDishesIngridient());
         recipeData.put("instr", recipeCard.getDishesInstruction());
         Random random = new Random();
+
         //Случайные числа для будующей случайной выборки.
         recipeData.put("random_1",random.nextLong());
         recipeData.put("random_2",random.nextLong());
+
+        //Дефолтные поля.
+        recipeData.put("users_complete",(long)0);
+        recipeData.put("all_complexity_rating",(double)0.0);
+        recipeData.put("all_tasty_rating",(double)0.0);
+
+        String author_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        recipeData.put("author",author_id);
+
         return recipeData;
     }
 
@@ -44,13 +54,14 @@ final class FirestoreHelperIntegration {
         // Сделать присваивание дефолтное при создании рецепта.
         //region Считываем данные
         double complexity_rating,tasty_rating;
-        long users_complete;
-        try {
-            users_complete = (long )map.get("users_complete");
-            complexity_rating = (double) map.get("all_complexity_rating");
-            tasty_rating = (double) map.get("all_tasty_rating");
-        }catch (NullPointerException e){
-            complexity_rating = tasty_rating = users_complete = 0;
+
+        long users_complete = (long )map.get("users_complete");
+        if(users_complete == 0) {
+            complexity_rating = 0;
+            tasty_rating = 0;
+        }else {
+            complexity_rating = (double) map.get("all_complexity_rating") / users_complete;
+            tasty_rating = (double) map.get("all_tasty_rating") / users_complete;
         }
         String dishes_descr = (String)map.get("dishes_descr");
         ArrayList<String> ingridients = (ArrayList<String>) map.get("ingridients");
@@ -61,8 +72,8 @@ final class FirestoreHelperIntegration {
 
         RecipeCard recipeCard = new RecipeCard.Builder()
                 .setName(name)
-                .setTastyRating(tasty_rating/users_complete)
-                .setComplexityRating(complexity_rating/users_complete)
+                .setTastyRating(tasty_rating)
+                .setComplexityRating(complexity_rating)
                 .setDescription(dishes_descr)
                 .setID(id)
                 .setIngredient(ingridients)
