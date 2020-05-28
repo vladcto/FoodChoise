@@ -18,13 +18,10 @@ final class FirestoreHelperIntegration {
     Map<String, Object> mapFromRecipeCard(RecipeCard recipeCard) {
         Map<String, Object> recipeData = new HashMap<>();
 
-        //TODO: В нормальной последовательности это пихнуть.
-        recipeData.put("complexity_rating", recipeCard.getDishesComplexityRating());
+        recipeData.put("name", recipeCard.getDishesName());
         recipeData.put("dishes_descr", recipeCard.getDishesDescription());
         recipeData.put("ingridients", recipeCard.getDishesIngridient());
         recipeData.put("instr", recipeCard.getDishesInstruction());
-        recipeData.put("name", recipeCard.getDishesName());
-        recipeData.put("tasty_rating", recipeCard.getDishesTastyRating());
 
         return recipeData;
     }
