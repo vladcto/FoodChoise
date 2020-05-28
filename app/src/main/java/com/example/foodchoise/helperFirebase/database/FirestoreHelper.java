@@ -214,7 +214,11 @@ public class FirestoreHelper extends FirestoreHelperBasic {
         Map<String,Object> map = FirestoreHelperIntegration.mapFromUserReview(userReview);
         final String uidUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        //Ставим отзыв к рецепту.
         usersReviewCollection.document(uidUser).set(map);
+        //Увеличиваем число сделанных рецептов.
+        db.collection(USERS_COLLECTION).document(uidUser).update("count_made_recipe",FieldValue.increment(1));
+        //Обновляем характеристики рецепта.
         recipeRefernce.update("all_tasty_rating",FieldValue.increment(userReview.getTastyRating()),
                 "all_complexity_rating",FieldValue.increment(userReview.getPriceRating()),
                 "all_price_rating",FieldValue.increment(userReview.getPriceRating()),

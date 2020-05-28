@@ -54,8 +54,12 @@ final class FirestoreHelperIntegration {
         // Сделать присваивание дефолтное при создании рецепта.
         //region Считываем данные
         double complexity_rating,tasty_rating;
-
-        long users_complete = (long )map.get("users_complete");
+        long users_complete;
+        try {
+            users_complete = (long) map.get("users_complete");
+        }catch (NullPointerException e){
+            users_complete = 0;
+        }
         if(users_complete == 0) {
             complexity_rating = 0;
             tasty_rating = 0;
