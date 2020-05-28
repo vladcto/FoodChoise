@@ -8,9 +8,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="128dp"
+        android:layout_marginBottom="100dp"
         app:cardBackgroundColor="?myColor"
         app:cardCornerRadius="6dp"
         app:cardElevation="2dp"
@@ -60,8 +60,10 @@
 
             <Button
                 android:id="@+id/registration"
+                style="@style/Widget.AppCompat.Button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:text="@string/registrate"
                 app:layout_constraintBottom_toTopOf="@+id/guideline9"
                 app:layout_constraintEnd_toEndOf="@+id/signIn"
@@ -73,6 +75,7 @@
                 android:id="@+id/signIn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:text="@string/sign_in"
                 app:layout_constraintBottom_toTopOf="@+id/registration"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
@@ -130,7 +133,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/e_mail"
-                    android:inputType="textEmailAddress"/>
+                    android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -142,16 +145,30 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout3"
-                app:passwordToggleEnabled="true"
-                >
+                app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/passwordInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/password"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/reset_password"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="@color/transparent"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:text="@string/reset_password"
+                android:textAlignment="center"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toTopOf="@+id/registration"
+                app:layout_constraintEnd_toEndOf="@+id/signIn"
+                app:layout_constraintTop_toBottomOf="@+id/signIn" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

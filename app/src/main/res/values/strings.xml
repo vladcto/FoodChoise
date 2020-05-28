@@ -10,6 +10,10 @@
     <string name="registrate">Нет аккаунта? Создайте!</string>
     <string name="other_auth">Войти с помощью соц. сетей</string>
     <string name="create_profile">Создать</string>
+    <string name="input_email_reset">Введите E-mail забытого аккаунта.</string>
+    <string name="email_reset_successful">Проверьте E-mail для дальнейших инструкций.</string>
+    <string name="email_reset_failed">Что-то пошло не так :( Повторите попытку позже.</string>
+    <string name="reset_password">Востановить пароль</string>
 
     <!-- Recipe Display | Create -->
     <string name="info">Инфо</string>
