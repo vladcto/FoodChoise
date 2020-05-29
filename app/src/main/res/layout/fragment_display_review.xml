@@ -287,6 +287,6 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toTopOf="@+id/guideline10"
-        app:srcCompat="@drawable/empty_star" />
+        app:srcCompat="@drawable/ic_check_black_24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

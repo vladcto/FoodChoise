@@ -27,6 +27,7 @@ import com.yuyakaido.android.cardstackview.Direction;
 import com.yuyakaido.android.cardstackview.StackFrom;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import timber.log.Timber;
@@ -114,9 +115,13 @@ public class CardFragment extends Fragment implements com.yuyakaido.android.card
         checkRecycler(position);
     }
 
+    HashSet<Integer> set = new HashSet<>();
     //Методы для обработки событий.
     private void onCardAccepted() {
-        cards.add(FirestoreHelper.createRecipeCardFromSnapshot(adapter.getCurrentList().get(itemDisapered)));
+        if (!set.contains(itemDisapered)) {
+            set.add(itemDisapered);
+            cards.add(FirestoreHelper.createRecipeCardFromSnapshot(adapter.getCurrentList().get(itemDisapered)));
+        }
         if (cards.size() == 5) {
             workDone();
         }
