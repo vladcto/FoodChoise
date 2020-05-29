@@ -10,13 +10,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodchoise.R;
+import com.example.foodchoise.entity_classes.AdapterBuilder;
+import com.example.foodchoise.entity_classes.CommentsAdapter;
 import com.example.foodchoise.entity_classes.RecipeCard;
+import com.example.foodchoise.helperFirebase.database.FirestoreHelper;
 import com.example.foodchoise.helperFirebase.storage.StorageFirebaseHelper;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 public class DisplayNameFragment extends Fragment {
-    DisplayRecipeActivity activity;
+    private DisplayRecipeActivity activity;
+    private CommentsAdapter adapter;
 
     public DisplayNameFragment(DisplayRecipeActivity activity) {
         this.activity = activity;
@@ -34,6 +42,25 @@ public class DisplayNameFragment extends Fragment {
         TextView textView = view.findViewById(R.id.textDescr);
         textView.setText(recipeCard.getDishesDescription());
 
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        Query query = FirebaseFirestore.getInstance().collection(FirestoreHelper.COLLECTION_RECIPES)
+                .document(activity.getRecipeCard().getID())
+                .collection(FirestoreHelper.COLLECTION_USER_REVIEWS);
+        adapter = AdapterBuilder.getCommentsAdapter(query);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        adapter.stopListening();
     }
 }

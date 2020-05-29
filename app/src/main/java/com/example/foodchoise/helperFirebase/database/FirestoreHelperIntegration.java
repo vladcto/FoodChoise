@@ -103,6 +103,8 @@ final class FirestoreHelperIntegration {
                 .setHardRating(complexity_rating.intValue())
                 .setPriceRating((double) map.get("price_rating"))
                 .setTastyRating((double) map.get("tasty_rating"))
+                //автор это айди документа.
+                .setAuthor((String) map.get("author"))
                 .addComment((String) map.get("comment"))
                 .build();
     }

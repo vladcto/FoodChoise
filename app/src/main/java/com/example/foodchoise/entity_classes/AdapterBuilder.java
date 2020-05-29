@@ -55,4 +55,25 @@ public class AdapterBuilder {
                 .build();
         return new CardStackViewAdapter(options, activity);
     }
+
+    public static CommentsAdapter getCommentsAdapter(Query baseQuery) {
+        //Config
+        PagedList.Config config = new PagedList.Config.Builder()
+                .setEnablePlaceholders(false)
+                .setPrefetchDistance(2)
+                .setPageSize(10)
+                .build();
+
+        //Options
+        FirestorePagingOptions<UserReview> options = new FirestorePagingOptions.Builder<UserReview>()
+                .setQuery(baseQuery, config, new SnapshotParser<UserReview>() {
+                    @NonNull
+                    @Override
+                    public UserReview parseSnapshot(@NonNull DocumentSnapshot snapshot) {
+                        return FirestoreHelper.getInstance().userReviewFromSnapshot(snapshot);
+                    }
+                })
+                .build();
+        return new CommentsAdapter(options);
+    }
 }

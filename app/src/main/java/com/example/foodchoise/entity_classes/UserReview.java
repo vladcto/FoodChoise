@@ -6,13 +6,20 @@ import androidx.annotation.Nullable;
 public class UserReview {
     private double tastyRating, priceRating;
     private int hardRating;
-    private String comment;
+    //автор это айди документа.
+    private String comment, author;
 
-    public UserReview(@NonNull double tastyRating, @NonNull double priceRating, @NonNull int hardRating, String comment) {
+    public UserReview(@NonNull double tastyRating, @NonNull double priceRating, @NonNull int hardRating, String comment, String author) {
         this.tastyRating = tastyRating;
         this.priceRating = priceRating;
         this.hardRating = hardRating;
         this.comment = comment;
+        this.author = author;
+    }
+
+
+    public String getAuthor() {
+        return author;
     }
 
     public double getTastyRating() {
@@ -50,6 +57,7 @@ public class UserReview {
         double tastyRating,priceRating;
         int hardRating;
         String comment = null;
+        String author;
 
         public Builder() {}
 
@@ -71,6 +79,7 @@ public class UserReview {
             return this;
         }
 
+
         @Override
         public IUserReviewBuilder addComment(String comment) {
             if (comment != null && !comment.isEmpty()) {
@@ -79,10 +88,16 @@ public class UserReview {
             return this;
         }
 
+        @Override
+        public IUserReviewBuilder setAuthor(@NonNull String author) {
+            this.author = author;
+            return this;
+        }
+
         @NonNull
         @Override
         public UserReview build() {
-            return new UserReview(tastyRating,priceRating,hardRating,comment);
+            return new UserReview(tastyRating, priceRating, hardRating, comment, author);
         }
     }
 }

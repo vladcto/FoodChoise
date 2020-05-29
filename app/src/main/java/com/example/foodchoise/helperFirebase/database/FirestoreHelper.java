@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 
+import com.example.foodchoise.entity_classes.IUserReviewBuilder;
 import com.example.foodchoise.entity_classes.RecipeCard;
 import com.example.foodchoise.entity_classes.UserReview;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -275,5 +276,12 @@ public class FirestoreHelper extends FirestoreHelperBasic {
             };
             reviewSending.run();
         }
+    }
+
+    public UserReview userReviewFromSnapshot(DocumentSnapshot snapshot) {
+        IUserReviewBuilder builder = new UserReview.Builder();
+        Map<String, Object> data = snapshot.getData();
+        data.put("author", snapshot.getId());
+        return FirestoreHelperIntegration.userReviewFromMap(data);
     }
 }

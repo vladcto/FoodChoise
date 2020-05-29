@@ -9,7 +9,9 @@ public interface IUserReviewBuilder {
 
     public IUserReviewBuilder setHardRating(@NonNull int hardRating);
 
-    public IUserReviewBuilder addComment(@NonNull String comment);
+    public IUserReviewBuilder addComment(String comment);
+
+    public IUserReviewBuilder setAuthor(@NonNull String author);
 
     public @NonNull UserReview build();
 }
