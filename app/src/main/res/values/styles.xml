@@ -17,6 +17,7 @@
         <item name="toolbarBackground">@color/toolbarBackgroundLight</item>
         <item name="backgroundProfile">@drawable/light_gradient</item>
         <item name="divider_theme">@color/divider_light</item>
+        <item name="colorAccentText"></item>
     </style>
 
     <!-- region AppTheme -->
@@ -25,9 +26,9 @@
     <style name="DarkTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <!-- Сделать свою тему, а также поиграться с верхней строкой сосояния-->
-        <item name="colorPrimary">@color/colorPrimaryDark</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimaryNight</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkNight</item>
+        <item name="colorAccent">@color/colorAccentNight</item>
         <item name="android:colorBackground">@color/darkCardViewBackground</item>
         <!--<item name="android:colorBackground">@color/white</item>-->
         <item name="android:textColor">@color/white</item>
@@ -39,7 +40,7 @@
         <item name="toolbarBackground">@color/toolbarBackgroundDark</item>
         <item name="backgroundProfile">?android:windowBackground</item>
         <item name="divider_theme">@color/divider_black</item>
-
+        <item name="colorAccentText"></item>
     </style>
 
     <!-- region DarkTheme -->
