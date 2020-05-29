@@ -21,6 +21,7 @@ import com.example.foodchoise.helperFirebase.database.FirestoreHelper;
 import com.example.foodchoise.helperFirebase.storage.StorageFirebaseHelper;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.willy.ratingbar.ScaleRatingBar;
 
 public class DisplayNameFragment extends Fragment {
     private DisplayRecipeActivity activity;
@@ -51,6 +52,30 @@ public class DisplayNameFragment extends Fragment {
         adapter = AdapterBuilder.getCommentsAdapter(query);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        long usersComplete = recipeCard.getUsersComplete();
+        double hardRating = recipeCard.getDishesComplexityRating() / usersComplete;
+        textView = view.findViewById(R.id.hardRating);
+        if (Double.isNaN(hardRating)) {
+            textView.setText("Нет данных");
+        } else {
+            textView.setText(String.valueOf(hardRating));
+        }
+        textView = view.findViewById(R.id.personRating);
+        textView.setText(String.valueOf(usersComplete));
+
+        ScaleRatingBar ratingBar = view.findViewById(R.id.tastyRatingBar);
+        float priceRating = (float) (recipeCard.getPriceRating() / recipeCard.getUsersComplete() + 0.01);
+        float tastyRating = (float) (recipeCard.getDishesTastyRating() / recipeCard.getUsersComplete() + 0.01);
+        if (Float.isNaN(priceRating)) {
+            priceRating = 0;
+        }
+        if (Float.isNaN(tastyRating)) {
+            tastyRating = 0;
+        }
+        ratingBar.setRating(tastyRating);
+        ratingBar = view.findViewById(R.id.priceRatingBar);
+        ratingBar.setRating(priceRating);
         return view;
     }
 

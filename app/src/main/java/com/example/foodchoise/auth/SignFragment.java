@@ -105,7 +105,7 @@ public class SignFragment extends Fragment implements Button.OnClickListener {
                 if (task.isSuccessful()) {
                     authActivity.startMainActivity();
                 } else {
-                    Toast.makeText(authActivity, "312312", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(authActivity, "Неверные данные или отсуствует соединение", Toast.LENGTH_SHORT).show();
                 }
             }
         });

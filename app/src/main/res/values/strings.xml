@@ -53,6 +53,7 @@
     <string name="favorite_recipes">Избранные рецепты</string>
     <string name="theme">Тема</string>
     <string name="filter">Фильтр</string>
+    <string name="report">Ваша жалоба была отправлена</string>
 
     <!-- pages -->
     <string name="not_have_favorite">У вас нет любимых рецептов.</string>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.example.foodchoise.my_palette.SquareImageView
         android:id="@+id/recipe_image"
@@ -61,17 +61,114 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginRight="8dp"
                 app:cardBackgroundColor="?myColor"
                 app:cardCornerRadius="8dp"
-                app:cardElevation="4dp" />
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            app:srcCompat="@drawable/ic_restaurant_menu_black_24dp" />
+
+                        <TextView
+                            android:id="@+id/hardRating"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="TextView" />
+                    </LinearLayout>
+
+                    <com.willy.ratingbar.ScaleRatingBar
+                        android:id="@+id/priceRatingBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:clickable="false"
+                        android:gravity="center"
+                        app:srb_clearRatingEnabled="false"
+                        app:srb_clickable="false"
+                        app:srb_drawableEmpty="@drawable/ic_remove_circle_outline_black_24dp"
+                        app:srb_drawableFilled="@drawable/ic_monetization_on_black_24dp"
+                        app:srb_isIndicator="true"
+                        app:srb_numStars="5"
+                        app:srb_scrollable="false"
+                        app:srb_stepSize="0.5">
+
+                    </com.willy.ratingbar.ScaleRatingBar>
+
+                    <com.willy.ratingbar.ScaleRatingBar
+                        android:id="@+id/tastyRatingBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:clickable="false"
+                        android:gravity="center"
+                        app:srb_clearRatingEnabled="false"
+                        app:srb_clickable="false"
+                        app:srb_drawableEmpty="@drawable/empty_star"
+                        app:srb_drawableFilled="@drawable/full_start"
+                        app:srb_isIndicator="true"
+                        app:srb_numStars="5"
+                        app:srb_scrollable="false"
+                        app:srb_stepSize="0.5" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/person" />
+
+                        <TextView
+                            android:id="@+id/personRating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="TextView" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="100dp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:cardBackgroundColor="?colorPrimary"
+                app:cardCornerRadius="4dp">
+
+                <TextView
+                    android:id="@+id/textView"
+                    style="@style/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Комментарии" />
+            </androidx.cardview.widget.CardView>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"

@@ -53,7 +53,7 @@ public class AdapterBuilder {
                     }
                 })
                 .build();
-        return new CardStackViewAdapter(options, activity);
+        return new CardStackViewAdapter(options);
     }
 
     public static CommentsAdapter getCommentsAdapter(Query baseQuery) {
