@@ -52,4 +52,5 @@
     <string name="your_profile">Ваш профиль</string>
     <string name="favorite_recipes">Избранные рецепты</string>
     <string name="theme">Тема</string>
+    <string name="filter">Фильтр</string>
 </resources>

@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,7 +30,7 @@ import com.google.firebase.firestore.Query;
 public class ReciepsFragment extends Fragment {
     public static final String BRIEFCARD_DATA = "BRIEFCARD_DATA";
     BriefRecipeCardAdapter adapter;
-
+    CardView filtersGroup;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,6 +52,10 @@ public class ReciepsFragment extends Fragment {
             }
         });
 
+        setHasOptionsMenu(true);
+        filtersGroup = view.findViewById(R.id.filters);
+        filtersGroup.setVisibility(View.GONE);
+
         return view;
     }
 
@@ -67,4 +75,26 @@ public class ReciepsFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
     }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.menu_filter, menu);
+        MenuItem menuItem = menu.findItem(R.id.filter_button);
+        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (filtersGroup.getVisibility() == View.VISIBLE) {
+                    filtersGroup.setVisibility(View.GONE);
+                    item.setIcon(R.drawable.filter);
+                } else {
+                    filtersGroup.setVisibility(View.VISIBLE);
+                    item.setIcon(R.drawable.return_up);
+                }
+                return true;
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
 }
