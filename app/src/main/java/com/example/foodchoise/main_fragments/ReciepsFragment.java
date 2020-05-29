@@ -9,7 +9,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,16 +32,18 @@ import com.google.firebase.firestore.Query;
 public class ReciepsFragment extends Fragment {
     public static final String BRIEFCARD_DATA = "BRIEFCARD_DATA";
     BriefRecipeCardAdapter adapter;
+    RecyclerView recyclerView;
     CardView filtersGroup;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.page_recieps,container,false);
+        View view = inflater.inflate(R.layout.page_recieps, container, false);
 
         Query query = FirebaseFirestore.getInstance().collection(FirestoreHelper.COLLECTION_RECIPES);
-        adapter = AdapterBuilder.getBriefRecipeAdapter(getActivity(),query);
+        adapter = AdapterBuilder.getBriefRecipeAdapter(getActivity(), query);
 
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         final Activity activity = getActivity();
@@ -55,6 +59,13 @@ public class ReciepsFragment extends Fragment {
         setHasOptionsMenu(true);
         filtersGroup = view.findViewById(R.id.filters);
         filtersGroup.setVisibility(View.GONE);
+        final Button useButton = filtersGroup.findViewById(R.id.useFilter);
+        useButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                useFilter();
+            }
+        });
 
         return view;
     }
@@ -62,6 +73,45 @@ public class ReciepsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        adapter.startListening();
+    }
+
+    private void useFilter() {
+        RadioGroup filtersNameGroup = filtersGroup.findViewById(R.id.filters_name);
+        int filtersName = filtersNameGroup.getCheckedRadioButtonId();
+        RadioGroup filtersTypeGroup = filtersGroup.findViewById(R.id.filters_types);
+        int filtersType = filtersTypeGroup.getCheckedRadioButtonId();
+
+        String filterField;
+        switch (filtersName) {
+            case R.id.radioPopulary:
+                filterField = "users_complete";
+                break;
+            case R.id.radioComplexity:
+                filterField = "all_complexity_rating";
+                break;
+            case R.id.radioTasty:
+                filterField = "all_tasty_rating";
+                break;
+            case R.id.radioPrice:
+                filterField = "all_price_rating";
+                break;
+            default:
+                filterField = "";
+                break;
+        }
+
+
+        Query query;
+        if (filtersType == R.id.radioDecrease) {
+            query = FirebaseFirestore.getInstance().collection(FirestoreHelper.COLLECTION_RECIPES)
+                    .orderBy(filterField, Query.Direction.ASCENDING);
+        } else {
+            query = FirebaseFirestore.getInstance().collection(FirestoreHelper.COLLECTION_RECIPES)
+                    .orderBy(filterField, Query.Direction.DESCENDING);
+        }
+        BriefRecipeCardAdapter adapter = AdapterBuilder.getBriefRecipeAdapter(getActivity(), query);
+        recyclerView.setAdapter(adapter);
         adapter.startListening();
     }
 
