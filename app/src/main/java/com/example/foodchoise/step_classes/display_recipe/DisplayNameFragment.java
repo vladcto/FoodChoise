@@ -43,9 +43,11 @@ public class DisplayNameFragment extends Fragment {
         textView.setText(recipeCard.getDishesDescription());
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        //Сделать также запрос по времени создания.
         Query query = FirebaseFirestore.getInstance().collection(FirestoreHelper.COLLECTION_RECIPES)
                 .document(activity.getRecipeCard().getID())
-                .collection(FirestoreHelper.COLLECTION_USER_REVIEWS);
+                .collection(FirestoreHelper.COLLECTION_USER_REVIEWS)
+                .whereGreaterThan("comment", "");
         adapter = AdapterBuilder.getCommentsAdapter(query);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
