@@ -1,10 +1,14 @@
 package com.example.foodchoise.main_fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,16 +31,8 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.page_profile,container,false);
-        Button button = view.findViewById(R.id.signOutButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                try {
-                    getActivity().finish();
-                }catch (NullPointerException ignored){}
-            }
-        });
+
+        setHasOptionsMenu(true);
 
         Query query = FirebaseFirestore.getInstance().collection(FirestoreHelper.COLLECTION_RECIPES)
                 .whereEqualTo("author", FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -57,5 +53,39 @@ public class ProfileFragment extends Fragment {
     public void onStop() {
         super.onStop();
         adapter.stopListening();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.menu_profile, menu);
+        MenuItem menuItem = menu.findItem(R.id.exitButton);
+        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                AlertDialog dialog = builder.setMessage(R.string.ypu_want_exit)
+                        .setTitle(R.string.exit_from_acc)
+                        .setPositiveButton(R.string.accept_exit, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                FirebaseAuth.getInstance().signOut();
+                                try {
+                                    getActivity().finish();
+                                } catch (NullPointerException ignored) {
+                                }
+                            }
+                        })
+                        .setNegativeButton(R.string.dismis_exit, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        }).create();
+                dialog.show();
+                return true;
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }

@@ -53,4 +53,12 @@
     <string name="favorite_recipes">Избранные рецепты</string>
     <string name="theme">Тема</string>
     <string name="filter">Фильтр</string>
+
+    <!-- pages -->
+    <string name="not_have_favorite">У вас нет любимых рецептов.</string>
+    <string name="ypu_want_exit">Вы уверены что хотите выйти?</string>
+    <string name="exit_from_acc">Выход из аккаунта</string>
+    <string name="accept_exit">Выйти</string>
+    <string name="dismis_exit">Отменить</string>
+
 </resources>

@@ -8,6 +8,7 @@
     <color name="lightCardViewBackground">#FCF8F8</color>
     <color name="darkCardViewBackground">#3C3C3C</color>
     <color name="transparent">#00000000</color>
+    <color name="red">#FF0000</color>
 
     <color name="toolbarBackgroundLight">#80008577</color>
     <color name="toolbarBackgroundDark">#8000574B</color>

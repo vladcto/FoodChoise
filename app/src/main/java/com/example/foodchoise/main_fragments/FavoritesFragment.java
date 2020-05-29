@@ -3,8 +3,11 @@ package com.example.foodchoise.main_fragments;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,7 +30,6 @@ import java.util.concurrent.ExecutionException;
 import timber.log.Timber;
 
 public class FavoritesFragment extends Fragment {
-    RecyclerView recyclerView;
     BriefRecipeCardAdapter adapter;
     AsyncTask task;
     @Nullable
@@ -47,6 +49,9 @@ public class FavoritesFragment extends Fragment {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        if (ids.isEmpty()) {
+            Toast.makeText(getContext(), R.string.not_have_favorite, Toast.LENGTH_LONG).show();
+        }
         Query query = FirebaseFirestore.getInstance().collection(FirestoreHelper.COLLECTION_RECIPES)
                 .whereIn(FieldPath.documentId(),ids);
         Timber.e("id: %s", ids.toString());
@@ -58,7 +63,6 @@ public class FavoritesFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        task.cancel(true);
         super.onDestroy();
     }
 
@@ -66,5 +70,10 @@ public class FavoritesFragment extends Fragment {
     public void onStart() {
         adapter.startListening();
         super.onStart();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }

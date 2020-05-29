@@ -66,8 +66,16 @@ public class BriefRecipeCardAdapter extends FirestorePagingAdapter<RecipeCard, B
 
         public void bind(final RecipeCard recipeCard) {
             dishesName.setText(recipeCard.getDishesName());
-            priceRatingBar.setRating((float) recipeCard.getPriceRating() / recipeCard.getUsersComplete());
-            tastyRatingBar.setRating((float) recipeCard.getDishesTastyRating() / recipeCard.getUsersComplete());
+            float priceRating = (float) (recipeCard.getPriceRating() / recipeCard.getUsersComplete() + 0.01);
+            float tastyRating = (float) (recipeCard.getDishesTastyRating() / recipeCard.getUsersComplete() + 0.01);
+            if (Float.isNaN(priceRating)) {
+                priceRating = 0;
+            }
+            if (Float.isNaN(tastyRating)) {
+                tastyRating = 0;
+            }
+            priceRatingBar.setRating(priceRating);
+            tastyRatingBar.setRating(tastyRating);
             dishesImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
