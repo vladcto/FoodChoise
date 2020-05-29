@@ -42,6 +42,7 @@
     <string name="not_instructions">Не указано ни одной инструкции</string>
     <string name="not_ingredients">Не указано ни одного ингридиента.</string>
     <string name="not_main_photo_recipe">Нет изображение рецепта</string>
+    <string name="comment">Ваш комментарий</string>
 
     <!-- Menu -->
     <string name="add_to_favorite">Добавить в избранные</string>

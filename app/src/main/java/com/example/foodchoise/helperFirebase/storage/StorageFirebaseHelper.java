@@ -46,6 +46,7 @@ public class StorageFirebaseHelper {
 
     public UploadTask uploadFile(String fullPathUpload, Uri fileUri) {
         StorageReference reference = firebaseStorage.getReference().child(fullPathUpload);
+        //TODO: Сделать ограничение на размер файла , что бы хаком с root правами нельзя было загрузить огрмоный файл.
         return reference.putFile(fileUri);
     }
 

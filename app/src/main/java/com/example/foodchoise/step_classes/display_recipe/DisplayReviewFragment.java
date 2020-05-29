@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import timber.log.Timber;
 
 public class DisplayReviewFragment extends Fragment {
     private ScaleRatingBar tastyRatingBar,priceRatingBar;
+    private EditText commentEditText;
 
     @Nullable
     @Override
@@ -26,6 +28,7 @@ public class DisplayReviewFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_display_review,container,false) ;
         tastyRatingBar = view.findViewById(R.id.tastyRatingBar);
         priceRatingBar = view.findViewById(R.id.priceTastyBar);
+        commentEditText = view.findViewById(R.id.commentEditText);
         ImageButton button = view.findViewById(R.id.imageSendReview);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,7 +42,8 @@ public class DisplayReviewFragment extends Fragment {
                 builder.setTastyRating(tastyRating)
                         .setPriceRating(priceRating)
                         //FIXME Нет под коробкой добавления
-                        .setHardRating(2);
+                        .setHardRating(2)
+                        .addComment(commentEditText.getText().toString());
                 FirestoreHelper.getInstance().sendReview(builder.build(),activity.getRecipeCard().getID());
             }
         });

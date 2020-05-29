@@ -247,7 +247,7 @@ public class FirestoreHelper extends FirestoreHelperBasic {
 
                                         //Обновляем характеристики рецепта.
                                         recipeRefernce.update("all_tasty_rating", FieldValue.increment(changeUserReview.getTastyRating()),
-                                                "all_complexity_rating", FieldValue.increment(changeUserReview.getPriceRating()),
+                                                "all_complexity_rating", FieldValue.increment(changeUserReview.getHardRating()),
                                                 "all_price_rating", FieldValue.increment(changeUserReview.getPriceRating()));
 
                                     } catch (IndexOutOfBoundsException e) {

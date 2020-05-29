@@ -72,7 +72,10 @@ public class UserReview {
         }
 
         @Override
-        public IUserReviewBuilder addComment(@NonNull String comment) {
+        public IUserReviewBuilder addComment(String comment) {
+            if (comment != null && !comment.isEmpty()) {
+                this.comment = comment;
+            }
             return this;
         }
 
