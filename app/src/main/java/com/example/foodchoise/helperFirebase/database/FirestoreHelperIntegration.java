@@ -53,7 +53,7 @@ final class FirestoreHelperIntegration {
         //TODO: Проверка на то, что такого ключа нет.
         // Сделать присваивание дефолтное при создании рецепта.
         //region Считываем данные
-        double complexity_rating,tasty_rating;
+        double complexity_rating, tasty_rating, priceRating;
         long users_complete;
         try {
             users_complete = (long) map.get("users_complete");
@@ -63,9 +63,11 @@ final class FirestoreHelperIntegration {
         if(users_complete == 0) {
             complexity_rating = 0;
             tasty_rating = 0;
+            priceRating = 0;
         }else {
-            complexity_rating = (double) map.get("all_complexity_rating") / users_complete;
-            tasty_rating = (double) map.get("all_tasty_rating") / users_complete;
+            complexity_rating = (double) map.get("all_complexity_rating");
+            tasty_rating = (double) map.get("all_tasty_rating");
+            priceRating = (double) map.get("all_price_rating");
         }
         String dishes_descr = (String)map.get("dishes_descr");
         ArrayList<String> ingridients = (ArrayList<String>) map.get("ingridients");
@@ -78,6 +80,8 @@ final class FirestoreHelperIntegration {
                 .setName(name)
                 .setTastyRating(tasty_rating)
                 .setComplexityRating(complexity_rating)
+                .setPriceRating(priceRating)
+                .setUsersComplete(users_complete)
                 .setDescription(dishes_descr)
                 .setID(id)
                 .setIngredient(ingridients)
@@ -97,7 +101,6 @@ final class FirestoreHelperIntegration {
     }
 
     static UserReview userReviewFromMap(Map<String, Object> map) {
-        //FIXME Потенциальная ошибка при целочисленном отзыве.
         Long complexity_rating = (Long) map.get("complexity_rating");
         return new UserReview.Builder()
                 .setHardRating(complexity_rating.intValue())

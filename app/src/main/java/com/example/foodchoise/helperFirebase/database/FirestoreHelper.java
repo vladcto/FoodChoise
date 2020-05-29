@@ -216,7 +216,9 @@ public class FirestoreHelper extends FirestoreHelperBasic {
 
     //ЭТО РАБОТАЕТ И Я ПОНИМАЮ КАК!!!!!!!!!!!!
     //Можно возвращать true или false если есть уже отправка рецепта.
-    public void sendReview(final UserReview userReview, final String recipe_ID) {
+    //TODO: подсчтывается среднее нормально , но при частых запросах будет несправедливый подсчет. Подключить облачную функцию.
+    //TODO: Все это решение приводит к требованию recipeCard , то тоже костыль.
+    public void sendReview(final UserReview userReview, final String recipe_ID, final RecipeCard recipeCard) {
         if (reviewSending == null) {
             reviewSending = new Runnable() {
                 @Override
@@ -249,7 +251,10 @@ public class FirestoreHelper extends FirestoreHelperBasic {
                                         //Обновляем характеристики рецепта.
                                         recipeRefernce.update("all_tasty_rating", FieldValue.increment(changeUserReview.getTastyRating()),
                                                 "all_complexity_rating", FieldValue.increment(changeUserReview.getHardRating()),
-                                                "all_price_rating", FieldValue.increment(changeUserReview.getPriceRating()));
+                                                "all_price_rating", FieldValue.increment(changeUserReview.getPriceRating()),
+                                                "average_tasty_rating", (changeUserReview.getTastyRating() + recipeCard.getDishesTastyRating()) / (double) (recipeCard.getUsersComplete()),
+                                                "average_complexity_rating", ((double) changeUserReview.getHardRating() + recipeCard.getDishesComplexityRating()) / (double) (recipeCard.getUsersComplete()),
+                                                "average_price_rating", (changeUserReview.getPriceRating() + recipeCard.getPriceRating()) / (double) (recipeCard.getUsersComplete()));
 
                                     } catch (IndexOutOfBoundsException e) {
                                         //Если у пользователя не было отзыва.
@@ -264,9 +269,14 @@ public class FirestoreHelper extends FirestoreHelperBasic {
                                         recipeRefernce.update("all_tasty_rating", FieldValue.increment(userReview.getTastyRating()),
                                                 "all_complexity_rating", FieldValue.increment(userReview.getPriceRating()),
                                                 "all_price_rating", FieldValue.increment(userReview.getPriceRating()),
-                                                "users_complete", FieldValue.increment(1));
+                                                "users_complete", FieldValue.increment(1),
+                                                "average_tasty_rating", (userReview.getTastyRating() + recipeCard.getDishesTastyRating()) / (double) (recipeCard.getUsersComplete() + 1),
+                                                "average_complexity_rating", ((double) userReview.getHardRating() + recipeCard.getDishesComplexityRating()) / (double) (recipeCard.getUsersComplete() + 1),
+                                                "average_price_rating", (userReview.getPriceRating() + recipeCard.getPriceRating()) / (double) (recipeCard.getUsersComplete() + 1));
 
                                     }
+                                    //Поддержка костыля в следствии того что user увеличился на сервере , а к нам не пришел.
+                                    recipeCard.addUser();
                                     //Обнуляю, тем самым говоря , что отзыва был отправлен.
                                     reviewSending = null;
                                 }

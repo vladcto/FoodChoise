@@ -44,7 +44,7 @@ public class DisplayReviewFragment extends Fragment {
                         //FIXME Нет под коробкой добавления
                         .setHardRating(2)
                         .addComment(commentEditText.getText().toString());
-                FirestoreHelper.getInstance().sendReview(builder.build(),activity.getRecipeCard().getID());
+                FirestoreHelper.getInstance().sendReview(builder.build(), activity.getRecipeCard().getID(), ((DisplayRecipeActivity) getActivity()).getRecipeCard());
             }
         });
         return view;

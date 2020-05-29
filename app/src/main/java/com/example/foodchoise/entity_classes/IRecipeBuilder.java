@@ -1,7 +1,5 @@
 package com.example.foodchoise.entity_classes;
 
-import org.jetbrains.annotations.TestOnly;
-
 import java.util.List;
 
 public interface IRecipeBuilder {
@@ -15,6 +13,10 @@ public interface IRecipeBuilder {
 
     public IRecipeBuilder setComplexityRating(double complexityRating);
 
+    public IRecipeBuilder setPriceRating(double priceRating);
+
+    public IRecipeBuilder setUsersComplete(long usersComplete);
+
     public IRecipeBuilder setID(String id);
 
     public IRecipeBuilder setDescription(String description);
@@ -25,6 +27,4 @@ public interface IRecipeBuilder {
 
     public RecipeCard build();
 
-    @TestOnly
-    public RecipeCard getTestCard();
 }

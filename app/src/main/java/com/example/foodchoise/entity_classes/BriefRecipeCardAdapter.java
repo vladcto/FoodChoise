@@ -66,8 +66,8 @@ public class BriefRecipeCardAdapter extends FirestorePagingAdapter<RecipeCard, B
 
         public void bind(final RecipeCard recipeCard) {
             dishesName.setText(recipeCard.getDishesName());
-            complexityRatingBar.setRating((float) recipeCard.getDishesComplexityRating());
-            tastyRatingBar.setRating((float) recipeCard.getDishesTastyRating());
+            complexityRatingBar.setRating((float) recipeCard.getDishesComplexityRating() / recipeCard.getUsersComplete());
+            tastyRatingBar.setRating((float) recipeCard.getDishesTastyRating() / recipeCard.getUsersComplete());
             dishesImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -81,7 +81,9 @@ public class BriefRecipeCardAdapter extends FirestorePagingAdapter<RecipeCard, B
             dishesImage.setImageDrawable(null);
             storageFirebaseHelper.downloadPhotoInImageView(StorageFirebaseHelper.RECIPES_MAIN_PHOTO + "/" + recipeCard.getID() + "/main_photo",
                     dishesImage);
+
         }
 
     }
 }
+

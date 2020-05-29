@@ -10,7 +10,9 @@ class BriefRecipeCard implements Parcelable {
     private String dishesName;
     private double dishesTastyRating;
     private double dishesComplexityRating;
+    private double priceRating;
     private String ID;
+    private long usersComplete;
 
     public String getDishesName() {
         return dishesName;
@@ -27,13 +29,26 @@ class BriefRecipeCard implements Parcelable {
     public String getID(){
         return ID;
     }
-    //endregion
 
-    protected BriefRecipeCard(String dishesName, String id , double dishesTastyRating, double dishesComplexityRating) {
+    public double getPriceRating() {
+        return priceRating;
+    }
+
+    public long getUsersComplete() {
+        return usersComplete;
+    }
+
+    public void addUser() {
+        usersComplete++;
+    }
+
+    protected BriefRecipeCard(String dishesName, String id, double dishesTastyRating, double dishesComplexityRating, double priceRating, long usersComplete) {
         this.ID = id;
         this.dishesName = dishesName;
         this.dishesTastyRating = dishesTastyRating;
         this.dishesComplexityRating = dishesComplexityRating;
+        this.priceRating = priceRating;
+        this.usersComplete = usersComplete;
     }
 
     //region Реализация Parcelable
@@ -43,7 +58,9 @@ class BriefRecipeCard implements Parcelable {
         dishesName = in.readString();
         dishesTastyRating = in.readDouble();
         dishesComplexityRating = in.readDouble();
+        priceRating = in.readDouble();
         ID = in.readString();
+        usersComplete = in.readLong();
     }
 
     public static final Creator<BriefRecipeCard> CREATOR = new Creator<BriefRecipeCard>() {
@@ -69,7 +86,9 @@ class BriefRecipeCard implements Parcelable {
         dest.writeString(dishesName);
         dest.writeDouble(dishesTastyRating);
         dest.writeDouble(dishesComplexityRating);
+        dest.writeDouble(priceRating);
         dest.writeString(ID);
+        dest.writeLong(usersComplete);
     }
     //endregion
 
