@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#F8404D</color>
+    <color name="colorPrimaryDark">#43A646</color>
+    <color name="colorAccent">#FF4942</color>
     <color name="white">#fff</color>
     <color name="black">#000</color>
     <color name="lightCardViewBackground">#FCF8F8</color>
@@ -10,8 +10,8 @@
     <color name="transparent">#00000000</color>
     <color name="red">#FF0000</color>
 
-    <color name="toolbarBackgroundLight">#80008577</color>
-    <color name="toolbarBackgroundDark">#8000574B</color>
+    <color name="toolbarBackgroundLight">#C33237</color>
+    <color name="toolbarBackgroundDark">#A63538</color>
 
     <color name="divider_light">#B8B6B6</color>
     <color name="divider_black">#595959</color>
