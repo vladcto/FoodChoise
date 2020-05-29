@@ -39,6 +39,7 @@
         <item name="toolbarBackground">@color/toolbarBackgroundDark</item>
         <item name="backgroundProfile">?android:windowBackground</item>
         <item name="divider_theme">@color/divider_black</item>
+
     </style>
 
     <!-- region DarkTheme -->
