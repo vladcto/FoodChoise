@@ -42,6 +42,18 @@ class BriefRecipeCard implements Parcelable {
         usersComplete++;
     }
 
+    public void addTastyRating(double tastyRating) {
+        this.dishesTastyRating = dishesTastyRating + tastyRating;
+    }
+
+    public void addPriceRating(double priceRating) {
+        this.priceRating = this.priceRating + priceRating;
+    }
+
+    public void addComplexityRating(double dishesComplexityRating) {
+        this.dishesComplexityRating = this.dishesComplexityRating + dishesComplexityRating;
+    }
+
     protected BriefRecipeCard(String dishesName, String id, double dishesTastyRating, double dishesComplexityRating, double priceRating, long usersComplete) {
         this.ID = id;
         this.dishesName = dishesName;

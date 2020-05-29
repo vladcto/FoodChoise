@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 public class FirestoreHelper extends FirestoreHelperBasic {
@@ -248,14 +249,22 @@ public class FirestoreHelper extends FirestoreHelperBasic {
                                         final Map<String, Object> map = FirestoreHelperIntegration.mapFromUserReview(userReview);
                                         usersReviewCollection.document(uidUser).set(map);
 
+                                        Random random = new Random();
                                         //Обновляем характеристики рецепта.
                                         recipeRefernce.update("all_tasty_rating", FieldValue.increment(changeUserReview.getTastyRating()),
                                                 "all_complexity_rating", FieldValue.increment(changeUserReview.getHardRating()),
                                                 "all_price_rating", FieldValue.increment(changeUserReview.getPriceRating()),
                                                 "average_tasty_rating", (changeUserReview.getTastyRating() + recipeCard.getDishesTastyRating()) / (double) (recipeCard.getUsersComplete()),
                                                 "average_complexity_rating", ((double) changeUserReview.getHardRating() + recipeCard.getDishesComplexityRating()) / (double) (recipeCard.getUsersComplete()),
-                                                "average_price_rating", (changeUserReview.getPriceRating() + recipeCard.getPriceRating()) / (double) (recipeCard.getUsersComplete()));
+                                                "average_price_rating", (changeUserReview.getPriceRating() + recipeCard.getPriceRating()) / (double) (recipeCard.getUsersComplete()),
+                                                "random_1", random.nextLong(),
+                                                "random_2", random.nextLong(),
+                                                "random_3", random.nextLong());
 
+                                        //Обновляем локальные данные.
+                                        recipeCard.addPriceRating(changeUserReview.getPriceRating());
+                                        recipeCard.addComplexityRating(changeUserReview.getHardRating());
+                                        recipeCard.addTastyRating(changeUserReview.getTastyRating());
                                     } catch (IndexOutOfBoundsException e) {
                                         //Если у пользователя не было отзыва.
                                         //Ставим отзыв к рецепту.
@@ -265,6 +274,7 @@ public class FirestoreHelper extends FirestoreHelperBasic {
                                         //Увеличиваем число сделанных рецептов.
                                         db.collection(USERS_COLLECTION).document(uidUser).update("count_made_recipe", FieldValue.increment(1));
 
+                                        Random random = new Random();
                                         //Обновляем характеристики рецепта.
                                         recipeRefernce.update("all_tasty_rating", FieldValue.increment(userReview.getTastyRating()),
                                                 "all_complexity_rating", FieldValue.increment(userReview.getHardRating()),
@@ -272,11 +282,17 @@ public class FirestoreHelper extends FirestoreHelperBasic {
                                                 "users_complete", FieldValue.increment(1),
                                                 "average_tasty_rating", (userReview.getTastyRating() + recipeCard.getDishesTastyRating()) / (double) (recipeCard.getUsersComplete() + 1),
                                                 "average_complexity_rating", ((double) userReview.getHardRating() + recipeCard.getDishesComplexityRating()) / (double) (recipeCard.getUsersComplete() + 1),
-                                                "average_price_rating", (userReview.getPriceRating() + recipeCard.getPriceRating()) / (double) (recipeCard.getUsersComplete() + 1));
-
+                                                "average_price_rating", (userReview.getPriceRating() + recipeCard.getPriceRating()) / (double) (recipeCard.getUsersComplete() + 1),
+                                                "random_1", random.nextLong(),
+                                                "random_2", random.nextLong(),
+                                                "random_3", random.nextLong());
+                                        //Поддержка костыля в следствии того что user увеличился на сервере , а к нам не пришел.
+                                        recipeCard.addUser();
+                                        //Обновляем локальные данные.
+                                        recipeCard.addPriceRating(userReview.getPriceRating());
+                                        recipeCard.addComplexityRating(userReview.getHardRating());
+                                        recipeCard.addTastyRating(userReview.getTastyRating());
                                     }
-                                    //Поддержка костыля в следствии того что user увеличился на сервере , а к нам не пришел.
-                                    recipeCard.addUser();
                                     //Обнуляю, тем самым говоря , что отзыва был отправлен.
                                     reviewSending = null;
                                 }
