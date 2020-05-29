@@ -5,11 +5,11 @@ import androidx.annotation.Nullable;
 
 public class UserReview {
     private double tastyRating, priceRating;
-    private int hardRating;
+    private double hardRating;
     //автор это айди документа.
     private String comment, author;
 
-    public UserReview(@NonNull double tastyRating, @NonNull double priceRating, @NonNull int hardRating, String comment, String author) {
+    public UserReview(@NonNull double tastyRating, @NonNull double priceRating, @NonNull double hardRating, String comment, String author) {
         this.tastyRating = tastyRating;
         this.priceRating = priceRating;
         this.hardRating = hardRating;
@@ -30,7 +30,7 @@ public class UserReview {
         return priceRating;
     }
 
-    public int getHardRating() {
+    public double getHardRating() {
         return hardRating;
     }
 
@@ -55,7 +55,7 @@ public class UserReview {
 
     public static class Builder implements IUserReviewBuilder{
         double tastyRating,priceRating;
-        int hardRating;
+        double hardRating;
         String comment = null;
         String author;
 
@@ -74,7 +74,7 @@ public class UserReview {
         }
 
         @Override
-        public IUserReviewBuilder setHardRating(@NonNull int hardRating) {
+        public IUserReviewBuilder setHardRating(@NonNull double hardRating) {
             this.hardRating = hardRating;
             return this;
         }

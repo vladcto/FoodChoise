@@ -101,9 +101,9 @@ final class FirestoreHelperIntegration {
     }
 
     static UserReview userReviewFromMap(Map<String, Object> map) {
-        Long complexity_rating = (Long) map.get("complexity_rating");
+        Double complexity_rating = (Double) map.get("complexity_rating");
         return new UserReview.Builder()
-                .setHardRating(complexity_rating.intValue())
+                .setHardRating(complexity_rating)
                 .setPriceRating((double) map.get("price_rating"))
                 .setTastyRating((double) map.get("tasty_rating"))
                 //автор это айди документа.

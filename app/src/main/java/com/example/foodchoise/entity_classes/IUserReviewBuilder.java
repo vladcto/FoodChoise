@@ -7,7 +7,7 @@ public interface IUserReviewBuilder {
 
     public IUserReviewBuilder setPriceRating(@NonNull double priceRating);
 
-    public IUserReviewBuilder setHardRating(@NonNull int hardRating);
+    public IUserReviewBuilder setHardRating(@NonNull double hardRating);
 
     public IUserReviewBuilder addComment(String comment);
 
