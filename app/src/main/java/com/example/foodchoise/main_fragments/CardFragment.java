@@ -4,14 +4,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodchoise.R;
 import com.example.foodchoise.entity_classes.AdapterBuilder;
 import com.example.foodchoise.entity_classes.CardStackViewAdapter;
+import com.example.foodchoise.entity_classes.OldBriefRecipeCardAdapter;
+import com.example.foodchoise.entity_classes.RecipeCard;
 import com.example.foodchoise.helperFirebase.database.FirestoreHelper;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -21,12 +26,20 @@ import com.yuyakaido.android.cardstackview.CardStackView;
 import com.yuyakaido.android.cardstackview.Direction;
 import com.yuyakaido.android.cardstackview.StackFrom;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import timber.log.Timber;
 
 
 public class CardFragment extends Fragment implements com.yuyakaido.android.cardstackview.CardStackListener {
 
     CardStackViewAdapter adapter;
+    OldBriefRecipeCardAdapter recipeCardAdapter;
+    List<RecipeCard> cards = new ArrayList<RecipeCard>();
+    RecyclerView recyclerView;
+    CardStackView stackView;
+    int maxSizeCards;
 
     @Nullable
     @Override
@@ -34,8 +47,13 @@ public class CardFragment extends Fragment implements com.yuyakaido.android.card
         Timber.i("create");
         View view = inflater.inflate(R.layout.page_card, container, false);
 
+        recyclerView = view.findViewById(R.id.recyclerView);
+        recipeCardAdapter = new OldBriefRecipeCardAdapter(getActivity());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(recipeCardAdapter);
+
         //Настраиваем StackView
-        CardStackView stackView = view.findViewById(R.id.cardStackView);
+        stackView = view.findViewById(R.id.cardStackView);
 
         CardStackLayoutManager cardStackLayoutManager = new CardStackLayoutManager(getContext(), this);
         cardStackLayoutManager.setStackFrom(StackFrom.None);
@@ -53,10 +71,17 @@ public class CardFragment extends Fragment implements com.yuyakaido.android.card
     }
 
     //region Listener for StackView
+    boolean first = true;
     @Override
     public void onCardDragging(Direction direction, float ratio) {
-        Timber.v("Card Drag");
+        if (first) {
+            maxSizeCards = adapter.getCurrentList().size() - 1;
+            Timber.i("size" + adapter.getCurrentList().size());
+            first = false;
+        }
     }
+
+    int itemDisapered;
 
     @Override
     public void onCardSwiped(Direction direction) {
@@ -65,39 +90,58 @@ public class CardFragment extends Fragment implements com.yuyakaido.android.card
         } else if (direction == Direction.Left) {
             onCardRejected();
         } else {
-            Timber.w("Not realize direction = %s",direction);
+            Timber.w("Not realize direction = %s", direction);
         }
     }
 
     @Override
     public void onCardRewound() {
-        Timber.d("Card Rewound");
+        Timber.i("2");
     }
 
     @Override
     public void onCardCanceled() {
-        Timber.d("Card Canceled");
     }
 
     @Override
     public void onCardAppeared(View view, int position) {
-        Timber.d("Card Appeared");
     }
 
     @Override
     public void onCardDisappeared(View view, int position) {
-        Timber.d("Card Disappeared");
+        Timber.e("елемент " + position);
+        itemDisapered = position;
+        checkRecycler(position);
     }
 
     //Методы для обработки событий.
-    private void onCardAccepted(){
-        Timber.i("Card Accepted");
+    private void onCardAccepted() {
+        cards.add(FirestoreHelper.createRecipeCardFromSnapshot(adapter.getCurrentList().get(itemDisapered)));
+        if (cards.size() == 5) {
+            workDone();
+        }
     }
 
-    private void onCardRejected(){
-        Timber.i("Card Rejected");
+    private void onCardRejected() {
     }
     //endregion Listener for StackView
+
+    private void workDone() {
+        stackView.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+        if (cards.size() != 0) {
+            recipeCardAdapter.addRecipesCard(cards);
+        } else {
+            Toast.makeText(getContext(), R.string.select_anymore, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void checkRecycler(int position) {
+        Timber.i(maxSizeCards + " " + position);
+        if (maxSizeCards == position) {
+            workDone();
+        }
+    }
 
     private @NonNull
     Query getRandomQuery() {

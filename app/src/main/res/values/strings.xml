@@ -60,5 +60,6 @@
     <string name="exit_from_acc">Выход из аккаунта</string>
     <string name="accept_exit">Выйти</string>
     <string name="dismis_exit">Отменить</string>
+    <string name="select_anymore">Выберете хоть что-то)</string>
 
 </resources>

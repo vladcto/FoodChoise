@@ -39,8 +39,8 @@ public class AdapterBuilder {
         //Config
         PagedList.Config config = new PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
-                .setPrefetchDistance(1)
-                .setPageSize(20)
+                .setPrefetchDistance(10)
+                .setPageSize(10)
                 .build();
 
         //Options
