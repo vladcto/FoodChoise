@@ -88,13 +88,13 @@ public class ReciepsFragment extends Fragment {
                 filterField = "users_complete";
                 break;
             case R.id.radioComplexity:
-                filterField = "all_complexity_rating";
+                filterField = "average_complexity_rating";
                 break;
             case R.id.radioTasty:
-                filterField = "all_tasty_rating";
+                filterField = "average_tasty_rating";
                 break;
             case R.id.radioPrice:
-                filterField = "all_price_rating";
+                filterField = "average_price_rating";
                 break;
             default:
                 filterField = "";
@@ -105,10 +105,10 @@ public class ReciepsFragment extends Fragment {
         Query query;
         if (filtersType == R.id.radioDecrease) {
             query = FirebaseFirestore.getInstance().collection(FirestoreHelper.COLLECTION_RECIPES)
-                    .orderBy(filterField, Query.Direction.ASCENDING);
+                    .orderBy(filterField, Query.Direction.DESCENDING);
         } else {
             query = FirebaseFirestore.getInstance().collection(FirestoreHelper.COLLECTION_RECIPES)
-                    .orderBy(filterField, Query.Direction.DESCENDING);
+                    .orderBy(filterField, Query.Direction.ASCENDING);
         }
         BriefRecipeCardAdapter adapter = AdapterBuilder.getBriefRecipeAdapter(getActivity(), query);
         recyclerView.setAdapter(adapter);
