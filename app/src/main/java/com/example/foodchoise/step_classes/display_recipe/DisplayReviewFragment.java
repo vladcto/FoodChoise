@@ -8,6 +8,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -83,6 +84,7 @@ public class DisplayReviewFragment extends Fragment {
                         .setHardRating(hardRating)
                         .addComment(commentEditText.getText().toString());
                 FirestoreHelper.getInstance().sendReview(builder.build(), activity.getRecipeCard().getID(), ((DisplayRecipeActivity) getActivity()).getRecipeCard());
+                Toast.makeText(getContext(), R.string.send_review, Toast.LENGTH_LONG).show();
             }
         });
         return view;
