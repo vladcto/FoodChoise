@@ -28,7 +28,7 @@
         <!-- Сделать свою тему, а также поиграться с верхней строкой сосояния-->
         <item name="colorPrimary">@color/colorPrimaryNight</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkNight</item>
-        <item name="colorAccent">@color/colorAccentNight</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorBackground">@color/darkCardViewBackground</item>
         <!--<item name="android:colorBackground">@color/white</item>-->
         <item name="android:textColor">@color/white</item>
