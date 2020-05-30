@@ -93,6 +93,7 @@ public class CardFragment extends Fragment implements com.yuyakaido.android.card
         } else {
             Timber.w("Not realize direction = %s", direction);
         }
+        checkRecycler(itemDisapered);
     }
 
     @Override
@@ -112,7 +113,6 @@ public class CardFragment extends Fragment implements com.yuyakaido.android.card
     public void onCardDisappeared(View view, int position) {
         Timber.e("елемент " + position);
         itemDisapered = position;
-        checkRecycler(position);
     }
 
     HashSet<Integer> set = new HashSet<>();
