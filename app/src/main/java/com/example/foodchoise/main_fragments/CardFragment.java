@@ -136,6 +136,7 @@ public class CardFragment extends Fragment implements com.yuyakaido.android.card
         recyclerView.setVisibility(View.VISIBLE);
         if (cards.size() != 0) {
             recipeCardAdapter.addRecipesCard(cards);
+            Toast.makeText(getContext(), R.string.card_complete, Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(getContext(), R.string.select_anymore, Toast.LENGTH_LONG).show();
         }

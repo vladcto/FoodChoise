@@ -44,6 +44,7 @@
     <string name="not_main_photo_recipe">Нет изображение рецепта</string>
     <string name="comment">Ваш комментарий</string>
     <string name="send_review">Отзыв был отправлен</string>
+    <string name="card_complete">Ваша подборка готова)</string>
 
     <!-- Menu -->
     <string name="add_to_favorite">Добавить в избранные</string>
