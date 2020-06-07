@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.foodchoise.main_fragments.CardFragment;
 import com.example.foodchoise.main_fragments.FavoritesFragment;
+import com.example.foodchoise.main_fragments.MainFragment;
 import com.example.foodchoise.main_fragments.ProfileFragment;
 import com.example.foodchoise.main_fragments.ReciepsFragment;
 import com.example.foodchoise.themeUtil.ThemeController;
@@ -60,21 +61,26 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 Fragment selectedFragment = getSelectedFragment();
                 switch (menuItem.getItemId()) {
+                    case R.id.main_page_button:
+                        if (!(selectedFragment instanceof MainFragment)) {
+                            selectedFragment = new MainFragment();
+                        }
+                        break;
+                    case R.id.recipes_menu:
+                        if (!(selectedFragment instanceof ReciepsFragment)) {
+                            selectedFragment = new ReciepsFragment();
+                        }
+                        break;
+                    case R.id.profile:
+                        if (!(selectedFragment instanceof ProfileFragment)) {
+                            selectedFragment = new ProfileFragment();
+                        }
+                        break;
                     case R.id.fast_choise:
                         if (!(selectedFragment instanceof CardFragment)) {
                             selectedFragment = new CardFragment();
                         }
                         break;
-                        case R.id.recipes_menu:
-                            if (!(selectedFragment instanceof ReciepsFragment)) {
-                                selectedFragment = new ReciepsFragment();
-                            }
-                            break;
-                            case R.id.profile:
-                                if (!(selectedFragment instanceof ProfileFragment)) {
-                                    selectedFragment = new ProfileFragment();
-                                }
-                                break;
                     case R.id.good_recipes:
                         if (!(selectedFragment instanceof FavoritesFragment)) {
                             selectedFragment = new FavoritesFragment();
