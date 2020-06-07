@@ -49,7 +49,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         textView.setText(getIntent().getStringExtra("email"));
 
         SwitchCompat switchChoiceTheme = (SwitchCompat) navigationView.getMenu().findItem(R.id.switchTheme).getActionView();
-        //TODO: Исправить эту фигню
+
+        //FIXME: Работает , но работает тупо и нелогично.
         switchChoiceTheme.setChecked(1 == ThemeController.getIdThemeNow());
         switchChoiceTheme.setOnCheckedChangeListener(this);
 
@@ -94,8 +95,8 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         navigationView.setCheckedItem(R.id.recipes_menu);
         MenuItem menuItem = navigationView.getCheckedItem();
         toolbar.setTitle(menuItem.getTitle());
-
         setSupportActionBar(toolbar);
+        drawerLayout.openDrawer(navigationView);
     }
 
     @Override

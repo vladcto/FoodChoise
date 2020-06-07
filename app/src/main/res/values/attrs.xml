@@ -5,5 +5,7 @@
         <attr name="cardStyle" format="reference"/>
         <attr name="toolbarBackground" format="reference"/>
         <attr name="backgroundProfile" format="reference|color"/>
+        <attr name="divider_theme" format="color" />
+        <attr name="colorAccentText" format="color" />
     </declare-styleable>
 </resources>

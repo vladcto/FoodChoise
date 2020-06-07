@@ -29,11 +29,12 @@
                 app:srcCompat="@drawable/ic_launcher_background" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id = "@+id/inputNameLayout"
+                android:id="@+id/inputNameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:counterEnabled="true"
-                app:counterMaxLength="40">
+                app:counterMaxLength="40"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_name_dishes"
@@ -47,7 +48,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:counterEnabled="true"
-                app:counterMaxLength="250">
+                app:counterMaxLength="250"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_descr_dishes"

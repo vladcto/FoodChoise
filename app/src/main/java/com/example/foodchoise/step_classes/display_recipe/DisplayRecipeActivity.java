@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,7 +50,7 @@ public class DisplayRecipeActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.tollbar_display_recipe_menu, menu);
         MenuItem menuItem = menu.findItem(R.id.addToLove);
         menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
@@ -57,6 +58,14 @@ public class DisplayRecipeActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 FirestoreHelper firestoreHelper = FirestoreHelper.getInstance();
                 firestoreHelper.addToFavorite(recipeCard.getID());
+                return true;
+            }
+        });
+        menuItem = menu.findItem(R.id.fake);
+        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Toast.makeText(getBaseContext(), R.string.report, Toast.LENGTH_LONG).show();
                 return true;
             }
         });

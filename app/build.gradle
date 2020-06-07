@@ -6,10 +6,10 @@ android {
     buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.example.foodchoise"
-        minSdkVersion 17
+        minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
-        versionName "alpha 0.8"
+        versionName "alpha 1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
@@ -37,13 +37,13 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.jakewharton.timber:timber:4.7.1'
-    implementation 'com.squareup.picasso:picasso:2.71828'
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.3'
+    //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.3'
     implementation 'com.github.yalantis:ucrop:2.2.5'
     implementation "com.yuyakaido.android:card-stack-view:2.3.4"
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.firebaseui:firebase-ui-firestore:6.2.1'
     implementation "androidx.paging:paging-runtime:2.1.2"
-
+    implementation 'com.github.ome450901:SimpleRatingBar:1.5.0'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
 }

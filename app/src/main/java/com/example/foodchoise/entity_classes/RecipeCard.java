@@ -3,10 +3,6 @@ package com.example.foodchoise.entity_classes;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.example.foodchoise.BuildConfig;
-
-import org.jetbrains.annotations.TestOnly;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +10,7 @@ public class RecipeCard extends BriefRecipeCard  implements Parcelable {
     private String dishesDescr;
     private List<String> dishesIngridient = new ArrayList<>();
     private List<String> dishesInstr = new ArrayList<>();
+
     //region getter's
     public String getDishesDescription(){
         return dishesDescr;
@@ -30,8 +27,8 @@ public class RecipeCard extends BriefRecipeCard  implements Parcelable {
     //endregion
 
     //region Конструкторы
-    RecipeCard(String dishes_name, long dishes_tasty_rating, long dishes_complexity_rating, String dishesDescr, List<String> dishesIngridient, List<String> dishesInstr, String id) {
-        super(dishes_name, id,dishes_tasty_rating, dishes_complexity_rating);
+    RecipeCard(String dishes_name, double dishes_tasty_rating, double dishes_complexity_rating, double price_rating, long usersComplete, String dishesDescr, List<String> dishesIngridient, List<String> dishesInstr, String id) {
+        super(dishes_name, id, dishes_tasty_rating, dishes_complexity_rating, price_rating, usersComplete);
         this.dishesDescr = dishesDescr;
         this.dishesIngridient = dishesIngridient;
         this.dishesInstr = dishesInstr;
@@ -80,15 +77,18 @@ public class RecipeCard extends BriefRecipeCard  implements Parcelable {
     public static class Builder implements IRecipeBuilder {
 
         private String name,id,description;
-        private Integer tastyRating,complexityRating;
+        private double tastyRating;
+        private double complexityRating;
+        private double priceRating;
         private List<String> instructions,ingredients;
+        private long usersComplete;
 
         public Builder() { }
 
         @Override
         public void reset() {
             name = id = description = null;
-            tastyRating = complexityRating = null;
+            tastyRating = complexityRating = 0;
             instructions = ingredients = null;
         }
 
@@ -104,15 +104,27 @@ public class RecipeCard extends BriefRecipeCard  implements Parcelable {
         }
 
         @Override
-        public IRecipeBuilder setTastyRating(int tastyRating) {
+        public IRecipeBuilder setTastyRating(double tastyRating) {
             this.tastyRating = tastyRating;
             return this;
         }
 
 
         @Override
-        public IRecipeBuilder setComplexityRating(int complexityRating) {
+        public IRecipeBuilder setComplexityRating(double complexityRating) {
             this.complexityRating = complexityRating;
+            return this;
+        }
+
+        @Override
+        public IRecipeBuilder setPriceRating(double priceRating) {
+            this.priceRating = priceRating;
+            return this;
+        }
+
+        @Override
+        public IRecipeBuilder setUsersComplete(long usersComplete) {
+            this.usersComplete = usersComplete;
             return this;
         }
 
@@ -142,26 +154,8 @@ public class RecipeCard extends BriefRecipeCard  implements Parcelable {
         }
 
         @Override
-        public RecipeCard getResult() {
-            return new RecipeCard(name,tastyRating,complexityRating,description,ingredients,instructions,id);
-        }
-
-        //TODO: НИГДЕ НЕ ВЫЗЫВАТЬ В  РЕЛИЗЕ
-        @TestOnly
-        @Override
-        public RecipeCard getTestCard() {
-            if(BuildConfig.DEBUG) {
-                name = description = "test";
-                complexityRating = tastyRating = 5;
-                ingredients = new ArrayList<>();
-                ingredients.add("TEST");
-                instructions = new ArrayList<>();
-                instructions.add("TEST");
-                id = "TEST";
-                return new RecipeCard(name, tastyRating, complexityRating, description, ingredients, instructions, id);
-            }else{
-                throw new IllegalStateException();
-            }
+        public RecipeCard build() {
+            return new RecipeCard(name, tastyRating, complexityRating, priceRating, usersComplete, description, ingredients, instructions, id);
         }
     }
 }

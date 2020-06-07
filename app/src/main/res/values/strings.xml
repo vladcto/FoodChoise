@@ -10,6 +10,14 @@
     <string name="registrate">Нет аккаунта? Создайте!</string>
     <string name="other_auth">Войти с помощью соц. сетей</string>
     <string name="create_profile">Создать</string>
+    <string name="input_email_reset">Введите E-mail забытого аккаунта.</string>
+    <string name="email_reset_successful">Проверьте E-mail для дальнейших инструкций.</string>
+    <string name="email_reset_failed">Что-то пошло не так :( Повторите попытку позже.</string>
+    <string name="reset_password">Востановить пароль</string>
+    <string name="not_valid_email">Указан неверный E-mail</string>
+    <string name="empty_name">Не указано имя</string>
+    <string name="empty_password">Не указан пароль</string>
+    <string name="weak_password">Слабый пароль</string>
 
     <!-- Recipe Display | Create -->
     <string name="info">Инфо</string>
@@ -25,6 +33,18 @@
     <string name="add_description">Опишите в пару словах блюдо: </string>
     <string name="error_max_length">Максимальная длина</string>
     <string name="required_input">Обязательно к заполнению.</string>
+    <string name="taste">Вкус</string>
+    <string name="Complexity">Сложность</string>
+    <string name="price">Цена</string>
+    <string name="add_Comments">Добавьте комментарий</string>
+    <string name="empty_ingredient">Указан пустой ингридиент</string>
+    <string name="empty_instruction">Указана пустая инструкция</string>
+    <string name="not_instructions">Не указано ни одной инструкции</string>
+    <string name="not_ingredients">Не указано ни одного ингридиента.</string>
+    <string name="not_main_photo_recipe">Нет изображение рецепта</string>
+    <string name="comment">Ваш комментарий</string>
+    <string name="send_review">Отзыв был отправлен</string>
+    <string name="card_complete">Ваша подборка готова)</string>
 
     <!-- Menu -->
     <string name="add_to_favorite">Добавить в избранные</string>
@@ -34,4 +54,15 @@
     <string name="your_profile">Ваш профиль</string>
     <string name="favorite_recipes">Избранные рецепты</string>
     <string name="theme">Тема</string>
+    <string name="filter">Фильтр</string>
+    <string name="report">Ваша жалоба была отправлена</string>
+
+    <!-- pages -->
+    <string name="not_have_favorite">У вас нет любимых рецептов.</string>
+    <string name="ypu_want_exit">Вы уверены что хотите выйти?</string>
+    <string name="exit_from_acc">Выход из аккаунта</string>
+    <string name="accept_exit">Выйти</string>
+    <string name="dismis_exit">Отменить</string>
+    <string name="select_anymore">Выберете хоть что-то)</string>
+
 </resources>

@@ -21,6 +21,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
+import java.io.IOException;
 
 import timber.log.Timber;
 
@@ -210,8 +211,13 @@ public class StepNameFragment extends Fragment {
     }
 
     private File getMainImageFile() {
-        return new File(getActivity().getFilesDir(), "main_photo");
-
+        File file = new File(getActivity().getFilesDir(), "main_photo");
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return file;
     }
 
     @Override

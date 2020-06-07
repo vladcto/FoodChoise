@@ -82,7 +82,7 @@ public class AuthActivity extends AppCompatActivity {
     public void onBackPressed() {
         //Можно использовать паттерн стратегия.
         Fragment fragment = getSupportFragmentManager().getFragments().get(0);
-        if(fragment instanceof RegistrationFragment){
+        if(fragment instanceof RegistrationFragment || fragment instanceof ResetPasswordFragment){
             getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,new SignFragment()).commit();
         }else {
             finish();
